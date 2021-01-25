@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[User] (
+    [Id]                   INT            IDENTITY (1, 1) NOT NULL,
+    [Login]                NVARCHAR (50)  NOT NULL,
+    [EMail]                NVARCHAR (255) NOT NULL,
+    [Password]             NVARCHAR (500) NULL,
+    [CreationDate]         DATETIME       NULL,
+    [ApprovalDate]         DATETIME       NULL,
+    [LastLoginDate]        DATETIME       NULL,
+    [IsLocked]             BIT            CONSTRAINT [DF_User_IsLocked] DEFAULT ((0)) NOT NULL,
+    [PasswordQuestion]     NVARCHAR (MAX) NULL,
+    [PasswordAnswer]       NVARCHAR (MAX) NULL,
+    [ActivationToken]      NVARCHAR (200) NULL,
+    [EmailConfirmed]       BIT            CONSTRAINT [DF_User_EmailConfirmed] DEFAULT ((0)) NOT NULL,
+    [SecurityStamp]        NVARCHAR (MAX) NULL,
+    [PhoneNumber]          NVARCHAR (50)  NULL,
+    [PhoneNumberConfirmed] BIT            CONSTRAINT [DF_User_PhoneNumberConfirmed] DEFAULT ((0)) NOT NULL,
+    [TwoFactorEnabled]     BIT            CONSTRAINT [DF_User_TwoFactorEnabled] DEFAULT ((0)) NOT NULL,
+    [LockoutEndDateUtc]    DATETIME2 (7)  NULL,
+    [LockoutEnabled]       BIT            CONSTRAINT [DF_User_LockoutEnabled] DEFAULT ((0)) NOT NULL,
+    [AccessFailedCount]    INT            CONSTRAINT [DF_User_AccessFailCount] DEFAULT ((0)) NOT NULL,
+    CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UX_User_EMail] UNIQUE NONCLUSTERED ([EMail] ASC),
+    CONSTRAINT [UX_User_Login] UNIQUE NONCLUSTERED ([Login] ASC)
+);
+

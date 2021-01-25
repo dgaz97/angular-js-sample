@@ -1,0 +1,36 @@
+﻿@{
+    Layout = null;
+}
+
+
+<html ng-app="LoginApp">
+<head>
+    <title>
+        LoginSample
+    </title>
+    <base href="/">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/sb-admin-2.css" rel="stylesheet" />
+    <link href="~/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/metisMenu/src/metisMenu.css" rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+    <div ui-view></div>
+</div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/ocLazyLoad.js"></script>
+    <script src="~/Scripts/angular-ui-router.min.js"></script>
+    <script src="~/Scripts/sb-admin-2.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/assets/plugins/metisMenu/src/metisMenu.js"></script>
+    <script>
+        var serviceBase = '@System.Web.Configuration.WebConfigurationManager.AppSettings["app:serviceUrl"]';
+    </script>
+    <script src="~/app/login.js"></script>
+    <script src="~/Scripts/angular-local-storage.js"></script>
+    <script src="~/app/common/services/authServices.js"></script>
+    <script src="~/app/common/commonModule.js"></script>
+</body>
+</html>

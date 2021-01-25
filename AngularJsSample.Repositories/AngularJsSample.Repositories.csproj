@@ -74,6 +74,7 @@
     <Compile Include="DatabaseModel\UserInfo.cs">
       <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Mapping\MovieAuthorsMapper.cs" />
     <Compile Include="Mapping\UserInfoMapper.cs" />
     <Compile Include="MovieAuthors\MovieAuthorRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AngularJsSampleDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AngularJsSampleDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="UserInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -14,11 +14,24 @@
           <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <Function Name="MovieAuthor_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieAuthor.Get">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MovieAuthor_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieAuthor.GetAll" />
+        <Function Name="MovieAuthor_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieAuthor.Insert">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="BirthDate" Type="datetime" Mode="In" />
+          <Parameter Name="BirthPlace" Type="nvarchar" Mode="In" />
+          <Parameter Name="Biography" Type="nvarchar" Mode="In" />
+          <Parameter Name="ImdbUrl" Type="nvarchar" Mode="In" />
+          <Parameter Name="ImageUrl" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="AngularJsSampleDbModelStoreContainer">
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AngularJsSampleDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -33,7 +46,65 @@
         </EntityType>
         <EntityContainer Name="AngularJsSampleDbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="UserInfoes" EntityType="Self.UserInfo" />
+          <FunctionImport Name="MovieAuthor_Get" ReturnType="Collection(AngularJsSampleDbModel.MovieAuthor_Get_Result)">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MovieAuthor_GetAll" ReturnType="Collection(AngularJsSampleDbModel.MovieAuthor_GetAll_Result)" />
+          <FunctionImport Name="MovieAuthor_Insert">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="BirthDate" Mode="In" Type="DateTime" />
+            <Parameter Name="BirthPlace" Mode="In" Type="String" />
+            <Parameter Name="Biography" Mode="In" Type="String" />
+            <Parameter Name="ImdbUrl" Mode="In" Type="String" />
+            <Parameter Name="ImageUrl" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="MovieAuthor_Get_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="UserCreated" Nullable="true" />
+          <Property Type="String" Name="UserCreatedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserCreatedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="UserLastModified" Nullable="true" />
+          <Property Type="String" Name="UserLastModifiedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserLastModifiedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="DateTimeOffset" Name="DateCreated" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="DateLastModified" Nullable="true" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="BirthDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="BirthPlace" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Biography" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="ImageUrl" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="ImdbUrl" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="MovieAuthor_GetAll_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="UserCreated" Nullable="true" />
+          <Property Type="String" Name="UserCreatedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserCreatedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="UserLastModified" Nullable="true" />
+          <Property Type="String" Name="UserLastModifiedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserLastModifiedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="DateTimeOffset" Name="DateCreated" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="DateLastModified" Nullable="true" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="BirthDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="BirthPlace" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Biography" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="ImageUrl" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="ImdbUrl" Nullable="true" MaxLength="100" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -50,6 +121,59 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="MovieAuthor_Get" FunctionName="AngularJsSampleDbModel.Store.MovieAuthor_Get">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AngularJsSampleDbModel.MovieAuthor_Get_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="UserCreatedFirstName" ColumnName="UserCreatedFirstName" />
+                <ScalarProperty Name="UserCreatedLastName" ColumnName="UserCreatedLastName" />
+                <ScalarProperty Name="UserCreatedFullName" ColumnName="UserCreatedFullName" />
+                <ScalarProperty Name="UserCreatedEmail" ColumnName="UserCreatedEmail" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="UserLastModifiedFirstName" ColumnName="UserLastModifiedFirstName" />
+                <ScalarProperty Name="UserLastModifiedLastName" ColumnName="UserLastModifiedLastName" />
+                <ScalarProperty Name="UserLastModifiedFullName" ColumnName="UserLastModifiedFullName" />
+                <ScalarProperty Name="UserLastModifiedEmail" ColumnName="UserLastModifiedEmail" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="BirthPlace" ColumnName="BirthPlace" />
+                <ScalarProperty Name="Biography" ColumnName="Biography" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="ImdbUrl" ColumnName="ImdbUrl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MovieAuthor_GetAll" FunctionName="AngularJsSampleDbModel.Store.MovieAuthor_GetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AngularJsSampleDbModel.MovieAuthor_GetAll_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="UserCreatedFirstName" ColumnName="UserCreatedFirstName" />
+                <ScalarProperty Name="UserCreatedLastName" ColumnName="UserCreatedLastName" />
+                <ScalarProperty Name="UserCreatedFullName" ColumnName="UserCreatedFullName" />
+                <ScalarProperty Name="UserCreatedEmail" ColumnName="UserCreatedEmail" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="UserLastModifiedFirstName" ColumnName="UserLastModifiedFirstName" />
+                <ScalarProperty Name="UserLastModifiedLastName" ColumnName="UserLastModifiedLastName" />
+                <ScalarProperty Name="UserLastModifiedFullName" ColumnName="UserLastModifiedFullName" />
+                <ScalarProperty Name="UserLastModifiedEmail" ColumnName="UserLastModifiedEmail" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="BirthPlace" ColumnName="BirthPlace" />
+                <ScalarProperty Name="Biography" ColumnName="Biography" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="ImdbUrl" ColumnName="ImdbUrl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MovieAuthor_Insert" FunctionName="AngularJsSampleDbModel.Store.MovieAuthor_Insert" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

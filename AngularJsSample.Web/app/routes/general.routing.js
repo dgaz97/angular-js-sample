@@ -98,7 +98,7 @@
                 resolve: {
                     loginRequired: loginRequired,
                     author: function () {
-                        return null
+                        return null;
                     },
                     authorsServices: function ($ocLazyLoad) {
                         return $ocLazyLoad.load({

@@ -38,7 +38,7 @@ namespace AngularJsSample.Repositories.Mapping
                 LastName = dbResult.LastName,
                 BirthDate =dbResult.BirthDate,
                 BirthPlace=dbResult.BirthPlace,
-                Biography=dbResult.BirthPlace,
+                Biography=dbResult.Biography,
                 ImageUrl = dbResult.ImageUrl,
                 ImdbUrl = dbResult.ImdbUrl,
                 Popularity = dbResult.Popularity
@@ -83,7 +83,7 @@ namespace AngularJsSample.Repositories.Mapping
                 LastName = dbResult.LastName,
                 BirthDate = dbResult.BirthDate,
                 BirthPlace = dbResult.BirthPlace,
-                Biography = dbResult.BirthPlace,
+                Biography = dbResult.Biography,
                 ImageUrl = dbResult.ImageUrl,
                 ImdbUrl = dbResult.ImdbUrl,
                 Popularity = dbResult.Popularity

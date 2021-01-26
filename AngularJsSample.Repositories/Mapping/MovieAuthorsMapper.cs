@@ -40,7 +40,8 @@ namespace AngularJsSample.Repositories.Mapping
                 BirthPlace=dbResult.BirthPlace,
                 Biography=dbResult.BirthPlace,
                 ImageUrl = dbResult.ImageUrl,
-                ImdbUrl = dbResult.ImdbUrl
+                ImdbUrl = dbResult.ImdbUrl,
+                Popularity = dbResult.Popularity
             };
         }
 
@@ -84,7 +85,8 @@ namespace AngularJsSample.Repositories.Mapping
                 BirthPlace = dbResult.BirthPlace,
                 Biography = dbResult.BirthPlace,
                 ImageUrl = dbResult.ImageUrl,
-                ImdbUrl = dbResult.ImdbUrl
+                ImdbUrl = dbResult.ImdbUrl,
+                Popularity = dbResult.Popularity
             };
         }
     }

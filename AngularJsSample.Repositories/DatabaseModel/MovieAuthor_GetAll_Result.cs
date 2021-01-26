@@ -33,5 +33,6 @@ namespace AngularJsSample.Repositories.DatabaseModel
         public string Biography { get; set; }
         public string ImageUrl { get; set; }
         public string ImdbUrl { get; set; }
+        public int Popularity { get; set; }
     }
 }

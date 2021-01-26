@@ -43,7 +43,7 @@ namespace AngularJsSample.Repositories.DatabaseModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MovieAuthor_GetAll_Result>("MovieAuthor_GetAll");
         }
     
-        public virtual int MovieAuthor_Insert(Nullable<int> userId, string firstName, string lastName, Nullable<System.DateTime> birthDate, string birthPlace, string biography, string imdbUrl, string imageUrl)
+        public virtual int MovieAuthor_Insert(Nullable<int> userId, string firstName, string lastName, Nullable<System.DateTime> birthDate, string birthPlace, string biography, string imdbUrl, string imageUrl, Nullable<int> popularity)
         {
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("UserId", userId) :
@@ -77,7 +77,11 @@ namespace AngularJsSample.Repositories.DatabaseModel
                 new ObjectParameter("ImageUrl", imageUrl) :
                 new ObjectParameter("ImageUrl", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MovieAuthor_Insert", userIdParameter, firstNameParameter, lastNameParameter, birthDateParameter, birthPlaceParameter, biographyParameter, imdbUrlParameter, imageUrlParameter);
+            var popularityParameter = popularity.HasValue ?
+                new ObjectParameter("Popularity", popularity) :
+                new ObjectParameter("Popularity", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MovieAuthor_Insert", userIdParameter, firstNameParameter, lastNameParameter, birthDateParameter, birthPlaceParameter, biographyParameter, imdbUrlParameter, imageUrlParameter, popularityParameter);
         }
     }
 }

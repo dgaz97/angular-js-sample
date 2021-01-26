@@ -26,7 +26,8 @@ namespace AngularJsSample.Api.Mapping.MovieAuthors
                 BirthPlace = view.BirthPlace,
                 Biography = view.Biography,
                 ImageUrl = view.ImageUrl,
-                ImdbUrl = view.ImdbUrl
+                ImdbUrl = view.ImdbUrl,
+                Popularity = view.Popularity
             };
         }
         public static MovieAuthor MapToView(this MovieAuthorViewModel viewModel)
@@ -45,7 +46,8 @@ namespace AngularJsSample.Api.Mapping.MovieAuthors
                 BirthPlace = viewModel.BirthPlace,
                 Biography = viewModel.Biography,
                 ImageUrl = viewModel.ImageUrl,
-                ImdbUrl = viewModel.ImdbUrl
+                ImdbUrl = viewModel.ImdbUrl,
+                Popularity = viewModel.Popularity
             };
         }
 

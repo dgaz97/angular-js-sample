@@ -15,7 +15,7 @@ namespace AngularJsSample.Repositories.MovieAuthors
         {
             using(var context = new AngularJsSampleDbEntities())
             {
-                return context.MovieAuthor_Insert(item.UserCreated.Id, item.FirstName, item.LastName, item.BirthDate, item.BirthPlace, item.Biography, item.ImdbUrl, item.ImageUrl);
+                return context.MovieAuthor_Insert(item.UserCreated.Id, item.FirstName, item.LastName, item.BirthDate, item.BirthPlace, item.Biography, item.ImdbUrl, item.ImageUrl, item.Popularity);
             }
         }
 

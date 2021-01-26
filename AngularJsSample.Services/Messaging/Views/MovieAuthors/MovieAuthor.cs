@@ -21,5 +21,6 @@ namespace AngularJsSample.Services.Messaging.Views.MovieAuthors
         public string Biography { get; set; }
         public string ImdbUrl { get; set; }
         public string ImageUrl { get; set; }
+        public int Popularity { get; set; }
     }
 }

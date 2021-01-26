@@ -172,6 +172,7 @@
     </Compile>
     <Compile Include="Helpers\IdentityHelper.cs" />
     <Compile Include="IoC\CommonModule.cs" />
+    <Compile Include="Mapping\MovieAuthors\MovieAuthorsMapper.cs" />
     <Compile Include="Mapping\Users\UsersMapper.cs" />
     <Compile Include="Models\MovieAuthors\MovieAuthorViewModel.cs" />
     <Compile Include="Models\Users\UserViewModel.cs" />

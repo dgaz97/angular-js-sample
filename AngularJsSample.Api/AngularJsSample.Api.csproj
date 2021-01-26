@@ -173,6 +173,7 @@
     <Compile Include="Helpers\IdentityHelper.cs" />
     <Compile Include="IoC\CommonModule.cs" />
     <Compile Include="Mapping\Users\UsersMapper.cs" />
+    <Compile Include="Models\MovieAuthors\MovieAuthorViewModel.cs" />
     <Compile Include="Models\Users\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />

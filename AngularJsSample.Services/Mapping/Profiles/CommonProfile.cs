@@ -8,10 +8,12 @@ namespace AngularJsSample.Services.Services.Mapping.Profiles
         protected override void Configure()
         {
             //map from domain classes to views
-            CreateMap<Model.Users.UserInfo, UserInfo>();
+            CreateMap<Model.MovieAuthors.MovieAuthor, Messaging.Views.MovieAuthors.MovieAuthor>();
+            CreateMap<Model.Users.UserInfo, Messaging.Views.Users.UserInfo>();
 
             //map from views to domain classes
-            CreateMap<UserInfo, Model.Users.UserInfo>();
+            CreateMap<Messaging.Views.MovieAuthors.MovieAuthor, Model.MovieAuthors.MovieAuthor>();
+            CreateMap<Messaging.Views.Users.UserInfo, Model.Users.UserInfo>();
         }
     }
 }

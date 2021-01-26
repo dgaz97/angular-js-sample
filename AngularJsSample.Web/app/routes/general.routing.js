@@ -37,113 +37,113 @@
 
                 }
             })
-            .state('authorsOverview', {
-                url: "/authors",
-                controller: "authorsOverviewCtrl",
+            .state('movieAuthorsOverview', {
+                url: "/movieauthors",
+                controller: "movieAuthorsOverviewCtrl",
                 controllerAs: "vm",
-                templateUrl: "app/authors/partials/authorsOverview.html",
+                templateUrl: "app/movieauthors/partials/movieAuthorsOverview.html",
                 resolve: {
                     loginRequired: loginRequired,
-                    authorsServices: function ($ocLazyLoad) {
+                    movieAuthorsServices: function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
-                            name: "authorsServices",
+                            name: "movieAuthorsServices",
                             files: [
-                                "app/authors/authorsServices.module.js"
+                                "app/movieauthors/movieAuthorsServices.module.js"
                             ]
                         });
                     },
-                    authors: function ($ocLazyLoad, authorsServices) {
+                    movieAuthors: function ($ocLazyLoad, movieAuthorsServices) {
                         return $ocLazyLoad.load({
-                            name: "authors",
+                            name: "movieAuthors",
                             files: [
-                                "app/authors/authors.module.js"
+                                "app/movieauthors/movieAuthors.module.js"
                             ]
                         });
                     }
 
                 }
             })
-            .state('authorProfile', {
-                url: "/authors/:id",
-                controller: "authorProfileCtrl",
+            .state('movieAuthorProfile', {
+                url: "/movieauthors/:id",
+                controller: "movieAuthorProfileCtrl",
                 controllerAs: "vm",
-                templateUrl: "app/authors/partials/profile.html",
+                templateUrl: "app/movieauthors/partials/profile.html",
                 resolve: {
                     loginRequired: loginRequired,
-                    authorsServices: function ($ocLazyLoad) {
+                    movieAuthorsServices: function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
-                            name: "authorsServices",
+                            name: "movieAuthorsServices",
                             files: [
-                                "app/authors/authorsServices.module.js"
+                                "app/movieauthors/movieAuthorsServices.module.js"
                             ]
                         });
                     },
-                    authors: function ($ocLazyLoad, authorsServices) {
+                    movieAuthors: function ($ocLazyLoad, movieAuthorsServices) {
                         return $ocLazyLoad.load({
-                            name: "authors",
+                            name: "movieAuthors",
                             files: [
-                                "app/authors/authors.module.js"
+                                "app/movieauthors/movieAuthors.module.js"
                             ]
                         });
                     }
 
                 }
             })
-            .state('newAuthor', {
-                url: "/author/new",
-                controller: "authorManageCtrl",
+            .state('newMovieAuthor', {
+                url: "/movieauthor/new",
+                controller: "movieAuthorManageCtrl",
                 controllerAs: "vm",
-                templateUrl: "app/authors/partials/manageAuthor.html",
+                templateUrl: "app/movieauthors/partials/manageMovieAuthor.html",
                 cache: false,
                 resolve: {
                     loginRequired: loginRequired,
-                    author: function () {
+                    movieAuthor: function () {
                         return null;
                     },
-                    authorsServices: function ($ocLazyLoad) {
+                    movieAuthorsServices: function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
-                            name: "authorsServices",
+                            name: "movieAuthorsServices",
                             files: [
-                                "app/authors/authorsServices.module.js"
+                                "app/movieauthors/movieAuthorsServices.module.js"
                             ]
                         });
                     },
-                    authors: function ($ocLazyLoad, authorsServices, author) {
+                    movieAuthors: function ($ocLazyLoad, movieAuthorsServices, movieAuthor) {
                         return $ocLazyLoad.load({
-                            name: "authors",
+                            name: "movieAuthors",
                             files: [
-                                "app/authors/authors.module.js"
+                                "app/movieauthors/movieAuthors.module.js"
                             ]
                         });
                     }
 
                 }
             })
-            .state('updateAuthor', {
-                url: "/author/update/:id",
-                controller: "authorManageCtrl",
+            .state('updateMovieAuthor', {
+                url: "/movieauthor/update/:id",
+                controller: "movieAuthorManageCtrl",
                 controllerAs: "vm",
-                templateUrl: "app/authors/partials/updateAuthor.html",
+                templateUrl: "app/movieauthors/partials/updateMovieAuthor.html",//TODO
                 cache: false,
                 resolve: {
                     loginRequired: loginRequired,
-                    authorsServices: function ($ocLazyLoad) {
+                    movieAuthorsServices: function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
-                            name: "authorsServices",
+                            name: "movieAuthorsServices",
                             files: [
-                                "app/authors/authorsServices.module.js"
+                                "app/movieauthors/movieAuthorsServices.module.js"
                             ]
                         });
                     },
-                    author: function ($stateParams,authorsServices, authorsSvc) {
+                    movieAuthor: function ($stateParams,authorsServices, movieAuthorsSvc) {
                         //TODO: fetch with authorsSvc
                         return null;
                     },
-                    authors: function ($ocLazyLoad, authorsServices, author) {
+                    movieAuthors: function ($ocLazyLoad, movieAuthorsServices, movieAuthor) {
                         return $ocLazyLoad.load({
-                            name: "authors",
+                            name: "movieAuthors",
                             files: [
-                                "app/authors/authors.module.js"
+                                "app/movieauthors/movieAuthors.module.js"
                             ]
                         });
                     }

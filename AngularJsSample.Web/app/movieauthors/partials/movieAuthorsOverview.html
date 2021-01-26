@@ -1,0 +1,31 @@
+﻿<h1 class="page-header">Pregled autora</h1>
+<dvi class="container">
+    <div class="row">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+                    <th>Datum kreiranja</th>
+                    <th>Kreirao</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="movieAuthor in vm.movieAuthors">
+                    <td><b>{{movieAuthor.id}}</b></td>
+                    <td>{{movieAuthor.firstName}}</td>
+                    <td>{{movieAuthor.lastName}}</td>
+                    <td>{{movieAuthor.dateCreated|date:'dd.MM.yyyy. HH:mm'}}</td>
+                    <td>{{movieAuthor.userCreated.fullName}}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" ng-click="vm.profile(movieAuthor.id)">Profil</button>
+                        <button type="button" class="btn btn-default" ng-click="vm.edit(movieAuthor.id)">Uredi</button>
+                        <button type="button" class="btn btn-default" ng-click="vm.delete(movieAuthor.id)">Obriši</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</dvi>

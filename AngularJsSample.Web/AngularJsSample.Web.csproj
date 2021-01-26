@@ -89,11 +89,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
-    <Content Include="app\authors\authors.module.js" />
-    <Content Include="app\authors\partials\authorsOverview.html" />
-    <Content Include="app\authors\authorsServices.module.js" />
-    <Content Include="app\authors\partials\manageAuthor.html" />
-    <Content Include="app\authors\partials\profile.html" />
+    <Content Include="app\movieauthors\movieAuthors.module.js" />
+    <Content Include="app\movieauthors\partials\movieAuthorsOverview.html" />
+    <Content Include="app\movieauthors\movieAuthorsServices.module.js" />
+    <Content Include="app\movieauthors\partials\manageMovieAuthor.html" />
+    <Content Include="app\movieauthors\partials\profile.html" />
     <Content Include="app\common\commonModule.js" />
     <Content Include="app\common\services\authServices.js" />
     <Content Include="app\dashboard\dashboard.module.js" />

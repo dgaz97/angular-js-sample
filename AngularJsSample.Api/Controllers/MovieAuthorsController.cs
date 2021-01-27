@@ -125,6 +125,7 @@ namespace AngularJsSample.Api.Controllers
                 Id = loggedUserId
             };
             movieAuthor.DateLastModified = DateTimeOffset.Now;
+            movieAuthor.Id = id;
 
             var request = new SaveMovieAuthorRequest()
             {

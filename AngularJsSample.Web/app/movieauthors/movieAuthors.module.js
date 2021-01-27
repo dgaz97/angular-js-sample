@@ -12,10 +12,6 @@
     movieAuthorsOverviewCtrl.$inject = ['$scope', 'movieAuthorsSvc'];
     function movieAuthorsOverviewCtrl($scope, movieAuthorsSvc) {
         var vm = this;
-
-
-
-
         movieAuthorsSvc.getMovieAuthors().then(function (result) {
             console.log(result.data.authors);
             //vm.movieAuthors = result.data.authors;
@@ -35,7 +31,7 @@
                 groupable: true,
                 sortable: true,
                 filterable: true,
-                resizable:true,
+                resizable: true,
                 columns: [
                     {
                         field: "id",
@@ -43,7 +39,7 @@
                         width: "5%"
                     },
                     {
-                        template: '<div align="center"><img src="#: data.imageUrl#" style="max-height: 100px" /></div>',
+                        template: '<a ui-sref="movieAuthorProfile({id:#: data.id#})" href="/movieauthors/#: data.id#"><div align="center"><img src="#: data.imageUrl#" style="max-height: 100px" /></div></a>',
                         //field: "id",
                         title: "Foto",
                         width: "15%"

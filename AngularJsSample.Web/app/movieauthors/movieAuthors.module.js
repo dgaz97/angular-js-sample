@@ -71,13 +71,19 @@
                 ]
             });
 
+
         });
 
     };
 
-    movieAuthorProfileCtrl.$inject = ['$scope']
-    function movieAuthorProfileCtrl($scope) {
+    movieAuthorProfileCtrl.$inject = ['movieAuthor', '$state', '$stateParams']
+    function movieAuthorProfileCtrl(movieAuthor, $state, $stateParams) {
         var vm = this;
+        vm.movieAuthor = movieAuthor;
+        console.log("Controller");
+        console.log(movieAuthor);
+
+
     }
 
     movieAuthorManageCtrl.$inject = ['$scope', 'movieAuthorsSvc', 'movieAuthor']

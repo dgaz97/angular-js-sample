@@ -70,6 +70,12 @@
                 templateUrl: "app/movieauthors/partials/profile.html",
                 resolve: {
                     loginRequired: loginRequired,
+                    movieAuthor: function ($stateParams, movieAuthorsSvc) {
+                        //TODO: fetch with authorsSvc
+                        return movieAuthorsSvc.getMovieAuthor($stateParams.id).then(function (data) {
+                            return data.data;
+                        });
+                    },
                     movieAuthorsServices: function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: "movieAuthorsServices",
@@ -86,7 +92,6 @@
                             ]
                         });
                     }
-
                 }
             })
             .state('newMovieAuthor', {
@@ -123,7 +128,8 @@
                 url: "/movieauthor/update/:id",
                 controller: "movieAuthorManageCtrl",
                 controllerAs: "vm",
-                templateUrl: "app/movieauthors/partials/updateMovieAuthor.html",//TODO
+                //templateUrl: "app/movieauthors/partials/updateMovieAuthor.html",//TODO: možda manageMovieAuthor?
+                templateUrl: "app/movieauthors/partials/manageMovieAuthor.html",
                 cache: false,
                 resolve: {
                     loginRequired: loginRequired,
@@ -135,9 +141,11 @@
                             ]
                         });
                     },
-                    movieAuthor: function ($stateParams,authorsServices, movieAuthorsSvc) {
+                    movieAuthor: function ($stateParams, movieAuthorsSvc) {
                         //TODO: fetch with authorsSvc
-                        return null;
+                        return movieAuthorsSvc.getMovieAuthor($stateParams.id).then(function (data) {
+                            return data.data;
+                        });
                     },
                     movieAuthors: function ($ocLazyLoad, movieAuthorsServices, movieAuthor) {
                         return $ocLazyLoad.load({

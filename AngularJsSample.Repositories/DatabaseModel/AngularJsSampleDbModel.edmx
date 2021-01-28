@@ -14,12 +14,28 @@
           <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <Function Name="MovieAuthor_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieAuthor.Delete">
+          <Parameter Name="MovieAuthorId" Type="int" Mode="In" />
+          <Parameter Name="UserLastModified" Type="int" Mode="In" />
+        </Function>
         <Function Name="MovieAuthor_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieAuthor.Get">
           <Parameter Name="Id" Type="int" Mode="In" />
         </Function>
         <Function Name="MovieAuthor_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieAuthor.GetAll" />
         <Function Name="MovieAuthor_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieAuthor.Insert">
           <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="BirthDate" Type="datetime" Mode="In" />
+          <Parameter Name="BirthPlace" Type="nvarchar" Mode="In" />
+          <Parameter Name="Biography" Type="nvarchar" Mode="In" />
+          <Parameter Name="ImdbUrl" Type="nvarchar" Mode="In" />
+          <Parameter Name="ImageUrl" Type="nvarchar" Mode="In" />
+          <Parameter Name="Popularity" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MovieAuthor_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieAuthor.Update">
+          <Parameter Name="MovieAuthorId" Type="int" Mode="In" />
+          <Parameter Name="UserLastModified" Type="int" Mode="In" />
           <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
           <Parameter Name="LastName" Type="nvarchar" Mode="In" />
           <Parameter Name="BirthDate" Type="datetime" Mode="In" />
@@ -48,11 +64,27 @@
         <EntityContainer Name="AngularJsSampleDbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="UserInfoes" EntityType="Self.UserInfo" />
           <FunctionImport Name="MovieAuthor_Get" ReturnType="Collection(AngularJsSampleDbModel.MovieAuthor_Get_Result)">
-            <Parameter Name="Id" Mode="In" Type="Int32" />
+          <Parameter Name="Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="MovieAuthor_GetAll" ReturnType="Collection(AngularJsSampleDbModel.MovieAuthor_GetAll_Result)" />
           <FunctionImport Name="MovieAuthor_Insert">
             <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="BirthDate" Mode="In" Type="DateTime" />
+            <Parameter Name="BirthPlace" Mode="In" Type="String" />
+            <Parameter Name="Biography" Mode="In" Type="String" />
+            <Parameter Name="ImdbUrl" Mode="In" Type="String" />
+            <Parameter Name="ImageUrl" Mode="In" Type="String" />
+            <Parameter Name="Popularity" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MovieAuthor_Delete">
+            <Parameter Name="MovieAuthorId" Mode="In" Type="Int32" />
+            <Parameter Name="UserLastModified" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MovieAuthor_Update">
+            <Parameter Name="MovieAuthorId" Mode="In" Type="Int32" />
+            <Parameter Name="UserLastModified" Mode="In" Type="Int32" />
             <Parameter Name="FirstName" Mode="In" Type="String" />
             <Parameter Name="LastName" Mode="In" Type="String" />
             <Parameter Name="BirthDate" Mode="In" Type="DateTime" />
@@ -180,6 +212,8 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="MovieAuthor_Insert" FunctionName="AngularJsSampleDbModel.Store.MovieAuthor_Insert" />
+          <FunctionImportMapping FunctionImportName="MovieAuthor_Delete" FunctionName="AngularJsSampleDbModel.Store.MovieAuthor_Delete" />
+          <FunctionImportMapping FunctionImportName="MovieAuthor_Update" FunctionName="AngularJsSampleDbModel.Store.MovieAuthor_Update" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -21,7 +21,12 @@ namespace AngularJsSample.Repositories.MovieAuthors
 
         public bool Delete(MovieAuthor item)
         {
-            throw new NotImplementedException();
+            using (var context = new AngularJsSampleDbEntities())
+            {
+                int numberOfRowsEdited = context.MovieAuthor_Delete(item.Id, item.UserLastModified.Id);//Returns number of rows affected, should always be 1
+                if (numberOfRowsEdited == 0) throw new Exception("Movie author not found");
+                return true;
+            }
         }
 
         public List<MovieAuthor> FindAll()
@@ -42,7 +47,11 @@ namespace AngularJsSample.Repositories.MovieAuthors
 
         public MovieAuthor Save(MovieAuthor item)
         {
-            throw new NotImplementedException();
+            using (var context = new AngularJsSampleDbEntities())
+            {
+                context.MovieAuthor_Update(item.Id, item.UserLastModified.Id, item.FirstName, item.LastName, item.BirthDate, item.BirthPlace, item.Biography, item.ImdbUrl, item.ImageUrl, item.Popularity);
+                return FindBy(item.Id);
+            }
         }
     }
 }

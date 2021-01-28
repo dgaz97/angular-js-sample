@@ -83,5 +83,63 @@ namespace AngularJsSample.Repositories.DatabaseModel
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MovieAuthor_Insert", userIdParameter, firstNameParameter, lastNameParameter, birthDateParameter, birthPlaceParameter, biographyParameter, imdbUrlParameter, imageUrlParameter, popularityParameter);
         }
+    
+        public virtual int MovieAuthor_Delete(Nullable<int> movieAuthorId, Nullable<int> userLastModified)
+        {
+            var movieAuthorIdParameter = movieAuthorId.HasValue ?
+                new ObjectParameter("MovieAuthorId", movieAuthorId) :
+                new ObjectParameter("MovieAuthorId", typeof(int));
+    
+            var userLastModifiedParameter = userLastModified.HasValue ?
+                new ObjectParameter("UserLastModified", userLastModified) :
+                new ObjectParameter("UserLastModified", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MovieAuthor_Delete", movieAuthorIdParameter, userLastModifiedParameter);
+        }
+    
+        public virtual int MovieAuthor_Update(Nullable<int> movieAuthorId, Nullable<int> userLastModified, string firstName, string lastName, Nullable<System.DateTime> birthDate, string birthPlace, string biography, string imdbUrl, string imageUrl, Nullable<int> popularity)
+        {
+            var movieAuthorIdParameter = movieAuthorId.HasValue ?
+                new ObjectParameter("MovieAuthorId", movieAuthorId) :
+                new ObjectParameter("MovieAuthorId", typeof(int));
+    
+            var userLastModifiedParameter = userLastModified.HasValue ?
+                new ObjectParameter("UserLastModified", userLastModified) :
+                new ObjectParameter("UserLastModified", typeof(int));
+    
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("FirstName", firstName) :
+                new ObjectParameter("FirstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("LastName", lastName) :
+                new ObjectParameter("LastName", typeof(string));
+    
+            var birthDateParameter = birthDate.HasValue ?
+                new ObjectParameter("BirthDate", birthDate) :
+                new ObjectParameter("BirthDate", typeof(System.DateTime));
+    
+            var birthPlaceParameter = birthPlace != null ?
+                new ObjectParameter("BirthPlace", birthPlace) :
+                new ObjectParameter("BirthPlace", typeof(string));
+    
+            var biographyParameter = biography != null ?
+                new ObjectParameter("Biography", biography) :
+                new ObjectParameter("Biography", typeof(string));
+    
+            var imdbUrlParameter = imdbUrl != null ?
+                new ObjectParameter("ImdbUrl", imdbUrl) :
+                new ObjectParameter("ImdbUrl", typeof(string));
+    
+            var imageUrlParameter = imageUrl != null ?
+                new ObjectParameter("ImageUrl", imageUrl) :
+                new ObjectParameter("ImageUrl", typeof(string));
+    
+            var popularityParameter = popularity.HasValue ?
+                new ObjectParameter("Popularity", popularity) :
+                new ObjectParameter("Popularity", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MovieAuthor_Update", movieAuthorIdParameter, userLastModifiedParameter, firstNameParameter, lastNameParameter, birthDateParameter, birthPlaceParameter, biographyParameter, imdbUrlParameter, imageUrlParameter, popularityParameter);
+        }
     }
 }

@@ -19,7 +19,21 @@ namespace AngularJsSample.Services.Impl
 
         public DeleteMovieAuthorResponse DeleteMovieAuthor(DeleteMovieAuthorRequest request)
         {
-            throw new NotImplementedException();
+            var response = new DeleteMovieAuthorResponse()
+            {
+                Request = request,
+                ResponseToken = Guid.NewGuid()
+            };
+            try
+            {
+                response.Success = _repository.Delete(new MovieAuthor() { Id = request.Id, UserLastModified = new Model.Users.UserInfo() {Id=request.UserId } });
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Success = false;
+            }
+            return response;
         }
 
         public GetAllMovieAuthorsResponse GetAllMovieAuthors(GetAllMovieAuthorsRequest request)
@@ -80,11 +94,13 @@ namespace AngularJsSample.Services.Impl
                 }
                 else if (request.MovieAuthor?.Id > 0)
                 {
-                    throw new NotImplementedException("Not implemented yet");
+                    response.MovieAuthor = _repository.Save(request.MovieAuthor.MapToModel()).MapToView();
+                    response.Success = true;
                 }
                 else
                 {
                     response.Success = false;
+                    response.Message = "Movie author can't be negative";
                 }
             }catch (Exception ex)
             {

@@ -14,15 +14,12 @@
         var vm = this;
         movieAuthorsSvc.getMovieAuthors().then(function (result) {
             console.log(result.data.authors);
-            //vm.movieAuthors = result.data.authors;
-            //vm.data = new kendo.data.DataSource({ data: result.data.authors });
 
             $("#movieAuthorGrid").kendoGrid({
                 dataSource: {
                     data: result.data.authors,
                     pageSize: 20
                 },
-                //height:500,
                 pageable: {
                     refresh: true,
                     pageSizes: true,
@@ -40,7 +37,6 @@
                     },
                     {
                         template: '<a ui-sref="movieAuthorProfile({id:#: data.id#})" href="/movieauthors/#: data.id#"><div align="center"><img src="#: data.imageUrl#" style="max-height: 100px" /></div></a>',
-                        //field: "id",
                         title: "Foto",
                         width: "15%"
                     },
@@ -76,6 +72,7 @@
 
     };
 
+
     movieAuthorProfileCtrl.$inject = ['$scope', '$state', 'movieAuthor', 'movieAuthorsSvc', '$stateParams']
     function movieAuthorProfileCtrl($scope, $state, movieAuthor, movieAuthorsSvc, $stateParams) {
         var vm = this;
@@ -108,13 +105,9 @@
         $("#deleteButton").kendoButton({
             click: function (e) {
                 $("#delete-dialog").data("kendoDialog").open();
-                //$("#delete-dialog").open();
             }
         });
         $("#deleteButton").removeClass("k-button");
-
-        console.log("Controller");
-        console.log(movieAuthor);
 
     }
 
@@ -122,8 +115,6 @@
     function movieAuthorManageCtrl($scope, movieAuthorsSvc, movieAuthor, $state, $stateParams) {
         var vm = this;
         vm.movieAuthor = movieAuthor ? movieAuthor : null;
-        console.log(vm.movieAuthor);
-
 
         $("#movieAuthorForm").kendoForm({
             orientation: "vertical",
@@ -289,14 +280,6 @@
             }
         });
         $("#submit-button").removeClass("k-button");
-
-        //
-        //if (vm.movieAuthor) {
-        //    //update
-        //}
-        //else {
-        //    //create
-        //}
 
     }
 

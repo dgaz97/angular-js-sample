@@ -76,13 +76,45 @@
 
     };
 
-    movieAuthorProfileCtrl.$inject = ['movieAuthor', '$state', '$stateParams']
-    function movieAuthorProfileCtrl(movieAuthor, $state, $stateParams) {
+    movieAuthorProfileCtrl.$inject = ['$scope', '$state', 'movieAuthor', 'movieAuthorsSvc', '$stateParams']
+    function movieAuthorProfileCtrl($scope, $state, movieAuthor, movieAuthorsSvc, $stateParams) {
         var vm = this;
+
         vm.movieAuthor = movieAuthor;
+
+        $("#delete-dialog").kendoDialog({
+            width: "450px",
+            title: "POZOR",
+            closable: false,
+            visible: false,
+            modal: true,
+            content:"<p>Jeste li sigurni da želite obrisati redatelja?<p/>",
+            actions: [
+                {
+                    text: "Da",
+                    action: function (e) {
+                        movieAuthorsSvc.deleteMovieAuthor($stateParams.id).then(function (data) {
+                            $state.go("movieAuthorsOverview");
+                        });
+                    }
+                },
+                {
+                    text: "Ne",
+                    primary:true
+                }
+            ]
+        });
+
+        $("#deleteButton").kendoButton({
+            click: function (e) {
+                $("#delete-dialog").data("kendoDialog").open();
+                //$("#delete-dialog").open();
+            }
+        });
+        $("#deleteButton").removeClass("k-button");
+
         console.log("Controller");
         console.log(movieAuthor);
-
 
     }
 

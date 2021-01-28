@@ -60,7 +60,7 @@
                     {
                         field: "popularity",
                         title: "Popularnost",
-                        width: "5%"
+                        template: "<p>\\##: data.popularity#</p>"
                     }
                 ]
             });

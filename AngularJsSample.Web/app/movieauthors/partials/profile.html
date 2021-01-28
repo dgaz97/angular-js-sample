@@ -1,16 +1,68 @@
 ﻿<h1 class="page-header">
     {{vm.movieAuthor.firstName}} {{vm.movieAuthor.lastName}}
-    <button type="button" class="btn btn-primary" ui-sref="updateMovieAuthor({id:{{vm.movieAuthor.id}}})">Uredi redatelja</button>
-
-    <button id="deleteButton" type="button" class="btn btn-primary">Obriši redatelja</button>
+    <div style="float:right">
+        <button type="button" class="btn btn-primary" ui-sref="updateMovieAuthor({id:{{vm.movieAuthor.id}}})">Uredi redatelja</button>
+        <button id="deleteButton" type="button" class="btn btn-primary">Obriši redatelja</button>
+    </div>
 </h1>
 <div id="delete-dialog">
 </div>
-<div class="container">
-    <div class="row">
-        a
+<div class="container col-md-9" style="border: solid 1px black">
+    <div class="row" style="border: solid black; border-width:0 0 1px 0">
+        <h5>PODACI O REDATELJU</h5>
     </div>
-    <div class="row">
-        a
+    <div class="col-md-6">
+        <div class="row">
+            Ime:
+        </div>
+        <div class="row">
+            <span style="font-weight:bold">{{vm.movieAuthor.firstName}}</span>
+        </div>
+        <div class="row">
+            Datum rođenja:
+        </div>
+        <div class="row">
+            <span style="font-weight:bold">{{vm.movieAuthor.birthDate | date:"dd.MM.yyyy."}}</span>
+        </div>
     </div>
+    <div class="col-md-6">
+        <div class="row">
+            Prezime:
+        </div>
+        <div class="row">
+            <span style="font-weight: bold">{{vm.movieAuthor.lastName}}</span>
+        </div>
+        <div class="row">
+            Mjesto rođenja:
+        </div>
+        <div class="row">
+            <span style="font-weight: bold">{{vm.movieAuthor.birthPlace}}</span>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            Kratka biografija
+        </div>
+        <div class="row">
+            <p>{{vm.movieAuthor.biography}}</p>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="row">
+            IMDB url
+        </div>
+        <div class="row">
+            <a href="{{vm.movieAuthor.imdbUrl}}">{{vm.movieAuthor.imdbUrl}}</a>
+        </div>
+        <div class="row">
+            Popularnost
+        </div>
+        <div class="row">
+            <p style="font-weight: bold">#{{vm.movieAuthor.popularity}}</p>
+        </div>
+    </div>
+</div>
+<div class="col-md-3">
+    <img src="{{vm.movieAuthor.imageUrl}}" style="width:100%">
 </div>

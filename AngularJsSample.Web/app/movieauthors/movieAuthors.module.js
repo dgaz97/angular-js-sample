@@ -25,8 +25,8 @@
                     pageSizes: true,
                     buttonCount: 5
                 },
-                groupable: true,
-                sortable: true,
+                //groupable: true,
+                //sortable: true,
                 filterable: true,
                 resizable: true,
                 dataBound: function () {
@@ -70,7 +70,45 @@
                     }
                 ]
             });
+        });
 
+        $("#dropdownlist").kendoDropDownList({
+            dataSource: [
+                {
+                    "text": "Datum kreiranja uzlazno",
+                    "sortParams": {
+                        "value": "dateCreated",
+                        "dir": "asc"
+                    }
+                },
+                {
+                    "text": "Datum kreiranja silazno",
+                    "sortParams": {
+                        "value": "dateCreated",
+                        "dir": "desc"
+                    }
+                },
+                {
+                    "text": "Popularnost uzlazno",
+                    "sortParams": {
+                        "value": "popularity",
+                        "dir": "asc"
+                    }
+                },
+                {
+                    "text": "Popularnost silazno",
+                    "sortParams": {
+                        "value": "popularity",
+                        "dir": "desc"
+                    }
+                }
+            ],
+            dataTextField: "text",
+            dataValueField: "sortParams",
+            optionLabel: "Sortiraj prema...",
+            change: function (e) {
+                $("#movieAuthorGrid").data("kendoGrid").dataSource.sort({ field: this.value().value, dir: this.value().dir });
+            }
 
         });
 

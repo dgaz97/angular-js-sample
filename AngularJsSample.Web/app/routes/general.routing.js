@@ -71,7 +71,6 @@
                 resolve: {
                     loginRequired: loginRequired,
                     movieAuthor: function ($stateParams, movieAuthorsSvc) {
-                        //TODO: fetch with authorsSvc
                         return movieAuthorsSvc.getMovieAuthor($stateParams.id).then(function (data) {
                             return data.data;
                         });
@@ -128,7 +127,6 @@
                 url: "/movieauthor/update/:id",
                 controller: "movieAuthorManageCtrl",
                 controllerAs: "vm",
-                //templateUrl: "app/movieauthors/partials/updateMovieAuthor.html",//TODO: možda manageMovieAuthor?
                 templateUrl: "app/movieauthors/partials/manageMovieAuthor.html",
                 cache: false,
                 resolve: {
@@ -142,7 +140,6 @@
                         });
                     },
                     movieAuthor: function ($stateParams, movieAuthorsSvc) {
-                        //TODO: fetch with authorsSvc
                         return movieAuthorsSvc.getMovieAuthor($stateParams.id).then(function (data) {
                             return data.data;
                         });

@@ -33,27 +33,25 @@
                     {
                         field: "id",
                         title: "Id",
-                        width: "5%"
+                        template: '<a ui-sref="movieAuthorProfile({ id:#: data.id#})" href=" /movieauthors/#: data.id#">#: data.id#</a>'
                     },
                     {
-                        template: '<a ui-sref="movieAuthorProfile({id:#: data.id#})" href="/movieauthors/#: data.id#"><div align="center"><img src="#: data.imageUrl#" style="max-height: 100px" /></div></a>',
-                        title: "Foto",
-                        width: "15%"
+                        template: '<a ui-sref="movieAuthorProfile({id:#: data.id#})" href="/movieauthors/#: data.id#"><div align="center"><img src="#: data.imageUrl#" style="max-width: 100%" /></div></a>',
+                        title: "Foto"
                     },
                     {
                         field: "firstName",
                         title: "Ime",
-                        width: "10%"
+                        template: '<a ui-sref="movieAuthorProfile({ id:#: data.id#})" href=" /movieauthors/#: data.id#">#: data.firstName#</a>'
                     },
                     {
                         field: "lastName",
                         title: "Prezime",
-                        width: "10%"
+                        template: '<a ui-sref="movieAuthorProfile({ id:#: data.id#})" href=" /movieauthors/#: data.id#">#: data.lastName#</a>'
                     },
                     {
                         field: "birthPlace",
-                        title: "Mjesto rođenja",
-                        width: "10%"
+                        title: "Mjesto rođenja"
                     },
                     {
                         field: "biography",

@@ -29,6 +29,12 @@
                 sortable: true,
                 filterable: true,
                 resizable: true,
+                dataBound: function () {
+                    for (var i = 0; i < this.columns.length; i++) {
+                        if (i == 5) continue;
+                        this.autoFitColumn(i);
+                    }
+                },
                 columns: [
                     {
                         field: "id",

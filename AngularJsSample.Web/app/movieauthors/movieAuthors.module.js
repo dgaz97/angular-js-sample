@@ -127,7 +127,7 @@
             closable: false,
             visible: false,
             modal: true,
-            content:"<p>Jeste li sigurni da želite obrisati redatelja?<p/>",
+            content: "<p>Jeste li sigurni da želite obrisati redatelja?<p/>",
             actions: [
                 {
                     text: "Da",
@@ -139,7 +139,7 @@
                 },
                 {
                     text: "Ne",
-                    primary:true
+                    primary: true
                 }
             ]
         });
@@ -233,15 +233,12 @@
 
                     },
                     validation: {
-                        required: true,
+                        //required: true,
                         validSize: function (input) {
                             if (input.is("[name='biography']")) {
                                 input.attr("data-validSize-msg", "String is too long, 2000 characters max");
-                                console.log(input.val());
                                 if (input.val().length > 2000) return false;
                                 else return true;
-                                //var validImdbLink = /^https?:\/\/(www\.)?imdb.com/g.test();
-                                //var validImg = /\.jpg$/g.test(input.val()) || /\.jpeg$/g.test(input.val()) || /\.gif$/g.test(input.val()) || /\.png$/g.test(input.val());
                             }
                             return true;
                         }
@@ -273,8 +270,8 @@
                         validImdbLink: function (input) {
                             if (input.is("[name='imdbUrl']")) {
                                 input.attr("data-validImdbLink-msg", "IMDB link is invalid");
+                                //input.attr("imdbUrl-form-error", "IMDb url can't be empty");
                                 var validImdbLink = /^https?:\/\/(www\.)?imdb.com/g.test(input.val());
-                                //var validImg = /\.jpg$/g.test(input.val()) || /\.jpeg$/g.test(input.val()) || /\.gif$/g.test(input.val()) || /\.png$/g.test(input.val());
                                 return validImdbLink;
                             }
                             return true;
@@ -300,7 +297,6 @@
             ],
             submit: function (e) {
                 e.preventDefault();
-                console.log(e.model);
                 if (vm.movieAuthor == null) {
                     movieAuthorsSvc.createMovieAuthor(e.model).then(function (result) {
                         $state.go("movieAuthorsOverview");

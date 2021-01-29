@@ -222,6 +222,7 @@
                     field: "biography",
                     label: "Opis",
                     editor: "Editor",
+                    hint: "Max 2000 characters, may be empty",
                     editorOptions: {
                         tools: [],
                         resizable: {
@@ -261,6 +262,7 @@
                             return true;
                         }
                     },
+                    hint: "May be empty, if not, must be .jpg, .jpeg, .png or .gif, and must start with http(s)",
                     colSpan: 2
                 },
                 {
@@ -278,6 +280,7 @@
                             return true;
                         }
                     },
+                    hint: "Must start with http(s)",
                     colSpan: 2
                 }
                 ,

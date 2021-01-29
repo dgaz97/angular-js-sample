@@ -116,21 +116,20 @@
     movieAuthorProfileCtrl.$inject = ['$scope', '$state', 'movieAuthor', 'movieAuthorsSvc', '$stateParams']
     function movieAuthorProfileCtrl($scope, $state, movieAuthor, movieAuthorsSvc, $stateParams) {
         var vm = this;
-
         vm.movieAuthor = movieAuthor;
-
         $("#delete-dialog").kendoDialog({
             width: "450px",
             title: "POZOR",
             closable: false,
             visible: false,
             modal: true,
-            content: "<p>Jeste li sigurni da želite obrisati redatelja?<p/>",
+            content: "<p>Jeste li sigurni da želite obrisati redatelja " + $stateParams.id+"?<p/>",
             actions: [
                 {
                     text: "Da",
                     action: function (e) {
                         movieAuthorsSvc.deleteMovieAuthor($stateParams.id).then(function (data) {
+                            $("#delete-dialog").data("kendoDialog").destroy();
                             $state.go("movieAuthorsOverview");
                         });
                     }

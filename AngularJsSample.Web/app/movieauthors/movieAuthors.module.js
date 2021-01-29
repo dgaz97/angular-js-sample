@@ -255,7 +255,7 @@
                             if (input.is("[name='imageUrl']")) {
                                 input.attr("data-validImageLink-msg", "Image link is invalid");
                                 var validHttp = /^https?:\/\//g.test(input.val());
-                                var validImg = /\.jpg$/g.test(input.val()) || /\.jpeg$/g.test(input.val()) || /\.gif$/g.test(input.val()) || /\.png$/g.test(input.val());
+                                var validImg = /\.jpg$|\.jpeg$|\.png$|\.gif$/g.test(input.val());
                                 return validHttp && validImg;
                             }
                             return true;

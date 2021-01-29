@@ -305,12 +305,24 @@
                 if (vm.movieAuthor == null) {
                     movieAuthorsSvc.createMovieAuthor(e.model).then(function (result) {
                         $state.go("movieAuthorsOverview");
-                    });
+                    },
+                        function (err) {
+                            $("#errorNotification").kendoNotification({
+                                appendTo:"#errorNotification"
+                            }).data("kendoNotification").show(err.data.message, "error");
+                        }
+                    );
                 }
                 else {
                     movieAuthorsSvc.updateMovieAuthor(vm.movieAuthor.id, e.model).then(function (result) {
                         $state.go("movieAuthorsOverview");
-                    });
+                    },
+                        function (err) {
+                            $("#errorNotification").kendoNotification({
+                                appendTo: "#errorNotification"
+                            }).data("kendoNotification").show(err.data.message, "error");
+                        }
+                    );
                 }
 
             }

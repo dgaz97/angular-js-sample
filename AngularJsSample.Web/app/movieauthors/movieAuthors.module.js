@@ -207,7 +207,8 @@
                     validation: {
                         required: true
                     },
-                    colSpan: 1
+                    colSpan: 1,
+                    format: "yyyy-MM-dd"
                 },
                 {
                     field: "birthPlace",

@@ -251,10 +251,11 @@
                     field: "imageUrl",
                     label: "Foto URL",
                     validation: {
-                        required: true,
+                        required: false,
                         validImageLink: function (input) {
                             if (input.is("[name='imageUrl']")) {
                                 input.attr("data-validImageLink-msg", "Image link is invalid");
+                                if (!input.val() || input.val().length === 0) return true;
                                 var validHttp = /^https?:\/\//g.test(input.val());
                                 var validImg = /\.jpg$|\.jpeg$|\.png$|\.gif$/g.test(input.val());
                                 return validHttp && validImg;

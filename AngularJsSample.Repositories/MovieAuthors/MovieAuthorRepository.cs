@@ -14,7 +14,7 @@ namespace AngularJsSample.Repositories.MovieAuthors
     {
         public int Add(MovieAuthor item)
         {
-            if (item.Id != null || item.Id != 0) throw new Exception("Movie author ID must be null or 0");
+            if (item.Id != 0) throw new Exception("Movie author ID must be null or 0");
             checkDataForInsertOrUpdate(item);
             using (var context = new AngularJsSampleDbEntities())
             {

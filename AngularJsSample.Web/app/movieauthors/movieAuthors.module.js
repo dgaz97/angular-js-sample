@@ -13,8 +13,6 @@
     function movieAuthorsOverviewCtrl($scope, movieAuthorsSvc) {
         var vm = this;
         movieAuthorsSvc.getMovieAuthors().then(function (result) {
-            console.log(result.data.authors);
-
             $("#movieAuthorGrid").kendoGrid({
                 dataSource: {
                     data: result.data.authors,

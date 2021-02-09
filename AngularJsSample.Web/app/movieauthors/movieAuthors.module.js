@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('movieAuthors', ['movieAuthorsServices'])
+        .module('movieAuthors', ['movieAuthorsServices','angularValidator'])
         .controller('movieAuthorsOverviewCtrl', movieAuthorsOverviewCtrl)
         .controller('movieAuthorProfileCtrl', movieAuthorProfileCtrl)
         .controller('movieAuthorManageCtrl', movieAuthorManageCtrl)

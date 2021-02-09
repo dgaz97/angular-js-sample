@@ -4,7 +4,8 @@
     'oc.lazyLoad',
     'ui.router',
     'kendo.directives',
-    'general.routing'
+    'general.routing',
+    'angularValidator'
 ]);
 
 loginApp.run([

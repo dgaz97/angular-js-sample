@@ -2,10 +2,20 @@
     {{vm.movieAuthor.firstName}} {{vm.movieAuthor.lastName}}
     <div style="float:right">
         <button type="button" class="btn btn-primary" ui-sref="updateMovieAuthor({id:{{vm.movieAuthor.id}}})">Uredi redatelja</button>
-        <button id="deleteButton" type="button" class="btn btn-primary">Obriši redatelja</button>
+        <!--button id="deleteButton" type="button" class="btn btn-primary">Obriši redatelja</!--button-->
+        <kendo-button id="deleteButton"
+                k-options="deleteButtonOptions">Obriši redatelja</kendo-button>
     </div>
 </h1>
-<div id="delete-dialog">
+<div id="delete-dialog" kendo-dialog
+     k-options="deleteDialogOptions"
+     k-width="'450px'"
+     k-title="'POZOR'"
+     k-closable="false"
+     k-visible="false"
+     k-modal="true"
+     k-content="'<p>Jeste li sigurni da želite obrisati redatelja ' + {{vm.movieAuthor.id}} + '?<p/>'"
+     >
 </div>
 <div class="container col-md-9" style="border: solid 1px black">
     <div class="row" style="border: solid black; border-width:0 0 1px 0">

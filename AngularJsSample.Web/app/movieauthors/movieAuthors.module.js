@@ -12,27 +12,30 @@
     movieAuthorsOverviewCtrl.$inject = ['$scope', 'movieAuthorsSvc'];
     function movieAuthorsOverviewCtrl($scope, movieAuthorsSvc) {
         var vm = this;
+        //k-ng-model za sortiranje
+        $scope.sortParams = {};
+
+        //Dohvaćamo podatke preko servisa
         movieAuthorsSvc.getMovieAuthors().then(function (result) {
-            $("#movieAuthorGrid").kendoGrid({
-                dataSource: {
-                    data: result.data.authors,
-                    pageSize: 20
-                },
-                pageable: {
-                    refresh: true,
-                    pageSizes: true,
-                    buttonCount: 5
-                },
+            //Spremamo u DataSource
+            $scope.movieAuthorGridData = new kendo.data.DataSource({
+                data: result.data.authors,
+                pageSize: 20
+            });
+
+            //postavke za grid
+            $scope.movieAuthorGrid = {
                 //groupable: true,
                 //sortable: true,
-                filterable: true,
-                resizable: true,
+
+                //Auto-Fit sve stupce osim petog (opis)
                 dataBound: function () {
                     for (var i = 0; i < this.columns.length; i++) {
                         if (i == 5) continue;
                         this.autoFitColumn(i);
                     }
                 },
+                //Definiranje stupaca
                 columns: [
                     {
                         field: "id",
@@ -67,48 +70,51 @@
                         template: "<p>\\##: data.popularity#</p>"
                     }
                 ]
-            });
+            };
         });
 
-        $("#dropdownlist").kendoDropDownList({
-            dataSource: [
+        //Parametri sortiranja, koriste se za DropDownList
+        $scope.dropdownlistData = new kendo.data.DataSource({
+            data: [
                 {
                     "text": "Datum kreiranja uzlazno",
-                    "sortParams": {
-                        "value": "dateCreated",
-                        "dir": "asc"
+                    "value":
+                    {
+                        col: "dateCreated",
+                        dir: "asc"
                     }
                 },
                 {
                     "text": "Datum kreiranja silazno",
-                    "sortParams": {
-                        "value": "dateCreated",
-                        "dir": "desc"
+                    "value":
+                    {
+                        col: "dateCreated",
+                        dir: "desc"
                     }
                 },
                 {
                     "text": "Popularnost uzlazno",
-                    "sortParams": {
-                        "value": "popularity",
-                        "dir": "asc"
+                    "value":
+                    {
+                        col: "popularity",
+                        dir: "asc"
                     }
                 },
                 {
                     "text": "Popularnost silazno",
-                    "sortParams": {
-                        "value": "popularity",
-                        "dir": "desc"
+                    "value":
+                    {
+                        col: "popularity",
+                        dir: "desc"
                     }
                 }
-            ],
-            dataTextField: "text",
-            dataValueField: "sortParams",
-            optionLabel: "Sortiraj prema...",
-            change: function (e) {
-                $("#movieAuthorGrid").data("kendoGrid").dataSource.sort({ field: this.value().value, dir: this.value().dir });
-            }
+            ]
+        })
 
-        });
+        $scope.onSelectChanged = function (kendoEvent) {
+            //Dohvaćamo podatke grida, te ih sortiramo: field je po kojem stupce, dir je u kojem smjeru (uzlazno ili silazno)
+            $scope.movieAuthorGridData.sort({ field: $scope.sortParams.col, dir: $scope.sortParams.dir });
+        }
 
     };
 
@@ -116,20 +122,20 @@
     movieAuthorProfileCtrl.$inject = ['$scope', '$state', 'movieAuthor', 'movieAuthorsSvc', '$stateParams']
     function movieAuthorProfileCtrl($scope, $state, movieAuthor, movieAuthorsSvc, $stateParams) {
         var vm = this;
+
         vm.movieAuthor = movieAuthor;
-        $("#delete-dialog").kendoDialog({
-            width: "450px",
-            title: "POZOR",
-            closable: false,
-            visible: false,
-            modal: true,
-            content: "<p>Jeste li sigurni da želite obrisati redatelja " + $stateParams.id+"?<p/>",
+
+        //postavke za modal brisanja
+        $scope.deleteDialogOptions={
             actions: [
                 {
                     text: "Da",
                     action: function (e) {
+                        //Poziva servis za brisanje redatelja
                         movieAuthorsSvc.deleteMovieAuthor($stateParams.id).then(function (data) {
-                            $("#delete-dialog").data("kendoDialog").destroy();
+                            //Gasi modal
+                            angular.element("#delete-dialog").data("kendoDialog").destroy();
+                            //Premješta na pregled svih redatelja
                             $state.go("movieAuthorsOverview");
                         });
                     }
@@ -139,29 +145,37 @@
                     primary: true
                 }
             ]
-        });
+        };
 
-        $("#deleteButton").kendoButton({
+        //postavke za gumb brisanja
+        $scope.deleteButtonOptions={
             click: function (e) {
-                $("#delete-dialog").data("kendoDialog").open();
+                //Otvara modal
+                angular.element("#delete-dialog").data("kendoDialog").open();
             }
-        });
-        $("#deleteButton").removeClass("k-button");
+        };
 
     }
 
     movieAuthorManageCtrl.$inject = ['$scope', 'movieAuthorsSvc', 'movieAuthor', '$state', '$stateParams']
     function movieAuthorManageCtrl($scope, movieAuthorsSvc, movieAuthor, $state, $stateParams) {
         var vm = this;
+        //Određuje uređivamo li postojećeg redatelja, ili stvaramo novog
         vm.movieAuthor = movieAuthor ? movieAuthor : null;
 
-        $("#movieAuthorForm").kendoForm({
+        $scope.notificationOptions = {
+            appendTo: "#appendto"
+        };
+
+        //Nije preko direktive
+        angular.element("#movieAuthorForm").kendoForm({
             orientation: "vertical",
             layout: "grid",
             grid: {
                 cols: 2,
                 gutter: 20
             },
+            //Ternarni operator - puni formu podacima, ako uređujemo redatelja
             formData: vm.movieAuthor ? {
                 firstName: vm.movieAuthor.firstName,
                 lastName: vm.movieAuthor.lastName,
@@ -175,7 +189,8 @@
             validatable: {
                 validationSummary: true
             },
-            buttonsTemplate: "",//Maknuti default gumbe za submit i clear
+            //Maknuti default gumbe za submit i clear
+            buttonsTemplate: "",
             items: [
                 {
                     field: "firstName",
@@ -226,6 +241,7 @@
                             min: 50,
                             max: 300
                         },
+                        //Ako se lijepi tekst s linkovima (npr. sa wikipedije), lijepi se samo plaintext
                         paste: function (ev) {
                             ev.html = $(ev.html).text();
                         }
@@ -233,6 +249,7 @@
                     },
                     validation: {
                         //required: true,
+                        //Provjerava je li opis preko 2000 znakova
                         validSize: function (input) {
                             if (input.is("[name='biography']")) {
                                 input.attr("data-validSize-msg", "String is too long, 2000 characters max");
@@ -268,6 +285,7 @@
                     label: "IMDB URL",
                     validation: {
                         required: true,
+                        //Provjerava je li link IMDb link
                         validImdbLink: function (input) {
                             if (input.is("[name='imdbUrl']")) {
                                 input.attr("data-validImdbLink-msg", "IMDB link is invalid");
@@ -297,27 +315,32 @@
                     colSpan: 1
                 }
             ],
+            //Submit funkcija, ovdje se poziva servis za stvaranje
             submit: function (e) {
                 e.preventDefault();
+                //Ako se stvara novi redatelj
                 if (vm.movieAuthor == null) {
+                    //Poziva se servis za stvaranje novog autora
                     movieAuthorsSvc.createMovieAuthor(e.model).then(function (result) {
+                        //Te se otvara pogled sa pregledom redatelja, ako je uspješno stvoren
                         $state.go("movieAuthorsOverview");
                     },
+                        //Ili se prikazuje poruka pogreške
                         function (err) {
-                            $("#errorNotification").kendoNotification({
-                                appendTo:"#errorNotification"
-                            }).data("kendoNotification").show(err.data.message, "error");
+                            angular.element("#errorNotification").data("kendoNotification").show(err.data.message, "error");
                         }
                     );
                 }
+                //Ako se uređuje postojeći redatelj
                 else {
+                    //Poziva se servis za uređivanje postojećeg autora
                     movieAuthorsSvc.updateMovieAuthor(vm.movieAuthor.id, e.model).then(function (result) {
+                        //Te se otvara pogled sa pregledom redatelja, ako je uspješno uređen
                         $state.go("movieAuthorsOverview");
                     },
+                        //Ili se prikazuje poruka pogreške
                         function (err) {
-                            $("#errorNotification").kendoNotification({
-                                appendTo: "#errorNotification"
-                            }).data("kendoNotification").show(err.data.message, "error");
+                            angular.element("#errorNotification").data("kendoNotification").show(err.data.message, "error");
                         }
                     );
                 }
@@ -326,12 +349,11 @@
         });
 
 
-        $("#submit-button").kendoButton({
+        $scope.submitButtonOptions={
             click: function (e) {
-                $("#movieAuthorForm").submit();
+                angular.element("#movieAuthorForm").submit();
             }
-        });
-        $("#submit-button").removeClass("k-button");
+        };
 
     }
 

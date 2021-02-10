@@ -35,6 +35,7 @@ namespace AngularJsSample.Api
             config.EnableCors(cors);
 
             app.UseCors(CorsOptions.AllowAll);
+            app.MapSignalR();
             app.UseWebApi(config);
 
             try

@@ -196,10 +196,7 @@
         //Određuje uređivamo li postojećeg redatelja, ili stvaramo novog
         vm.movieAuthor = movieAuthor ? movieAuthor : null;
 
-        $scope.setTitle = function () {
-            if (vm.movieAuthor) return true;
-            else return false;
-        }
+        vm.title = vm.movieAuthor ? true : false;
 
         //Trenutno vrijeme, treba da ograničimo datum rođenja autora
         vm.now = new Date().toISOString();
@@ -222,9 +219,20 @@
 
         $scope.submitForm = function () {
             //Ako stvaramo novog redatelja
-            if (vm.movieAuthor == null) {
+            if (!vm.title) {
                 //Poziva se servis za stvaranje novog autora
                 movieAuthorsSvc.createMovieAuthor(vm.movieAuthor).then(function (result) {
+                    // Proxy created on the fly
+                    var signalRConn = $.connection;
+                    signalRConn.hub.url = `${serviceBase}/signalr`;
+                    //Dohvaćamo Hub (MyHub klasa u Api projektu)
+                    var hub = signalRConn.myHub;
+
+                    signalRConn.hub.start().done(function () {
+                        hub.server.refresh();
+                    });
+                    signalRConn.hub.stop();
+
                     //Te se otvara pogled sa pregledom redatelja, ako je uspješno stvoren
                     $state.go("movieAuthorsOverview");
                 },
@@ -232,7 +240,7 @@
                     function (err) {
                         SweetAlert.swal({
                             title: "Greška",
-                            text: "Došlo je do greške: " + err.data.message,
+                            text: "Došlo je do greške: " + err.data.messageDetail,
                             type: "error"
 
                         });
@@ -243,6 +251,17 @@
             else {
                 //Poziva se servis za uređivanje postojećeg autora
                 movieAuthorsSvc.updateMovieAuthor(vm.movieAuthor.id, vm.movieAuthor).then(function (result) {
+                    // Proxy created on the fly
+                    var signalRConn = $.connection;
+                    signalRConn.hub.url = `${serviceBase}/signalr`;
+                    //Dohvaćamo Hub (MyHub klasa u Api projektu)
+                    var hub = signalRConn.myHub;
+
+                    signalRConn.hub.start().done(function () {
+                        hub.server.refresh();
+                    });
+                    signalRConn.hub.stop();
+
                     //Te se otvara pogled sa pregledom redatelja, ako je uspješno uređen
                     $state.go("movieAuthorsOverview");
                 },
@@ -250,7 +269,7 @@
                     function (err) {
                         SweetAlert.swal({
                             title: "Greška",
-                            text: "Došlo je do greške: " + err.data.message,
+                            text: "Došlo je do greške: " + err.data.messageDetail,
                             type: "error"
                         });
                     }

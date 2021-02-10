@@ -15,6 +15,26 @@
         //k-ng-model za sortiranje
         $scope.sortParams = {};
 
+        var signalRConn = $.connection;
+        // Proxy created on the fly
+        signalRConn.hub.url = `${serviceBase}/signalr`;
+        var hub = signalRConn.myHub;
+
+
+        // Declare a function on the chat hub so the server can invoke it
+        hub.client.updateMovieAuthors = function () {
+            //Dohvati nove podatke
+            movieAuthorsSvc.getMovieAuthors().then(function (result) {
+                $scope.movieAuthorGridData = new kendo.data.DataSource({
+                    data: result.data.authors,
+                    pageSize: 20
+                });
+            });
+        }
+        // Start the connection
+        signalRConn.hub.start().done(function () {
+        });
+
         //Dohvaćamo podatke preko servisa
         movieAuthorsSvc.getMovieAuthors().then(function (result) {
             //Spremamo u DataSource
@@ -143,11 +163,23 @@
                     function (isConfirm) {
                         if (isConfirm) {
                             movieAuthorsSvc.deleteMovieAuthor($stateParams.id).then(function (data) {
+
+                                // Proxy created on the fly
+                                var signalRConn = $.connection;
+                                signalRConn.hub.url = `${serviceBase}/signalr`;
+                                //Dohvaćamo Hub (MyHub klasa u Api projektu)
+                                var hub = signalRConn.myHub;
+
+                                signalRConn.hub.start().done(function () {
+                                    hub.server.refresh();
+                                });
+                                signalRConn.hub.stop();
+
                                 //Premješta na pregled svih redatelja
                                 $state.go("movieAuthorsOverview");
                                 //Ili prikazuje modal ako dođe do greške
                             }, function (err) {
-                                SweetAlert.swal("Greška", "Došlo je do greške kod brisanja: " + err.data.message, "error");
+                                SweetAlert.swal("Greška", "Došlo je do greške kod brisanja: " + err.data.messageDetail, "error");
                             });
                         }
                     }

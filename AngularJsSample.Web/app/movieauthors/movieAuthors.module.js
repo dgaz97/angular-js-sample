@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('movieAuthors', ['movieAuthorsServices','angularValidator'])
+        .module('movieAuthors', ['movieAuthorsServices', 'angularValidator'])
         .controller('movieAuthorsOverviewCtrl', movieAuthorsOverviewCtrl)
         .controller('movieAuthorProfileCtrl', movieAuthorProfileCtrl)
         .controller('movieAuthorManageCtrl', movieAuthorManageCtrl)
@@ -126,7 +126,7 @@
         vm.movieAuthor = movieAuthor;
 
         //postavke za modal brisanja
-        $scope.deleteDialogOptions={
+        $scope.deleteDialogOptions = {
             actions: [
                 {
                     text: "Da",
@@ -148,7 +148,7 @@
         };
 
         //postavke za gumb brisanja
-        $scope.deleteButtonOptions={
+        $scope.deleteButtonOptions = {
             click: function (e) {
                 //Otvara modal
                 angular.element("#delete-dialog").data("kendoDialog").open();
@@ -157,204 +157,73 @@
 
     }
 
-    movieAuthorManageCtrl.$inject = ['$scope', 'movieAuthorsSvc', 'movieAuthor', '$state', '$stateParams']
-    function movieAuthorManageCtrl($scope, movieAuthorsSvc, movieAuthor, $state, $stateParams) {
+    movieAuthorManageCtrl.$inject = ['$scope', 'SweetAlert', 'movieAuthorsSvc', 'movieAuthor', '$state', '$stateParams']
+    function movieAuthorManageCtrl($scope, SweetAlert, movieAuthorsSvc, movieAuthor, $state, $stateParams) {
         var vm = this;
+
         //Određuje uređivamo li postojećeg redatelja, ili stvaramo novog
         vm.movieAuthor = movieAuthor ? movieAuthor : null;
 
-        $scope.notificationOptions = {
-            appendTo: "#appendto"
-        };
+        $scope.setTitle = function () {
+            if (vm.movieAuthor) return true;
+            else return false;
+        }
 
-        //Nije preko direktive
-        angular.element("#movieAuthorForm").kendoForm({
-            orientation: "vertical",
-            layout: "grid",
-            grid: {
-                cols: 2,
-                gutter: 20
-            },
-            //Ternarni operator - puni formu podacima, ako uređujemo redatelja
-            formData: vm.movieAuthor ? {
-                firstName: vm.movieAuthor.firstName,
-                lastName: vm.movieAuthor.lastName,
-                birthDate: vm.movieAuthor.birthDate,
-                birthPlace: vm.movieAuthor.birthPlace,
-                biography: vm.movieAuthor.biography,
-                imageUrl: vm.movieAuthor.imageUrl,
-                imdbUrl: vm.movieAuthor.imdbUrl,
-                popularity: vm.movieAuthor.popularity
-            } : {},
-            validatable: {
-                validationSummary: true
-            },
-            //Maknuti default gumbe za submit i clear
-            buttonsTemplate: "",
-            items: [
-                {
-                    field: "firstName",
-                    label: "Ime",
-                    validation: {
-                        required: true
-                    },
-                    colSpan: 1
-                },
-                {
-                    field: "lastName",
-                    label: "Prezime",
-                    validation: {
-                        required: true
-                    },
-                    colSpan: 1
-                },
-                {
-                    field: "birthDate",
-                    label: "Datum rođenja",
-                    editor: "DatePicker",
-                    editorOptions: {
-                        max: new Date(),
-                        min: new Date(1800, 0, 1)//1.1.1800
-                    },
-                    validation: {
-                        required: true
-                    },
-                    colSpan: 1,
-                    format: "yyyy-MM-dd"
-                },
-                {
-                    field: "birthPlace",
-                    label: "Mjesto rođenja",
-                    validation: {
-                        required: true
-                    },
-                    colSpan: 1
-                },
-                {
-                    field: "biography",
-                    label: "Opis",
-                    editor: "Editor",
-                    hint: "Max 2000 characters, may be empty",
-                    editorOptions: {
-                        tools: [],
-                        resizable: {
-                            min: 50,
-                            max: 300
-                        },
-                        //Ako se lijepi tekst s linkovima (npr. sa wikipedije), lijepi se samo plaintext
-                        paste: function (ev) {
-                            ev.html = $(ev.html).text();
-                        }
+        //Trenutno vrijeme, treba da ograničimo datum rođenja autora
+        vm.now = new Date().toISOString();
 
-                    },
-                    validation: {
-                        //required: true,
-                        //Provjerava je li opis preko 2000 znakova
-                        validSize: function (input) {
-                            if (input.is("[name='biography']")) {
-                                input.attr("data-validSize-msg", "String is too long, 2000 characters max");
-                                if (input.val().length > 2000) return false;
-                                else return true;
-                            }
-                            return true;
-                        }
-                    },
-                    colSpan: 2
-                },
-                {
-                    field: "imageUrl",
-                    label: "Foto URL",
-                    validation: {
-                        required: false,
-                        validImageLink: function (input) {
-                            if (input.is("[name='imageUrl']")) {
-                                input.attr("data-validImageLink-msg", "Image link is invalid");
-                                if (!input.val() || input.val().length === 0) return true;
-                                var validHttp = /^https?:\/\//g.test(input.val());
-                                var validImg = /\.jpg$|\.jpeg$|\.png$|\.gif$/g.test(input.val());
-                                return validHttp && validImg;
-                            }
-                            return true;
-                        }
-                    },
-                    hint: "May be empty, if not, must be .jpg, .jpeg, .png or .gif, and must start with http(s)",
-                    colSpan: 2
-                },
-                {
-                    field: "imdbUrl",
-                    label: "IMDB URL",
-                    validation: {
-                        required: true,
-                        //Provjerava je li link IMDb link
-                        validImdbLink: function (input) {
-                            if (input.is("[name='imdbUrl']")) {
-                                input.attr("data-validImdbLink-msg", "IMDB link is invalid");
-                                //input.attr("imdbUrl-form-error", "IMDb url can't be empty");
-                                var validImdbLink = /^https?:\/\/(www\.)?imdb.com/g.test(input.val());
-                                return validImdbLink;
-                            }
-                            return true;
-                        }
-                    },
-                    hint: "Must start with http(s)",
-                    colSpan: 2
-                }
-                ,
-                {
-                    field: "popularity",
-                    label: "Popularnost:",
-                    editor: "NumericTextBox",
-                    editorOptions: {
-                        decimals: 0,
-                        min: 1,
-                        format: "n0"
-                    },
-                    validation: {
-                        required: true
-                    },
-                    colSpan: 1
-                }
-            ],
-            //Submit funkcija, ovdje se poziva servis za stvaranje
-            submit: function (e) {
-                e.preventDefault();
-                //Ako se stvara novi redatelj
-                if (vm.movieAuthor == null) {
-                    //Poziva se servis za stvaranje novog autora
-                    movieAuthorsSvc.createMovieAuthor(e.model).then(function (result) {
-                        //Te se otvara pogled sa pregledom redatelja, ako je uspješno stvoren
-                        $state.go("movieAuthorsOverview");
-                    },
-                        //Ili se prikazuje poruka pogreške
-                        function (err) {
-                            angular.element("#errorNotification").data("kendoNotification").show(err.data.message, "error");
-                        }
-                    );
-                }
-                //Ako se uređuje postojeći redatelj
-                else {
-                    //Poziva se servis za uređivanje postojećeg autora
-                    movieAuthorsSvc.updateMovieAuthor(vm.movieAuthor.id, e.model).then(function (result) {
-                        //Te se otvara pogled sa pregledom redatelja, ako je uspješno uređen
-                        $state.go("movieAuthorsOverview");
-                    },
-                        //Ili se prikazuje poruka pogreške
-                        function (err) {
-                            angular.element("#errorNotification").data("kendoNotification").show(err.data.message, "error");
-                        }
-                    );
-                }
+        //Provjeravamo je li link slike ispravnog formata
+        $scope.validateImageUrl = function (text) {
+            if ((!text || /^\s*$/.test(text))) return true;
+            var validHttp = /^https?:\/\//g.test(text);
+            var validImg = /\.jpg$|\.jpeg$|\.png$|\.gif$/g.test(text);
+            if (validImg && validHttp) return true;
+            else return "URL slike nije ispravnog formata";
+        }
 
+        //Provjeravamo je li IMDb link ispravnog formata
+        $scope.validateImdbUrl = function (text) {
+            var validImdbLink = /^https?:\/\/(www\.)?imdb.com/g.test(text);
+            if (validImdbLink) return true;
+            else return "IMDb URL nije ispravnog formata";
+        }
+
+        $scope.submitForm = function () {
+            //Ako stvaramo novog redatelja
+            if (vm.movieAuthor == null) {
+                //Poziva se servis za stvaranje novog autora
+                movieAuthorsSvc.createMovieAuthor(vm.movieAuthor).then(function (result) {
+                    //Te se otvara pogled sa pregledom redatelja, ako je uspješno stvoren
+                    $state.go("movieAuthorsOverview");
+                },
+                    //Ili se prikazuje poruka pogreške
+                    function (err) {
+                        SweetAlert.swal({
+                            title: "Greška",
+                            text: "Došlo je do greške: " + err.data.message,
+                            type: "error"
+
+                        });
+                    }
+                );
             }
-        });
-
-
-        $scope.submitButtonOptions={
-            click: function (e) {
-                angular.element("#movieAuthorForm").submit();
+            //Ako se uređuje postojeći redatelj
+            else {
+                //Poziva se servis za uređivanje postojećeg autora
+                movieAuthorsSvc.updateMovieAuthor(vm.movieAuthor.id, vm.movieAuthor).then(function (result) {
+                    //Te se otvara pogled sa pregledom redatelja, ako je uspješno uređen
+                    $state.go("movieAuthorsOverview");
+                },
+                    //Ili se prikazuje poruka pogreške
+                    function (err) {
+                        SweetAlert.swal({
+                            title: "Greška",
+                            text: "Došlo je do greške: " + err.data.message,
+                            type: "error"
+                        });
+                    }
+                );
             }
-        };
-
+        }
     }
-
 })();

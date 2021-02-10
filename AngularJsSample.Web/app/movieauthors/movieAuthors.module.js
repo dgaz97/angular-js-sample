@@ -119,39 +119,39 @@
     };
 
 
-    movieAuthorProfileCtrl.$inject = ['$scope', '$state', 'movieAuthor', 'movieAuthorsSvc', '$stateParams']
-    function movieAuthorProfileCtrl($scope, $state, movieAuthor, movieAuthorsSvc, $stateParams) {
+    movieAuthorProfileCtrl.$inject = ['$scope', '$state', 'SweetAlert', 'movieAuthor', 'movieAuthorsSvc', '$stateParams']
+    function movieAuthorProfileCtrl($scope, $state, SweetAlert, movieAuthor, movieAuthorsSvc, $stateParams) {
         var vm = this;
 
         vm.movieAuthor = movieAuthor;
 
-        //postavke za modal brisanja
-        $scope.deleteDialogOptions = {
-            actions: [
-                {
-                    text: "Da",
-                    action: function (e) {
-                        //Poziva servis za brisanje redatelja
-                        movieAuthorsSvc.deleteMovieAuthor($stateParams.id).then(function (data) {
-                            //Gasi modal
-                            angular.element("#delete-dialog").data("kendoDialog").destroy();
-                            //Premješta na pregled svih redatelja
-                            $state.go("movieAuthorsOverview");
-                        });
-                    }
-                },
-                {
-                    text: "Ne",
-                    primary: true
-                }
-            ]
-        };
 
         //postavke za gumb brisanja
         $scope.deleteButtonOptions = {
             click: function (e) {
-                //Otvara modal
-                angular.element("#delete-dialog").data("kendoDialog").open();
+                //Modal za upozorenje o brisanju
+                SweetAlert.swal({
+                    title: "POZOR",
+                    text: "Jeste li sigurni da želite obrisati redatelja " + vm.movieAuthor.id + "?",
+                    showCancelButton: true,
+                    confirmButtonText: "Da",
+                    cancelButtonText: "Ne",
+                    closeOnCancel: true,
+                    closeOnConfirm: true,
+                    closeOnEsc: true
+                },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            movieAuthorsSvc.deleteMovieAuthor($stateParams.id).then(function (data) {
+                                //Premješta na pregled svih redatelja
+                                $state.go("movieAuthorsOverview");
+                                //Ili prikazuje modal ako dođe do greške
+                            }, function (err) {
+                                SweetAlert.swal("Greška", "Došlo je do greške kod brisanja: " + err.data.message, "error");
+                            });
+                        }
+                    }
+                );
             }
         };
 

@@ -97,11 +97,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
-    <Content Include="app\movieauthors\movieAuthors.module.js" />
-    <Content Include="app\movieauthors\partials\movieAuthorsOverview.html" />
-    <Content Include="app\movieauthors\movieAuthorsServices.module.js" />
-    <Content Include="app\movieauthors\partials\manageMovieAuthor.html" />
-    <Content Include="app\movieauthors\partials\profile.html" />
+    <Content Include="app\moviepersons\moviePersons.module.js" />
+    <Content Include="app\moviepersons\partials\moviePersonsOverview.html" />
+    <Content Include="app\moviepersons\moviePersonsServices.module.js" />
+    <Content Include="app\moviepersons\partials\manageMoviePerson.html" />
+    <Content Include="app\moviepersons\partials\profile.html" />
     <Content Include="app\common\commonModule.js" />
     <Content Include="app\common\services\authServices.js" />
     <Content Include="app\dashboard\dashboard.module.js" />

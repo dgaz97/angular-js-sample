@@ -42,8 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IRepository.cs" />
-    <Compile Include="MovieAuthors\IMovieAuthorRepository.cs" />
-    <Compile Include="MovieAuthors\MovieAuthor.cs" />
+    <Compile Include="MoviePersons\IMoviePersonRepository.cs" />
+    <Compile Include="MoviePersons\MoviePerson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\IUserRepository.cs" />
     <Compile Include="Users\UserInfo.cs" />

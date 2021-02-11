@@ -1,7 +1,7 @@
-﻿using AngularJsSample.Model.MovieAuthors;
+﻿using AngularJsSample.Model.MoviePersons;
 using AngularJsSample.Model.Users;
 using AngularJsSample.Repositories;
-using AngularJsSample.Repositories.MovieAuthors;
+using AngularJsSample.Repositories.MoviePersons;
 using AngularJsSample.Services;
 using AngularJsSample.Services.Impl;
 using Autofac;
@@ -14,11 +14,11 @@ namespace AngularJsSample.Api.IoC
         {
             //repositories
             builder.RegisterType<UserRepository>().As<IUserRepository>();
-            builder.RegisterType<MovieAuthorRepository>().As<IMovieAuthorRepository>();
+            builder.RegisterType<MoviePersonRepository>().As<IMoviePersonRepository>();
 
             //services
             builder.RegisterType<UserService>().As<IUserService>();
-            builder.RegisterType<MovieAuthorService>().As<IMovieAuthorService>();
+            builder.RegisterType<MoviePersonService>().As<IMoviePersonService>();
         }
     }
 }

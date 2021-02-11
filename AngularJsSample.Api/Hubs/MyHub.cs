@@ -19,7 +19,7 @@ namespace AngularJsSample.Api.Hubs
         }*/
         public void Refresh()
         {
-            Clients.All.updateMovieAuthors();
+            Clients.All.updateMoviePersons();
         }
         /*public void Subscribe(string customerId)
         {

@@ -37,118 +37,118 @@
 
                 }
             })
-            .state('movieAuthorsOverview', {
-                url: "/movieauthors",
-                controller: "movieAuthorsOverviewCtrl",
+            .state('moviePersonsOverview', {
+                url: "/moviepersons",
+                controller: "moviePersonsOverviewCtrl",
                 controllerAs: "vm",
-                templateUrl: "app/movieauthors/partials/movieAuthorsOverview.html",
+                templateUrl: "app/moviepersons/partials/moviePersonsOverview.html",
                 resolve: {
                     loginRequired: loginRequired,
-                    movieAuthorsServices: function ($ocLazyLoad) {
+                    moviePersonsServices: function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
-                            name: "movieAuthorsServices",
+                            name: "moviePersonsServices",
                             files: [
-                                "app/movieauthors/movieAuthorsServices.module.js"
+                                "app/moviepersons/moviePersonsServices.module.js"
                             ]
                         });
                     },
-                    movieAuthors: function ($ocLazyLoad, movieAuthorsServices) {
+                    moviePersons: function ($ocLazyLoad, moviePersonsServices) {
                         return $ocLazyLoad.load({
-                            name: "movieAuthors",
+                            name: "moviePersons",
                             files: [
-                                "app/movieauthors/movieAuthors.module.js"
+                                "app/moviepersons/moviePersons.module.js"
                             ]
                         });
                     }
 
                 }
             })
-            .state('movieAuthorProfile', {
-                url: "/movieauthors/:id",
-                controller: "movieAuthorProfileCtrl",
+            .state('moviePersonProfile', {
+                url: "/moviepersons/:id",
+                controller: "moviePersonProfileCtrl",
                 controllerAs: "vm",
-                templateUrl: "app/movieauthors/partials/profile.html",
+                templateUrl: "app/moviepersons/partials/profile.html",
                 resolve: {
                     loginRequired: loginRequired,
-                    movieAuthor: function ($stateParams, movieAuthorsSvc) {
-                        return movieAuthorsSvc.getMovieAuthor($stateParams.id).then(function (data) {
+                    moviePerson: function ($stateParams, moviePersonsSvc) {
+                        return moviePersonsSvc.getMoviePerson($stateParams.id).then(function (data) {
                             return data.data;
                         });
                     },
-                    movieAuthorsServices: function ($ocLazyLoad) {
+                    moviePersonsServices: function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
-                            name: "movieAuthorsServices",
+                            name: "moviePersonsServices",
                             files: [
-                                "app/movieauthors/movieAuthorsServices.module.js"
+                                "app/moviepersons/moviePersonsServices.module.js"
                             ]
                         });
                     },
-                    movieAuthors: function ($ocLazyLoad, movieAuthorsServices) {
+                    moviePersons: function ($ocLazyLoad, moviePersonsServices) {
                         return $ocLazyLoad.load({
-                            name: "movieAuthors",
+                            name: "moviePersons",
                             files: [
-                                "app/movieauthors/movieAuthors.module.js"
+                                "app/moviePersons/moviePersons.module.js"
                             ]
                         });
                     }
                 }
             })
-            .state('newMovieAuthor', {
-                url: "/movieauthor/new",
-                controller: "movieAuthorManageCtrl",
+            .state('newMoviePerson', {
+                url: "/moviePerson/new",
+                controller: "moviePersonManageCtrl",
                 controllerAs: "vm",
-                templateUrl: "app/movieauthors/partials/manageMovieAuthor.html",
+                templateUrl: "app/moviepersons/partials/manageMoviePerson.html",
                 cache: false,
                 resolve: {
                     loginRequired: loginRequired,
-                    movieAuthor: function () {
+                    moviePerson: function () {
                         return null;
                     },
-                    movieAuthorsServices: function ($ocLazyLoad) {
+                    moviePersonsServices: function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
-                            name: "movieAuthorsServices",
+                            name: "moviePersonsServices",
                             files: [
-                                "app/movieauthors/movieAuthorsServices.module.js"
+                                "app/moviepersons/moviePersonsServices.module.js"
                             ]
                         });
                     },
-                    movieAuthors: function ($ocLazyLoad, movieAuthorsServices, movieAuthor) {
+                    moviePersons: function ($ocLazyLoad, moviePersonsServices, moviePerson) {
                         return $ocLazyLoad.load({
-                            name: "movieAuthors",
+                            name: "moviePersons",
                             files: [
-                                "app/movieauthors/movieAuthors.module.js"
+                                "app/moviepersons/moviePersons.module.js"
                             ]
                         });
                     }
 
                 }
             })
-            .state('updateMovieAuthor', {
-                url: "/movieauthor/update/:id",
-                controller: "movieAuthorManageCtrl",
+            .state('updateMoviePerson', {
+                url: "/movieperson/update/:id",
+                controller: "moviePersonManageCtrl",
                 controllerAs: "vm",
-                templateUrl: "app/movieauthors/partials/manageMovieAuthor.html",
+                templateUrl: "app/moviepersons/partials/manageMoviePerson.html",
                 cache: false,
                 resolve: {
                     loginRequired: loginRequired,
-                    movieAuthorsServices: function ($ocLazyLoad) {
+                    moviePersonsServices: function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
-                            name: "movieAuthorsServices",
+                            name: "moviePersonsServices",
                             files: [
-                                "app/movieauthors/movieAuthorsServices.module.js"
+                                "app/moviepersons/moviePersonsServices.module.js"
                             ]
                         });
                     },
-                    movieAuthor: function ($stateParams, movieAuthorsSvc) {
-                        return movieAuthorsSvc.getMovieAuthor($stateParams.id).then(function (data) {
+                    moviePerson: function ($stateParams, moviePersonsSvc) {
+                        return moviePersonsSvc.getMoviePerson($stateParams.id).then(function (data) {
                             return data.data;
                         });
                     },
-                    movieAuthors: function ($ocLazyLoad, movieAuthorsServices, movieAuthor) {
+                    moviePersons: function ($ocLazyLoad, moviePersonsServices, moviePerson) {
                         return $ocLazyLoad.load({
-                            name: "movieAuthors",
+                            name: "moviePersons",
                             files: [
-                                "app/movieauthors/movieAuthors.module.js"
+                                "app/moviepersons/moviePersons.module.js"
                             ]
                         });
                     }

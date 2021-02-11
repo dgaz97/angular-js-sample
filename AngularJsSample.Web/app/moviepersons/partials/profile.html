@@ -1,0 +1,67 @@
+﻿<h1 class="page-header">
+    {{vm.moviePerson.firstName}} {{vm.moviePerson.lastName}}
+    <div style="float:right">
+        <button type="button" class="btn btn-primary" ui-sref="updateMoviePerson({id:{{vm.moviePerson.id}}})">Uredi osobu</button>
+        <kendo-button id="deleteButton"
+                      k-options="deleteButtonOptions">Obriši osobu</kendo-button>
+    </div>
+</h1>
+<div class="container col-md-9" style="border: solid 1px black">
+    <div class="row" style="border: solid black; border-width:0 0 1px 0">
+        <h5>PODACI O OSOBI</h5>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            Ime:
+        </div>
+        <div class="row">
+            <span style="font-weight:bold">{{vm.moviePerson.firstName}}</span>
+        </div>
+        <div class="row">
+            Datum rođenja:
+        </div>
+        <div class="row">
+            <span style="font-weight:bold">{{vm.moviePerson.birthDate | date:"dd.MM.yyyy."}}</span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            Prezime:
+        </div>
+        <div class="row">
+            <span style="font-weight: bold">{{vm.moviePerson.lastName}}</span>
+        </div>
+        <div class="row">
+            Mjesto rođenja:
+        </div>
+        <div class="row">
+            <span style="font-weight: bold">{{vm.moviePerson.birthPlace}}</span>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            Kratka biografija
+        </div>
+        <div class="row">
+            <p>{{vm.moviePerson.biography}}</p>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="row">
+            IMDB url
+        </div>
+        <div class="row">
+            <a href="{{vm.moviePerson.imdbUrl}}">{{vm.moviePerson.imdbUrl}}</a>
+        </div>
+        <div class="row">
+            Popularnost
+        </div>
+        <div class="row">
+            <p style="font-weight: bold">#{{vm.moviePerson.popularity}}</p>
+        </div>
+    </div>
+</div>
+<div class="col-md-3">
+    <img src="{{vm.moviePerson.imageUrl}}" style="width:100%">
+</div>

@@ -29,21 +29,34 @@ namespace AngularJsSample.Repositories.DatabaseModel
     
         public virtual DbSet<UserInfo> UserInfoes { get; set; }
     
-        public virtual ObjectResult<MovieAuthor_Get_Result> MovieAuthor_Get(Nullable<int> id)
+        public virtual int MoviePerson_Delete(Nullable<int> moviePersonId, Nullable<int> userLastModified)
+        {
+            var moviePersonIdParameter = moviePersonId.HasValue ?
+                new ObjectParameter("MoviePersonId", moviePersonId) :
+                new ObjectParameter("MoviePersonId", typeof(int));
+    
+            var userLastModifiedParameter = userLastModified.HasValue ?
+                new ObjectParameter("UserLastModified", userLastModified) :
+                new ObjectParameter("UserLastModified", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MoviePerson_Delete", moviePersonIdParameter, userLastModifiedParameter);
+        }
+    
+        public virtual ObjectResult<MoviePerson_Get_Result> MoviePerson_Get(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("Id", id) :
                 new ObjectParameter("Id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MovieAuthor_Get_Result>("MovieAuthor_Get", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MoviePerson_Get_Result>("MoviePerson_Get", idParameter);
         }
     
-        public virtual ObjectResult<MovieAuthor_GetAll_Result> MovieAuthor_GetAll()
+        public virtual ObjectResult<MoviePerson_GetAll_Result> MoviePerson_GetAll()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MovieAuthor_GetAll_Result>("MovieAuthor_GetAll");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MoviePerson_GetAll_Result>("MoviePerson_GetAll");
         }
     
-        public virtual int MovieAuthor_Insert(Nullable<int> userId, string firstName, string lastName, Nullable<System.DateTime> birthDate, string birthPlace, string biography, string imdbUrl, string imageUrl, Nullable<int> popularity)
+        public virtual int MoviePerson_Insert(Nullable<int> userId, string firstName, string lastName, Nullable<System.DateTime> birthDate, string birthPlace, string biography, string imdbUrl, string imageUrl, Nullable<int> popularity)
         {
             var userIdParameter = userId.HasValue ?
                 new ObjectParameter("UserId", userId) :
@@ -81,27 +94,14 @@ namespace AngularJsSample.Repositories.DatabaseModel
                 new ObjectParameter("Popularity", popularity) :
                 new ObjectParameter("Popularity", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MovieAuthor_Insert", userIdParameter, firstNameParameter, lastNameParameter, birthDateParameter, birthPlaceParameter, biographyParameter, imdbUrlParameter, imageUrlParameter, popularityParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MoviePerson_Insert", userIdParameter, firstNameParameter, lastNameParameter, birthDateParameter, birthPlaceParameter, biographyParameter, imdbUrlParameter, imageUrlParameter, popularityParameter);
         }
     
-        public virtual int MovieAuthor_Delete(Nullable<int> movieAuthorId, Nullable<int> userLastModified)
+        public virtual int MoviePerson_Update(Nullable<int> moviePersonId, Nullable<int> userLastModified, string firstName, string lastName, Nullable<System.DateTime> birthDate, string birthPlace, string biography, string imdbUrl, string imageUrl, Nullable<int> popularity)
         {
-            var movieAuthorIdParameter = movieAuthorId.HasValue ?
-                new ObjectParameter("MovieAuthorId", movieAuthorId) :
-                new ObjectParameter("MovieAuthorId", typeof(int));
-    
-            var userLastModifiedParameter = userLastModified.HasValue ?
-                new ObjectParameter("UserLastModified", userLastModified) :
-                new ObjectParameter("UserLastModified", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MovieAuthor_Delete", movieAuthorIdParameter, userLastModifiedParameter);
-        }
-    
-        public virtual int MovieAuthor_Update(Nullable<int> movieAuthorId, Nullable<int> userLastModified, string firstName, string lastName, Nullable<System.DateTime> birthDate, string birthPlace, string biography, string imdbUrl, string imageUrl, Nullable<int> popularity)
-        {
-            var movieAuthorIdParameter = movieAuthorId.HasValue ?
-                new ObjectParameter("MovieAuthorId", movieAuthorId) :
-                new ObjectParameter("MovieAuthorId", typeof(int));
+            var moviePersonIdParameter = moviePersonId.HasValue ?
+                new ObjectParameter("MoviePersonId", moviePersonId) :
+                new ObjectParameter("MoviePersonId", typeof(int));
     
             var userLastModifiedParameter = userLastModified.HasValue ?
                 new ObjectParameter("UserLastModified", userLastModified) :
@@ -139,7 +139,7 @@ namespace AngularJsSample.Repositories.DatabaseModel
                 new ObjectParameter("Popularity", popularity) :
                 new ObjectParameter("Popularity", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MovieAuthor_Update", movieAuthorIdParameter, userLastModifiedParameter, firstNameParameter, lastNameParameter, birthDateParameter, birthPlaceParameter, biographyParameter, imdbUrlParameter, imageUrlParameter, popularityParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MoviePerson_Update", moviePersonIdParameter, userLastModifiedParameter, firstNameParameter, lastNameParameter, birthDateParameter, birthPlaceParameter, biographyParameter, imdbUrlParameter, imageUrlParameter, popularityParameter);
         }
     }
 }

@@ -1,0 +1,147 @@
+﻿<h1 class="page-header">
+    <span>{{vm.title?"Uredi film osobu":"Nova film osoba"}}</span>
+    <div style="float:right">
+        <button id="submit-button"
+                kendo-button type="submit"
+                form="personForm"
+                class="btn btn-primary">
+            Save
+        </button>
+        <button type="button"
+                class="btn btn-default"
+                ui-sref="moviePersonsOverview">
+            Cancel
+        </button>
+    </div>
+</h1>
+<div class="k-content">
+    <form name="personForm" id="personForm" class="col-lg-10 col-md-12"
+          angular-validator
+          ng-disabled="personForm.$invalid"
+          angular-validator-submit="submitForm()">
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <div class="">
+                    <label for="firstName" class="form-control">Ime</label>
+                </div>
+                <div class="">
+                    <input type="text" id="firstName" class="form-control"
+                           ng-model="vm.moviePerson.firstName"
+                           validate-on="dirty"
+                           required-message="'Ime mora biti ispunjeno'"
+                           required />
+                </div>
+            </div>
+            <div class="col-md-6 form-group">
+                <div class="">
+                    <label for="lastName" class="form-control">Prezime</label>
+                </div>
+                <div class="">
+                    <input type="text" id="lastName" class="form-control"
+                           ng-model="vm.moviePerson.lastName"
+                           validate-on="dirty"
+                           required-message="'Prezime mora biti ispunjeno'"
+                           required />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <div class="">
+                    <label for="birthDate" class="form-control">Datum rođenja</label>
+                </div>
+                <div class="">
+                    <input type="text" id="birthDate" class="form-control"
+                           kendo-date-picker
+                           validate-on="dirty"
+                           k-max="'{{vm.now}}'"
+                           k-min="'1800-01-01'"
+                           k-format="'yyyy-MM-dd'"
+                           ng-model="vm.moviePerson.birthDate"
+                           required-message="'Datum rođenja mora biti ispunjen'"
+                           required />
+                </div>
+            </div>
+            <div class="col-md-6 form-group">
+                <div class="">
+                    <label for="birthPlace" class="form-control">Mjesto rođenja</label>
+                </div>
+                <div class="">
+                    <input id="birthPlace" class="form-control"
+                           ng-model="vm.moviePerson.birthPlace"
+                           validate-on="dirty"
+                           required-message="'Mjesto rođenja mora biti ispunjeno'"
+                           required />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <div class="">
+                    <label for="biography" class="form-control">Opis</label>
+                </div>
+                <div class="">
+                    <textarea id="biography" class="form-control" style="max-width:100%;max-height:25%"
+                              ng-model="vm.moviePerson.biography"
+                              maxlength="2000" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <div class="">
+                    <label for="imageUrl" class="form-control">URL Slike</label>
+                </div>
+                <div class="">
+                    <input type="text" id="imageUrl" class="form-control"
+                           validate-on="dirty"
+                           validator="validateImageUrl(vm.moviePerson.imageUrl) === true"
+                           invalid-message="validateImageUrl(vm.moviePerson.imageUrl)"
+                           ng-model="vm.moviePerson.imageUrl" />
+                </div>
+                <div>
+                    <h6>Ako nije prazno, mora početi s http(s), a mora završiti s .jpg, .jpeg, .png ili .gif</h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <div class="">
+                    <label for="imdbUrl" class="form-control">IMDb URL</label>
+                </div>
+                <div class="">
+                    <input type="text" id="imdbUrl" class="form-control"
+                           ng-model="vm.moviePerson.imdbUrl"
+                           validate-on="dirty"
+                           validator="validateImdbUrl(vm.moviePerson.imdbUrl) === true"
+                           invalid-message="validateImdbUrl(vm.moviePerson.imdbUrl)"
+                           required
+                           required-message="'IMDb URL mora biti ispunjen'" />
+                </div>
+                <div>
+                    <h6>Mora biti IMDb URL, te mora početi s http(s)</h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <div class="">
+                    <label for="popularity" class="form-control">Popularnost</label>
+                </div>
+                <div class="col-md-12">
+                    <span>
+                        <input id="popularity" class="form-control" style="width:100%"
+                               kendo-numeric-text-box
+                               k-min="1"
+                               k-decimals="0"
+                               ng-model="vm.moviePerson.popularity"
+                               validate-on="dirty"
+                               required
+                               required-message="'Popularnost mora biti ispunjena'" />
+                    </span>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="col-lg-2 col-md-0"></div>
+</div>

@@ -65,18 +65,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AngularJsSampleDbModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\MovieAuthor_GetAll_Result.cs">
+    <Compile Include="DatabaseModel\MoviePerson_GetAll_Result.cs">
       <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\MovieAuthor_Get_Result.cs">
+    <Compile Include="DatabaseModel\MoviePerson_Get_Result.cs">
       <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\UserInfo.cs">
       <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Mapping\MovieAuthorsMapper.cs" />
+    <Compile Include="Mapping\MoviePersonsMapper.cs" />
     <Compile Include="Mapping\UserInfoMapper.cs" />
-    <Compile Include="MovieAuthors\MovieAuthorRepository.cs" />
+    <Compile Include="MoviePersons\MoviePersonRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\UserRepository.cs" />
   </ItemGroup>

@@ -48,6 +48,9 @@
     <Compile Include="Impl\MoviePersonService.cs" />
     <Compile Include="Impl\UserService.cs" />
     <Compile Include="IUserService.cs" />
+    <Compile Include="Mapping\MovieRatingsMapper.cs" />
+    <Compile Include="Mapping\MoviesMapper.cs" />
+    <Compile Include="Mapping\GenresMapper.cs" />
     <Compile Include="Mapping\MoviePersonsMapper.cs" />
     <Compile Include="Mapping\Profiles\CommonProfile.cs" />
     <Compile Include="Mapping\UsersMapper.cs" />

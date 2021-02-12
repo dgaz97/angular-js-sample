@@ -4,8 +4,6 @@ using AngularJsSample.Api.Models;
 using AngularJsSample.Services;
 using AngularJsSample.Services.Messaging.MoviePersons;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Http;
 

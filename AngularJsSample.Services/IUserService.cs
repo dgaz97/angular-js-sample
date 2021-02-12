@@ -1,5 +1,4 @@
 ﻿using AngularJsSample.Services.Messaging.Users;
-using AngularJsSample.Services.Messaging.Views.Users;
 
 namespace AngularJsSample.Services
 {

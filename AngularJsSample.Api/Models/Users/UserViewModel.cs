@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace AngularJsSample.Api.Models.Users
+﻿namespace AngularJsSample.Api.Models.Users
 {
     public class UserViewModel
     {

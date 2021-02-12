@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using AngularJsSample.Services.Messaging.Views.Users;
+﻿using AngularJsSample.Services.Messaging.Views.Users;
 using AngularJsSample.Api.Models.Users;
 
 namespace AngularJsSample.Api.Mapping.Users

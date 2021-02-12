@@ -1,10 +1,8 @@
 ﻿using AngularJsSample.Api.Mapping.Users;
 using AngularJsSample.Api.Models;
 using AngularJsSample.Services.Messaging.Views.MoviePersons;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace AngularJsSample.Api.Mapping.MoviePersons
 {

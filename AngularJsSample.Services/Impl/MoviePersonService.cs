@@ -2,11 +2,7 @@
 using AngularJsSample.Services.Mapping;
 using AngularJsSample.Services.Messaging.MoviePersons;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace AngularJsSample.Services.Impl
 {

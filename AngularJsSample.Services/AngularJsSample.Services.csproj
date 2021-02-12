@@ -77,6 +77,16 @@
     <Compile Include="Messaging\MoviePersons\Responses\GetMoviePersonResponse.cs" />
     <Compile Include="Messaging\MoviePersons\Requests\SaveMoviePersonRequest.cs" />
     <Compile Include="Messaging\MoviePersons\Responses\SaveMoviePersonResponse.cs" />
+    <Compile Include="Messaging\MovieRatings\Requests\GetAllMovieRatingsRequest.cs" />
+    <Compile Include="Messaging\MovieRatings\Requests\GetMovieRatingByMovieAndUserRequest.cs" />
+    <Compile Include="Messaging\MovieRatings\Requests\GetMovieRatingsByMovieRequest.cs" />
+    <Compile Include="Messaging\MovieRatings\Requests\GetMovieRatingsByUserRequest.cs" />
+    <Compile Include="Messaging\MovieRatings\Requests\SaveMovieRatingRequest.cs" />
+    <Compile Include="Messaging\MovieRatings\Responses\GetAllMovieRatingsResponse.cs" />
+    <Compile Include="Messaging\MovieRatings\Responses\GetMovieRatingByMovieAndUserResponse.cs" />
+    <Compile Include="Messaging\MovieRatings\Responses\GetMovieRatingsByMovieResponse.cs" />
+    <Compile Include="Messaging\MovieRatings\Responses\GetMovieRatingsByUserResponse.cs" />
+    <Compile Include="Messaging\MovieRatings\Responses\SaveMovieRatingResponse.cs" />
     <Compile Include="Messaging\Movies\Requests\AddGenreToMovieRequest.cs" />
     <Compile Include="Messaging\Movies\Requests\DeleteGenreFromMovieRequest.cs" />
     <Compile Include="Messaging\Movies\Requests\DeleteMovieRequest.cs" />
@@ -119,8 +129,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Messaging\MovieRatings\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

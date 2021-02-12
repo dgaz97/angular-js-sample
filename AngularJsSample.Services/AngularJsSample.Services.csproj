@@ -55,14 +55,28 @@
     <Compile Include="Mapping\Profiles\CommonProfile.cs" />
     <Compile Include="Mapping\UsersMapper.cs" />
     <Compile Include="Messaging\GenericErrorMessageFactory.cs" />
-    <Compile Include="Messaging\MoviePersons\DeleteMoviePersonRequest.cs" />
-    <Compile Include="Messaging\MoviePersons\DeleteMoviePersonResponse.cs" />
-    <Compile Include="Messaging\MoviePersons\GetAllMoviePersonsRequest.cs" />
-    <Compile Include="Messaging\MoviePersons\GetAllMoviePersonsResponse.cs" />
-    <Compile Include="Messaging\MoviePersons\GetMoviePersonRequest.cs" />
-    <Compile Include="Messaging\MoviePersons\GetMoviePersonResponse.cs" />
-    <Compile Include="Messaging\MoviePersons\SaveMoviePersonRequest.cs" />
-    <Compile Include="Messaging\MoviePersons\SaveMoviePersonResponse.cs" />
+    <Compile Include="Messaging\Genres\Requests\AddMovieToGenreRequest.cs" />
+    <Compile Include="Messaging\Genres\Requests\DeleteMovieFromGenreRequest.cs" />
+    <Compile Include="Messaging\Genres\Requests\DeleteGenreRequest.cs" />
+    <Compile Include="Messaging\Genres\Requests\FindGenreMoviesRequest.cs" />
+    <Compile Include="Messaging\Genres\Requests\GetGenreRequest.cs" />
+    <Compile Include="Messaging\Genres\Requests\SaveGenreRequest.cs" />
+    <Compile Include="Messaging\Genres\Responses\AddMovieToGenreResponse.cs" />
+    <Compile Include="Messaging\Genres\Responses\DeleteGenreResponse.cs" />
+    <Compile Include="Messaging\Genres\Responses\DeleteMovieFromGenreResponse.cs" />
+    <Compile Include="Messaging\Genres\Responses\FindGenreMoviesResponse.cs" />
+    <Compile Include="Messaging\Genres\Responses\GetGenreResponse.cs" />
+    <Compile Include="Messaging\Genres\Responses\GetAllGenresResponse.cs" />
+    <Compile Include="Messaging\Genres\Requests\GetAllGenresRequest.cs" />
+    <Compile Include="Messaging\Genres\Responses\SaveGenreResponse.cs" />
+    <Compile Include="Messaging\MoviePersons\Requests\DeleteMoviePersonRequest.cs" />
+    <Compile Include="Messaging\MoviePersons\Responses\DeleteMoviePersonResponse.cs" />
+    <Compile Include="Messaging\MoviePersons\Requests\GetAllMoviePersonsRequest.cs" />
+    <Compile Include="Messaging\MoviePersons\Responses\GetAllMoviePersonsResponse.cs" />
+    <Compile Include="Messaging\MoviePersons\Requests\GetMoviePersonRequest.cs" />
+    <Compile Include="Messaging\MoviePersons\Responses\GetMoviePersonResponse.cs" />
+    <Compile Include="Messaging\MoviePersons\Requests\SaveMoviePersonRequest.cs" />
+    <Compile Include="Messaging\MoviePersons\Responses\SaveMoviePersonResponse.cs" />
     <Compile Include="Messaging\RequestBase.cs" />
     <Compile Include="Messaging\ResponseBase.cs" />
     <Compile Include="Messaging\Views\Genres\Genre.cs" />
@@ -91,6 +105,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Messaging\MovieRatings\" />
+    <Folder Include="Messaging\Movies\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

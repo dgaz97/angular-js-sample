@@ -104,12 +104,15 @@
     <Compile Include="DatabaseModel\UserInfo.cs">
       <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Genres\GenreRepository.cs" />
     <Compile Include="Mapping\GenresMapper.cs" />
     <Compile Include="Mapping\MoviePersonsMapper.cs" />
     <Compile Include="Mapping\MovieRatingsMapper.cs" />
     <Compile Include="Mapping\MoviesMapper.cs" />
     <Compile Include="Mapping\UserInfoMapper.cs" />
     <Compile Include="MoviePersons\MoviePersonRepository.cs" />
+    <Compile Include="MovieRatings\MovieRatingRepository.cs" />
+    <Compile Include="Movies\MovieRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\UserRepository.cs" />
   </ItemGroup>
@@ -151,10 +154,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Genres\" />
-    <Folder Include="MovieRatings\" />
-    <Folder Include="Movies\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

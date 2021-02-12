@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AngularJsSample.Model.Movies
 {
-    interface IMovieRepository:IRepository<Movie, int>
+    public interface IMovieRepository:IRepository<Movie, int>
     {
     }
 }

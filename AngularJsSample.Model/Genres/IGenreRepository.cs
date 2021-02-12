@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AngularJsSample.Model.Genres
 {
-    interface IGenreRepository:IRepository<Genre, int>
+    public interface IGenreRepository:IRepository<Genre, int>
     {
     }
 }

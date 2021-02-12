@@ -2,7 +2,7 @@
 
 namespace AngularJsSample.Services.Messaging
 {
-    public class ResponseBase<T>
+    public class ResponseBase<T> where T : RequestBase
     {
         public T Request { get; set; }
         public Guid ResponseToken { get; set; }

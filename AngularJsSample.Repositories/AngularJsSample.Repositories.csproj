@@ -65,16 +65,49 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AngularJsSampleDbModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseModel\Genre_GetAll_Result.cs">
+      <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\Genre_GetMovies_Result.cs">
+      <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\Genre_Get_Result.cs">
+      <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseModel\MoviePerson_GetAll_Result.cs">
       <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\MoviePerson_Get_Result.cs">
       <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseModel\MovieRating_GetAll_Result.cs">
+      <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\MovieRating_GetByMovie_Result.cs">
+      <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\MovieRating_GetByUserAndMovie_Result.cs">
+      <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\MovieRating_GetByUser_Result.cs">
+      <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\Movie_GetAll_Result.cs">
+      <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\Movie_GetGenres_Result.cs">
+      <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\Movie_Get_Result.cs">
+      <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseModel\UserInfo.cs">
       <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Mapping\GenresMapper.cs" />
     <Compile Include="Mapping\MoviePersonsMapper.cs" />
+    <Compile Include="Mapping\MovieRatingsMapper.cs" />
+    <Compile Include="Mapping\MoviesMapper.cs" />
     <Compile Include="Mapping\UserInfoMapper.cs" />
     <Compile Include="MoviePersons\MoviePersonRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,6 +150,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Genres\" />
+    <Folder Include="MovieRatings\" />
+    <Folder Include="Movies\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

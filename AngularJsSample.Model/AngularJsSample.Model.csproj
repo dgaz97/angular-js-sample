@@ -41,9 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Genres\Genre.cs" />
+    <Compile Include="Genres\IGenreRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="MoviePersons\IMoviePersonRepository.cs" />
     <Compile Include="MoviePersons\MoviePerson.cs" />
+    <Compile Include="MovieRatings\IMovieRatingRepository.cs" />
+    <Compile Include="MovieRatings\MovieRating.cs" />
+    <Compile Include="Movies\IMovieRepository.cs" />
+    <Compile Include="Movies\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\IUserRepository.cs" />
     <Compile Include="Users\UserInfo.cs" />
@@ -54,5 +60,6 @@
       <Name>AngularJsSample.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

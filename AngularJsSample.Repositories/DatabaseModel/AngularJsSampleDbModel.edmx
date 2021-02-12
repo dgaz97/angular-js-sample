@@ -14,6 +14,76 @@
           <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <Function Name="Genre_AddMovie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Genre.AddMovie">
+          <Parameter Name="MovieId" Type="int" Mode="In" />
+          <Parameter Name="GenreId" Type="int" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Genre_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Genre.Delete">
+          <Parameter Name="GenreId" Type="int" Mode="In" />
+          <Parameter Name="UserLastModifiedId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Genre_DeleteMovie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Genre.DeleteMovie">
+          <Parameter Name="MovieId" Type="int" Mode="In" />
+          <Parameter Name="GenreId" Type="int" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Genre_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Genre.Get">
+          <Parameter Name="GenreId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Genre_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Genre.GetAll" />
+        <Function Name="Genre_GetMovies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Genre.GetMovies">
+          <Parameter Name="GenreId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Genre_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Genre.Insert">
+          <Parameter Name="UserCreatedId" Type="int" Mode="In" />
+          <Parameter Name="GenreName" Type="nvarchar" Mode="In" />
+          <Parameter Name="GenreDescription" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Genre_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Genre.Update">
+          <Parameter Name="GenreId" Type="int" Mode="In" />
+          <Parameter Name="UserLastModifiedId" Type="int" Mode="In" />
+          <Parameter Name="GenreName" Type="nvarchar" Mode="In" />
+          <Parameter Name="GenreDescription" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Movie_AddGenre" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Movie.AddGenre">
+          <Parameter Name="MovieId" Type="int" Mode="In" />
+          <Parameter Name="GenreId" Type="int" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Movie_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Movie.Delete">
+          <Parameter Name="UserModifiedId" Type="int" Mode="In" />
+          <Parameter Name="MovieId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Movie_DeleteGenre" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Movie.DeleteGenre">
+          <Parameter Name="MovieId" Type="int" Mode="In" />
+          <Parameter Name="GenreId" Type="int" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Movie_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Movie.Get">
+          <Parameter Name="MovieId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Movie_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Movie.GetAll" />
+        <Function Name="Movie_GetGenres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Movie.GetGenres">
+          <Parameter Name="MovieId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Movie_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Movie.Insert">
+          <Parameter Name="UserCreatedId" Type="int" Mode="In" />
+          <Parameter Name="MovieName" Type="nvarchar" Mode="In" />
+          <Parameter Name="MovieDescription" Type="nvarchar" Mode="In" />
+          <Parameter Name="MovieReleaseDate" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="MoviePosterUrl" Type="nvarchar" Mode="In" />
+          <Parameter Name="MovieImdbUrl" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Movie_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Movie.Update">
+          <Parameter Name="UserModifiedId" Type="int" Mode="In" />
+          <Parameter Name="MovieId" Type="int" Mode="In" />
+          <Parameter Name="MovieName" Type="nvarchar" Mode="In" />
+          <Parameter Name="MovieDescription" Type="nvarchar" Mode="In" />
+          <Parameter Name="MovieReleaseDate" Type="datetimeoffset" Mode="In" />
+          <Parameter Name="MoviePosterUrl" Type="nvarchar" Mode="In" />
+          <Parameter Name="MovieImdbUrl" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="MoviePerson_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MoviePerson.Delete">
           <Parameter Name="MoviePersonId" Type="int" Mode="In" />
           <Parameter Name="UserLastModified" Type="int" Mode="In" />
@@ -45,6 +115,22 @@
           <Parameter Name="ImageUrl" Type="nvarchar" Mode="In" />
           <Parameter Name="Popularity" Type="int" Mode="In" />
         </Function>
+        <Function Name="MovieRating_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieRating.GetAll" />
+        <Function Name="MovieRating_GetByMovie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieRating.GetByMovie">
+          <Parameter Name="MovieId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MovieRating_GetByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieRating.GetByUser">
+          <Parameter Name="UserCreatedId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MovieRating_GetByUserAndMovie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieRating.GetByUserAndMovie">
+          <Parameter Name="UserCreatedId" Type="int" Mode="In" />
+          <Parameter Name="MovieId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MovieRating_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieRating.Insert">
+          <Parameter Name="UserCreatedId" Type="int" Mode="In" />
+          <Parameter Name="MovieId" Type="int" Mode="In" />
+          <Parameter Name="UserRating" Type="decimal" Mode="In" />
+        </Function>
         <EntityContainer Name="AngularJsSampleDbModelStoreContainer">
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -63,12 +149,75 @@
         </EntityType>
         <EntityContainer Name="AngularJsSampleDbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="UserInfoes" EntityType="Self.UserInfo" />
+          <FunctionImport Name="Genre_AddMovie">
+            <Parameter Name="MovieId" Mode="In" Type="Int32" />
+            <Parameter Name="GenreId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Genre_Delete">
+            <Parameter Name="GenreId" Mode="In" Type="Int32" />
+            <Parameter Name="UserLastModifiedId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Genre_DeleteMovie">
+            <Parameter Name="MovieId" Mode="In" Type="Int32" />
+            <Parameter Name="GenreId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Genre_Get" ReturnType="Collection(AngularJsSampleDbModel.Genre_Get_Result)">
+          <Parameter Name="GenreId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Genre_GetAll" ReturnType="Collection(AngularJsSampleDbModel.Genre_GetAll_Result)" />
+          <FunctionImport Name="Genre_Insert">
+            <Parameter Name="UserCreatedId" Mode="In" Type="Int32" />
+            <Parameter Name="GenreName" Mode="In" Type="String" />
+            <Parameter Name="GenreDescription" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Genre_Update">
+            <Parameter Name="GenreId" Mode="In" Type="Int32" />
+            <Parameter Name="UserLastModifiedId" Mode="In" Type="Int32" />
+            <Parameter Name="GenreName" Mode="In" Type="String" />
+            <Parameter Name="GenreDescription" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Movie_AddGenre">
+            <Parameter Name="MovieId" Mode="In" Type="Int32" />
+            <Parameter Name="GenreId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Movie_Delete">
+            <Parameter Name="UserModifiedId" Mode="In" Type="Int32" />
+            <Parameter Name="MovieId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Movie_DeleteGenre">
+            <Parameter Name="MovieId" Mode="In" Type="Int32" />
+            <Parameter Name="GenreId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Movie_GetGenres" ReturnType="Collection(AngularJsSampleDbModel.Movie_GetGenres_Result)">
+          <Parameter Name="MovieId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Movie_Insert">
+            <Parameter Name="UserCreatedId" Mode="In" Type="Int32" />
+            <Parameter Name="MovieName" Mode="In" Type="String" />
+            <Parameter Name="MovieDescription" Mode="In" Type="String" />
+            <Parameter Name="MovieReleaseDate" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="MoviePosterUrl" Mode="In" Type="String" />
+            <Parameter Name="MovieImdbUrl" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Movie_Update">
+            <Parameter Name="UserModifiedId" Mode="In" Type="Int32" />
+            <Parameter Name="MovieId" Mode="In" Type="Int32" />
+            <Parameter Name="MovieName" Mode="In" Type="String" />
+            <Parameter Name="MovieDescription" Mode="In" Type="String" />
+            <Parameter Name="MovieReleaseDate" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="MoviePosterUrl" Mode="In" Type="String" />
+            <Parameter Name="MovieImdbUrl" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="MoviePerson_Delete">
             <Parameter Name="MoviePersonId" Mode="In" Type="Int32" />
             <Parameter Name="UserLastModified" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="MoviePerson_Get" ReturnType="Collection(AngularJsSampleDbModel.MoviePerson_Get_Result)">
-            <Parameter Name="Id" Mode="In" Type="Int32" />
+          <Parameter Name="Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="MoviePerson_GetAll" ReturnType="Collection(AngularJsSampleDbModel.MoviePerson_GetAll_Result)" />
           <FunctionImport Name="MoviePerson_Insert">
@@ -94,7 +243,81 @@
             <Parameter Name="ImageUrl" Mode="In" Type="String" />
             <Parameter Name="Popularity" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="MovieRating_Insert">
+            <Parameter Name="UserCreatedId" Mode="In" Type="Int32" />
+            <Parameter Name="MovieId" Mode="In" Type="Int32" />
+            <Parameter Name="UserRating" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="Genre_GetMovies" ReturnType="Collection(AngularJsSampleDbModel.Genre_GetMovies_Result)">
+          <Parameter Name="GenreId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Movie_Get" ReturnType="Collection(AngularJsSampleDbModel.Movie_Get_Result)">
+          <Parameter Name="MovieId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Movie_GetAll" ReturnType="Collection(AngularJsSampleDbModel.Movie_GetAll_Result)" />
+          <FunctionImport Name="MovieRating_GetAll" ReturnType="Collection(AngularJsSampleDbModel.MovieRating_GetAll_Result)" />
+          <FunctionImport Name="MovieRating_GetByMovie" ReturnType="Collection(AngularJsSampleDbModel.MovieRating_GetByMovie_Result)">
+            <Parameter Name="MovieId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MovieRating_GetByUser" ReturnType="Collection(AngularJsSampleDbModel.MovieRating_GetByUser_Result)">
+            <Parameter Name="UserCreatedId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MovieRating_GetByUserAndMovie" ReturnType="Collection(AngularJsSampleDbModel.MovieRating_GetByUserAndMovie_Result)">
+            <Parameter Name="UserCreatedId" Mode="In" Type="Int32" />
+            <Parameter Name="MovieId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="Genre_Get_Result">
+          <Property Type="Int32" Name="GenreId" Nullable="false" />
+          <Property Type="Int32" Name="UserCreated" Nullable="true" />
+          <Property Type="String" Name="UserCreatedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserCreatedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="UserLastModified" Nullable="true" />
+          <Property Type="String" Name="UserLastModifiedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserLastModifiedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="DateTimeOffset" Name="DateCreated" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="DateLastModified" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="1000" />
+        </ComplexType>
+        <ComplexType Name="Genre_GetAll_Result">
+          <Property Type="Int32" Name="GenreId" Nullable="false" />
+          <Property Type="Int32" Name="UserCreated" Nullable="true" />
+          <Property Type="String" Name="UserCreatedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserCreatedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="UserLastModified" Nullable="true" />
+          <Property Type="String" Name="UserLastModifiedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserLastModifiedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="DateTimeOffset" Name="DateCreated" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="DateLastModified" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="1000" />
+        </ComplexType>
+        <ComplexType Name="Movie_GetGenres_Result">
+          <Property Type="Int32" Name="GenreId" Nullable="false" />
+          <Property Type="Int32" Name="UserCreated" Nullable="true" />
+          <Property Type="String" Name="UserCreatedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserCreatedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="UserLastModified" Nullable="true" />
+          <Property Type="String" Name="UserLastModifiedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserLastModifiedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="DateTimeOffset" Name="DateCreated" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="DateLastModified" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="1000" />
+        </ComplexType>
         <ComplexType Name="MoviePerson_Get_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="Int32" Name="UserCreated" Nullable="true" />
@@ -141,6 +364,133 @@
           <Property Type="String" Name="ImdbUrl" Nullable="true" MaxLength="100" />
           <Property Type="Int32" Name="Popularity" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="Genre_GetMovies_Result">
+          <Property Type="Int32" Name="MovieId" Nullable="false" />
+          <Property Type="Int32" Name="UserCreated" Nullable="true" />
+          <Property Type="String" Name="UserCreatedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserCreatedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="UserLastModified" Nullable="true" />
+          <Property Type="String" Name="UserLastModifiedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserLastModifiedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="DateTimeOffset" Name="MovieDateCreated" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="MovieDateLastModified" Nullable="true" />
+          <Property Type="String" Name="MovieName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="MovieDescription" Nullable="true" MaxLength="2000" />
+          <Property Type="DateTime" Name="MovieReleaseDate" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="MovieRating" Nullable="false" Precision="18" Scale="1" />
+          <Property Type="String" Name="MoviePosterUrl" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="MovieImdbUrl" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="Movie_Get_Result">
+          <Property Type="Int32" Name="MovieId" Nullable="false" />
+          <Property Type="Int32" Name="UserCreated" Nullable="true" />
+          <Property Type="String" Name="UserCreatedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserCreatedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="UserLastModified" Nullable="true" />
+          <Property Type="String" Name="UserLastModifiedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserLastModifiedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="DateTimeOffset" Name="MovieDateCreated" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="MovieDateLastModified" Nullable="true" />
+          <Property Type="String" Name="MovieName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="MovieDescription" Nullable="true" MaxLength="2000" />
+          <Property Type="DateTime" Name="MovieReleaseDate" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="MovieRating" Nullable="false" Precision="18" Scale="1" />
+          <Property Type="String" Name="MoviePosterUrl" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="MovieImdbUrl" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="Movie_GetAll_Result">
+          <Property Type="Int32" Name="MovieId" Nullable="false" />
+          <Property Type="Int32" Name="UserCreated" Nullable="true" />
+          <Property Type="String" Name="UserCreatedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserCreatedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="UserLastModified" Nullable="true" />
+          <Property Type="String" Name="UserLastModifiedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserLastModifiedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="DateTimeOffset" Name="MovieDateCreated" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="MovieDateLastModified" Nullable="true" />
+          <Property Type="String" Name="MovieName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="MovieDescription" Nullable="true" MaxLength="2000" />
+          <Property Type="DateTime" Name="MovieReleaseDate" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="MovieRating" Nullable="false" Precision="18" Scale="1" />
+          <Property Type="String" Name="MoviePosterUrl" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="MovieImdbUrl" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="MovieRating_GetAll_Result">
+          <Property Type="Int32" Name="MovieId" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="DateCreated" Nullable="true" />
+          <Property Type="Decimal" Name="UserRating" Nullable="false" Precision="18" Scale="1" />
+          <Property Type="Int32" Name="UserCreated" Nullable="false" />
+          <Property Type="String" Name="UserCreatedFirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedLastName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedFullName" Nullable="false" MaxLength="101" />
+          <Property Type="String" Name="UserCreatedEmail" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="MovieName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="MovieDescription" Nullable="true" MaxLength="2000" />
+          <Property Type="DateTime" Name="MovieReleaseDate" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="MovieRating" Nullable="false" Precision="18" Scale="1" />
+          <Property Type="String" Name="MoviePosterUrl" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="MovieImdbUrl" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="MovieRating_GetByMovie_Result">
+          <Property Type="Int32" Name="MovieId" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="DateCreated" Nullable="true" />
+          <Property Type="Decimal" Name="UserRating" Nullable="false" Precision="18" Scale="1" />
+          <Property Type="Int32" Name="UserCreated" Nullable="false" />
+          <Property Type="String" Name="UserCreatedFirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedLastName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedFullName" Nullable="false" MaxLength="101" />
+          <Property Type="String" Name="UserCreatedEmail" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="MovieName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="MovieDescription" Nullable="true" MaxLength="2000" />
+          <Property Type="DateTime" Name="MovieReleaseDate" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="MovieRating" Nullable="false" Precision="18" Scale="1" />
+          <Property Type="String" Name="MoviePosterUrl" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="MovieImdbUrl" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="MovieRating_GetByUser_Result">
+          <Property Type="Int32" Name="MovieId" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="DateCreated" Nullable="true" />
+          <Property Type="Decimal" Name="UserRating" Nullable="false" Precision="18" Scale="1" />
+          <Property Type="Int32" Name="UserCreated" Nullable="false" />
+          <Property Type="String" Name="UserCreatedFirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedLastName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedFullName" Nullable="false" MaxLength="101" />
+          <Property Type="String" Name="UserCreatedEmail" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="MovieName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="MovieDescription" Nullable="true" MaxLength="2000" />
+          <Property Type="DateTime" Name="MovieReleaseDate" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="MovieRating" Nullable="false" Precision="18" Scale="1" />
+          <Property Type="String" Name="MoviePosterUrl" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="MovieImdbUrl" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="MovieRating_GetByUserAndMovie_Result">
+          <Property Type="Int32" Name="MovieId" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="DateCreated" Nullable="true" />
+          <Property Type="Decimal" Name="UserRating" Nullable="false" Precision="18" Scale="1" />
+          <Property Type="Int32" Name="UserCreated" Nullable="false" />
+          <Property Type="String" Name="UserCreatedFirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedLastName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedFullName" Nullable="false" MaxLength="101" />
+          <Property Type="String" Name="UserCreatedEmail" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="MovieName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="MovieDescription" Nullable="true" MaxLength="2000" />
+          <Property Type="DateTime" Name="MovieReleaseDate" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="MovieRating" Nullable="false" Precision="18" Scale="1" />
+          <Property Type="String" Name="MoviePosterUrl" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="MovieImdbUrl" Nullable="false" MaxLength="100" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -157,6 +507,79 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Genre_AddMovie" FunctionName="AngularJsSampleDbModel.Store.Genre_AddMovie" />
+          <FunctionImportMapping FunctionImportName="Genre_Delete" FunctionName="AngularJsSampleDbModel.Store.Genre_Delete" />
+          <FunctionImportMapping FunctionImportName="Genre_DeleteMovie" FunctionName="AngularJsSampleDbModel.Store.Genre_DeleteMovie" />
+          <FunctionImportMapping FunctionImportName="Genre_Get" FunctionName="AngularJsSampleDbModel.Store.Genre_Get">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AngularJsSampleDbModel.Genre_Get_Result">
+                <ScalarProperty Name="GenreId" ColumnName="GenreId" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="UserCreatedFirstName" ColumnName="UserCreatedFirstName" />
+                <ScalarProperty Name="UserCreatedLastName" ColumnName="UserCreatedLastName" />
+                <ScalarProperty Name="UserCreatedFullName" ColumnName="UserCreatedFullName" />
+                <ScalarProperty Name="UserCreatedEmail" ColumnName="UserCreatedEmail" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="UserLastModifiedFirstName" ColumnName="UserLastModifiedFirstName" />
+                <ScalarProperty Name="UserLastModifiedLastName" ColumnName="UserLastModifiedLastName" />
+                <ScalarProperty Name="UserLastModifiedFullName" ColumnName="UserLastModifiedFullName" />
+                <ScalarProperty Name="UserLastModifiedEmail" ColumnName="UserLastModifiedEmail" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Genre_GetAll" FunctionName="AngularJsSampleDbModel.Store.Genre_GetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AngularJsSampleDbModel.Genre_GetAll_Result">
+                <ScalarProperty Name="GenreId" ColumnName="GenreId" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="UserCreatedFirstName" ColumnName="UserCreatedFirstName" />
+                <ScalarProperty Name="UserCreatedLastName" ColumnName="UserCreatedLastName" />
+                <ScalarProperty Name="UserCreatedFullName" ColumnName="UserCreatedFullName" />
+                <ScalarProperty Name="UserCreatedEmail" ColumnName="UserCreatedEmail" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="UserLastModifiedFirstName" ColumnName="UserLastModifiedFirstName" />
+                <ScalarProperty Name="UserLastModifiedLastName" ColumnName="UserLastModifiedLastName" />
+                <ScalarProperty Name="UserLastModifiedFullName" ColumnName="UserLastModifiedFullName" />
+                <ScalarProperty Name="UserLastModifiedEmail" ColumnName="UserLastModifiedEmail" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Genre_Insert" FunctionName="AngularJsSampleDbModel.Store.Genre_Insert" />
+          <FunctionImportMapping FunctionImportName="Genre_Update" FunctionName="AngularJsSampleDbModel.Store.Genre_Update" />
+          <FunctionImportMapping FunctionImportName="Movie_AddGenre" FunctionName="AngularJsSampleDbModel.Store.Movie_AddGenre" />
+          <FunctionImportMapping FunctionImportName="Movie_Delete" FunctionName="AngularJsSampleDbModel.Store.Movie_Delete" />
+          <FunctionImportMapping FunctionImportName="Movie_DeleteGenre" FunctionName="AngularJsSampleDbModel.Store.Movie_DeleteGenre" />
+          <FunctionImportMapping FunctionImportName="Movie_GetGenres" FunctionName="AngularJsSampleDbModel.Store.Movie_GetGenres">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AngularJsSampleDbModel.Movie_GetGenres_Result">
+                <ScalarProperty Name="GenreId" ColumnName="GenreId" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="UserCreatedFirstName" ColumnName="UserCreatedFirstName" />
+                <ScalarProperty Name="UserCreatedLastName" ColumnName="UserCreatedLastName" />
+                <ScalarProperty Name="UserCreatedFullName" ColumnName="UserCreatedFullName" />
+                <ScalarProperty Name="UserCreatedEmail" ColumnName="UserCreatedEmail" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="UserLastModifiedFirstName" ColumnName="UserLastModifiedFirstName" />
+                <ScalarProperty Name="UserLastModifiedLastName" ColumnName="UserLastModifiedLastName" />
+                <ScalarProperty Name="UserLastModifiedFullName" ColumnName="UserLastModifiedFullName" />
+                <ScalarProperty Name="UserLastModifiedEmail" ColumnName="UserLastModifiedEmail" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Movie_Insert" FunctionName="AngularJsSampleDbModel.Store.Movie_Insert" />
+          <FunctionImportMapping FunctionImportName="Movie_Update" FunctionName="AngularJsSampleDbModel.Store.Movie_Update" />
           <FunctionImportMapping FunctionImportName="MoviePerson_Delete" FunctionName="AngularJsSampleDbModel.Store.MoviePerson_Delete" />
           <FunctionImportMapping FunctionImportName="MoviePerson_Get" FunctionName="AngularJsSampleDbModel.Store.MoviePerson_Get">
             <ResultMapping>
@@ -214,6 +637,162 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="MoviePerson_Insert" FunctionName="AngularJsSampleDbModel.Store.MoviePerson_Insert" />
           <FunctionImportMapping FunctionImportName="MoviePerson_Update" FunctionName="AngularJsSampleDbModel.Store.MoviePerson_Update" />
+          <FunctionImportMapping FunctionImportName="MovieRating_Insert" FunctionName="AngularJsSampleDbModel.Store.MovieRating_Insert" />
+          <FunctionImportMapping FunctionImportName="Genre_GetMovies" FunctionName="AngularJsSampleDbModel.Store.Genre_GetMovies">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AngularJsSampleDbModel.Genre_GetMovies_Result">
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="UserCreatedFirstName" ColumnName="UserCreatedFirstName" />
+                <ScalarProperty Name="UserCreatedLastName" ColumnName="UserCreatedLastName" />
+                <ScalarProperty Name="UserCreatedFullName" ColumnName="UserCreatedFullName" />
+                <ScalarProperty Name="UserCreatedEmail" ColumnName="UserCreatedEmail" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="UserLastModifiedFirstName" ColumnName="UserLastModifiedFirstName" />
+                <ScalarProperty Name="UserLastModifiedLastName" ColumnName="UserLastModifiedLastName" />
+                <ScalarProperty Name="UserLastModifiedFullName" ColumnName="UserLastModifiedFullName" />
+                <ScalarProperty Name="UserLastModifiedEmail" ColumnName="UserLastModifiedEmail" />
+                <ScalarProperty Name="MovieDateCreated" ColumnName="MovieDateCreated" />
+                <ScalarProperty Name="MovieDateLastModified" ColumnName="MovieDateLastModified" />
+                <ScalarProperty Name="MovieName" ColumnName="MovieName" />
+                <ScalarProperty Name="MovieDescription" ColumnName="MovieDescription" />
+                <ScalarProperty Name="MovieReleaseDate" ColumnName="MovieReleaseDate" />
+                <ScalarProperty Name="MovieRating" ColumnName="MovieRating" />
+                <ScalarProperty Name="MoviePosterUrl" ColumnName="MoviePosterUrl" />
+                <ScalarProperty Name="MovieImdbUrl" ColumnName="MovieImdbUrl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Movie_Get" FunctionName="AngularJsSampleDbModel.Store.Movie_Get">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AngularJsSampleDbModel.Movie_Get_Result">
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="UserCreatedFirstName" ColumnName="UserCreatedFirstName" />
+                <ScalarProperty Name="UserCreatedLastName" ColumnName="UserCreatedLastName" />
+                <ScalarProperty Name="UserCreatedFullName" ColumnName="UserCreatedFullName" />
+                <ScalarProperty Name="UserCreatedEmail" ColumnName="UserCreatedEmail" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="UserLastModifiedFirstName" ColumnName="UserLastModifiedFirstName" />
+                <ScalarProperty Name="UserLastModifiedLastName" ColumnName="UserLastModifiedLastName" />
+                <ScalarProperty Name="UserLastModifiedFullName" ColumnName="UserLastModifiedFullName" />
+                <ScalarProperty Name="UserLastModifiedEmail" ColumnName="UserLastModifiedEmail" />
+                <ScalarProperty Name="MovieDateCreated" ColumnName="MovieDateCreated" />
+                <ScalarProperty Name="MovieDateLastModified" ColumnName="MovieDateLastModified" />
+                <ScalarProperty Name="MovieName" ColumnName="MovieName" />
+                <ScalarProperty Name="MovieDescription" ColumnName="MovieDescription" />
+                <ScalarProperty Name="MovieReleaseDate" ColumnName="MovieReleaseDate" />
+                <ScalarProperty Name="MovieRating" ColumnName="MovieRating" />
+                <ScalarProperty Name="MoviePosterUrl" ColumnName="MoviePosterUrl" />
+                <ScalarProperty Name="MovieImdbUrl" ColumnName="MovieImdbUrl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Movie_GetAll" FunctionName="AngularJsSampleDbModel.Store.Movie_GetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AngularJsSampleDbModel.Movie_GetAll_Result">
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="UserCreatedFirstName" ColumnName="UserCreatedFirstName" />
+                <ScalarProperty Name="UserCreatedLastName" ColumnName="UserCreatedLastName" />
+                <ScalarProperty Name="UserCreatedFullName" ColumnName="UserCreatedFullName" />
+                <ScalarProperty Name="UserCreatedEmail" ColumnName="UserCreatedEmail" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="UserLastModifiedFirstName" ColumnName="UserLastModifiedFirstName" />
+                <ScalarProperty Name="UserLastModifiedLastName" ColumnName="UserLastModifiedLastName" />
+                <ScalarProperty Name="UserLastModifiedFullName" ColumnName="UserLastModifiedFullName" />
+                <ScalarProperty Name="UserLastModifiedEmail" ColumnName="UserLastModifiedEmail" />
+                <ScalarProperty Name="MovieDateCreated" ColumnName="MovieDateCreated" />
+                <ScalarProperty Name="MovieDateLastModified" ColumnName="MovieDateLastModified" />
+                <ScalarProperty Name="MovieName" ColumnName="MovieName" />
+                <ScalarProperty Name="MovieDescription" ColumnName="MovieDescription" />
+                <ScalarProperty Name="MovieReleaseDate" ColumnName="MovieReleaseDate" />
+                <ScalarProperty Name="MovieRating" ColumnName="MovieRating" />
+                <ScalarProperty Name="MoviePosterUrl" ColumnName="MoviePosterUrl" />
+                <ScalarProperty Name="MovieImdbUrl" ColumnName="MovieImdbUrl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MovieRating_GetAll" FunctionName="AngularJsSampleDbModel.Store.MovieRating_GetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AngularJsSampleDbModel.MovieRating_GetAll_Result">
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="UserRating" ColumnName="UserRating" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="UserCreatedFirstName" ColumnName="UserCreatedFirstName" />
+                <ScalarProperty Name="UserCreatedLastName" ColumnName="UserCreatedLastName" />
+                <ScalarProperty Name="UserCreatedFullName" ColumnName="UserCreatedFullName" />
+                <ScalarProperty Name="UserCreatedEmail" ColumnName="UserCreatedEmail" />
+                <ScalarProperty Name="MovieName" ColumnName="MovieName" />
+                <ScalarProperty Name="MovieDescription" ColumnName="MovieDescription" />
+                <ScalarProperty Name="MovieReleaseDate" ColumnName="MovieReleaseDate" />
+                <ScalarProperty Name="MovieRating" ColumnName="MovieRating" />
+                <ScalarProperty Name="MoviePosterUrl" ColumnName="MoviePosterUrl" />
+                <ScalarProperty Name="MovieImdbUrl" ColumnName="MovieImdbUrl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MovieRating_GetByMovie" FunctionName="AngularJsSampleDbModel.Store.MovieRating_GetByMovie">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AngularJsSampleDbModel.MovieRating_GetByMovie_Result">
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="UserRating" ColumnName="UserRating" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="UserCreatedFirstName" ColumnName="UserCreatedFirstName" />
+                <ScalarProperty Name="UserCreatedLastName" ColumnName="UserCreatedLastName" />
+                <ScalarProperty Name="UserCreatedFullName" ColumnName="UserCreatedFullName" />
+                <ScalarProperty Name="UserCreatedEmail" ColumnName="UserCreatedEmail" />
+                <ScalarProperty Name="MovieName" ColumnName="MovieName" />
+                <ScalarProperty Name="MovieDescription" ColumnName="MovieDescription" />
+                <ScalarProperty Name="MovieReleaseDate" ColumnName="MovieReleaseDate" />
+                <ScalarProperty Name="MovieRating" ColumnName="MovieRating" />
+                <ScalarProperty Name="MoviePosterUrl" ColumnName="MoviePosterUrl" />
+                <ScalarProperty Name="MovieImdbUrl" ColumnName="MovieImdbUrl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MovieRating_GetByUser" FunctionName="AngularJsSampleDbModel.Store.MovieRating_GetByUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AngularJsSampleDbModel.MovieRating_GetByUser_Result">
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="UserRating" ColumnName="UserRating" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="UserCreatedFirstName" ColumnName="UserCreatedFirstName" />
+                <ScalarProperty Name="UserCreatedLastName" ColumnName="UserCreatedLastName" />
+                <ScalarProperty Name="UserCreatedFullName" ColumnName="UserCreatedFullName" />
+                <ScalarProperty Name="UserCreatedEmail" ColumnName="UserCreatedEmail" />
+                <ScalarProperty Name="MovieName" ColumnName="MovieName" />
+                <ScalarProperty Name="MovieDescription" ColumnName="MovieDescription" />
+                <ScalarProperty Name="MovieReleaseDate" ColumnName="MovieReleaseDate" />
+                <ScalarProperty Name="MovieRating" ColumnName="MovieRating" />
+                <ScalarProperty Name="MoviePosterUrl" ColumnName="MoviePosterUrl" />
+                <ScalarProperty Name="MovieImdbUrl" ColumnName="MovieImdbUrl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MovieRating_GetByUserAndMovie" FunctionName="AngularJsSampleDbModel.Store.MovieRating_GetByUserAndMovie">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AngularJsSampleDbModel.MovieRating_GetByUserAndMovie_Result">
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="UserRating" ColumnName="UserRating" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="UserCreatedFirstName" ColumnName="UserCreatedFirstName" />
+                <ScalarProperty Name="UserCreatedLastName" ColumnName="UserCreatedLastName" />
+                <ScalarProperty Name="UserCreatedFullName" ColumnName="UserCreatedFullName" />
+                <ScalarProperty Name="UserCreatedEmail" ColumnName="UserCreatedEmail" />
+                <ScalarProperty Name="MovieName" ColumnName="MovieName" />
+                <ScalarProperty Name="MovieDescription" ColumnName="MovieDescription" />
+                <ScalarProperty Name="MovieReleaseDate" ColumnName="MovieReleaseDate" />
+                <ScalarProperty Name="MovieRating" ColumnName="MovieRating" />
+                <ScalarProperty Name="MoviePosterUrl" ColumnName="MoviePosterUrl" />
+                <ScalarProperty Name="MovieImdbUrl" ColumnName="MovieImdbUrl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

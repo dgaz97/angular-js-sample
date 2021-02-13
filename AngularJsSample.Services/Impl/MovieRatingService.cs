@@ -121,7 +121,7 @@ namespace AngularJsSample.Services.Impl
                 if (request.MovieRating.UserRating < 1 || request.MovieRating.UserRating > 5)//TODO ili možda 10
                     throw new Exception("Movie rating must be between 1 and 5");
                 _repository_.Add(request.MovieRating.MapToModel());
-                response.MovieRating = request.MovieRating;
+                //response.MovieRating = request.MovieRating;
                 response.Success = true;
             }
             catch (Exception ex)

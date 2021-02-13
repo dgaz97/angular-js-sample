@@ -159,8 +159,8 @@ namespace AngularJsSample.Services.Impl
                     if (request.Genre.Description == null) request.Genre.Description = "";
                     if (request.Genre.Description.Length > 1000)
                         throw new Exception("Genre description can't be greater than 1000 characters");
-                    response.Genre = request.Genre;
-                    response.Genre.GenreId = _repository_.Add(request.Genre.MapToModel());
+                    _repository_.Add(request.Genre.MapToModel());
+                    //response.Genre = _repository_.FindBy(newId).MapToView();
                     response.Success = true;
                 }
                 else if (request.Genre.GenreId > 0)

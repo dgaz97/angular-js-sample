@@ -130,6 +130,7 @@ namespace AngularJsSample.Services.Impl
                 Regex rxImage = new Regex(@"\.jpg$|\.jpeg$|\.png$|\.gif$");
                 if (!rxHttp.IsMatch(item.ImageUrl) || !rxImage.IsMatch(item.ImageUrl)) throw new Exception("Image url is invalid");
             }
+            //TODO: description must be under 2000 chars, firstname under 50, lastname under 50, birthplace under 50, imdburl under 100, imageurl under 200
 
             if (item.Popularity == null || item.Popularity <= 0) throw new Exception("Popularity can't be empty, or less than 1");
         }

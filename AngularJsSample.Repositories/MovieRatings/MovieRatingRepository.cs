@@ -28,27 +28,27 @@ namespace AngularJsSample.Repositories.MovieRatings
         }
 
 
-        public List<MovieRating> FindByMovie(Movie item)
+        public List<MovieRating> FindByMovie(int movieId)
         {
             using (var context = new AngularJsSampleDbEntities())
             {
-                return context.MovieRating_GetByMovie(item.MovieId).MapToModels();
+                return context.MovieRating_GetByMovie(movieId).MapToModels();
             }
         }
 
-        public List<MovieRating> FindByUser(UserInfo item)
+        public List<MovieRating> FindByUser(int userId)
         {
             using (var context = new AngularJsSampleDbEntities())
             {
-                return context.MovieRating_GetByUser(item.Id).MapToModels();
+                return context.MovieRating_GetByUser(userId).MapToModels();
             }
         }
 
-        public MovieRating FindByUserAndMovie(Movie item, UserInfo item2)
+        public MovieRating FindByUserAndMovie(int movieId, int userId)
         {
             using (var context = new AngularJsSampleDbEntities())
             {
-                return context.MovieRating_GetByUserAndMovie(item2.Id, item.MovieId).SingleOrDefault().MapToModel();
+                return context.MovieRating_GetByUserAndMovie(userId, movieId).SingleOrDefault().MapToModel();
             }
         }
 

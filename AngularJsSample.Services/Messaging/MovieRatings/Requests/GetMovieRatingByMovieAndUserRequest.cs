@@ -2,6 +2,7 @@
 {
     public class GetMovieRatingByMovieAndUserRequest:RequestBase
     {
+        public int RequestedUser { get; set; }
         public int MovieId { get; set; }
     }
 }

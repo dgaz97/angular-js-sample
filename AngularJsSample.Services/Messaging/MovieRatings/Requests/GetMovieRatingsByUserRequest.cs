@@ -2,5 +2,6 @@
 {
     public class GetMovieRatingsByUserRequest:RequestBase
     {
+        public int RequestedUser { get; set; }
     }
 }

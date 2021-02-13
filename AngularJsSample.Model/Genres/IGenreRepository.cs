@@ -1,5 +1,4 @@
 ﻿using AngularJsSample.Model.Movies;
-using AngularJsSample.Model.Users;
 using System.Collections.Generic;
 
 namespace AngularJsSample.Model.Genres

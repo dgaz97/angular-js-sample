@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AngularJsSample.Services.Messaging.MovieRatings.Requests;
+﻿using AngularJsSample.Services.Messaging.MovieRatings.Requests;
 using AngularJsSample.Services.Messaging.MovieRatings.Responses;
 
 namespace AngularJsSample.Services

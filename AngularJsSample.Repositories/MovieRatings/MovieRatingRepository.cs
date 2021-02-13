@@ -1,5 +1,4 @@
 ﻿using AngularJsSample.Model.MovieRatings;
-using AngularJsSample.Model.Movies;
 using AngularJsSample.Repositories.DatabaseModel;
 using AngularJsSample.Repositories.Mapping;
 using System;

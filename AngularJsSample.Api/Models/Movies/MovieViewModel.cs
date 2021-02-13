@@ -1,8 +1,5 @@
 ﻿using System;
 using AngularJsSample.Api.Models.Users;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace AngularJsSample.Api.Models.Movies
 {

@@ -5,10 +5,6 @@ using AngularJsSample.Services.Mapping;
 using AngularJsSample.Services.Messaging.MovieRatings.Requests;
 using AngularJsSample.Services.Messaging.MovieRatings.Responses;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AngularJsSample.Services.Impl
 {

@@ -154,14 +154,14 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                if (request.Movie.MovieId == 0)
+                if (request.Movie?.MovieId == 0)
                 {
                     checkDataForInsertOrUpdate(request.Movie);
-                    response.Movie = request.Movie;
-                    response.Movie.MovieId = _repository_.Add(request.Movie.MapToModel());
+                    //response.Movie = request.Movie;
+                    _repository_.Add(request.Movie.MapToModel());
                     response.Success = true;
                 }
-                else if (request.Movie.MovieId > 0)
+                else if (request.Movie?.MovieId > 0)
                 {
                     if (_repository_.FindBy(request.Movie.MovieId) == null)
                         throw new Exception($"Movie {request.Movie.MovieId} doesn't exist");

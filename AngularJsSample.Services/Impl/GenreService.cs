@@ -147,11 +147,11 @@ namespace AngularJsSample.Services.Impl
             var response = new SaveGenreResponse()
             {
                 Request = request,
-                ResponseToken = Guid.NewGuid()
+                ResponseToken = Guid.NewGuid(),
             };
             try
             {
-                if (request.Genre.GenreId == 0)
+                if (request.Genre?.GenreId == 0)
                 {
                     if (request.Genre.Name == null || String.IsNullOrWhiteSpace(request.Genre.Name)) throw new Exception("Genre name can't be empty");
                     if (request.Genre.Name.Length > 50)
@@ -163,7 +163,7 @@ namespace AngularJsSample.Services.Impl
                     //response.Genre = _repository_.FindBy(newId).MapToView();
                     response.Success = true;
                 }
-                else if (request.Genre.GenreId > 0)
+                else if (request.Genre?.GenreId > 0)
                 {
                     if (_repository_.FindBy(request.Genre.GenreId) == null) throw new Exception($"Genre {request.Genre.GenreId} doesn't exist");
                     if (request.Genre.Name == null || String.IsNullOrWhiteSpace(request.Genre.Name)) throw new Exception("Genre name can't be empty");

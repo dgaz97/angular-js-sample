@@ -4,8 +4,6 @@ using AngularJsSample.Api.Models.Genres;
 using AngularJsSample.Services;
 using AngularJsSample.Services.Messaging.Genres.Requests;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Http;
 

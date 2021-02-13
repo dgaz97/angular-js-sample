@@ -110,7 +110,7 @@ namespace AngularJsSample.Api.Controllers
             {
                 return BadRequest(moviePersonsResponse.Message);
             }
-            return Ok(moviePerson = moviePersonsResponse.MoviePerson.MapToViewModel());
+            return Ok();
         }
 
         [HttpPut]
@@ -139,7 +139,7 @@ namespace AngularJsSample.Api.Controllers
                 return BadRequest(moviePersonsResponse.Message);
             }
 
-            return Ok(moviePerson = moviePersonsResponse.MoviePerson.MapToViewModel());
+            return Ok(moviePersonsResponse.MoviePerson.MapToViewModel());
         }
     }
 }

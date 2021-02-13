@@ -44,7 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IGenreService.cs" />
     <Compile Include="IMoviePersonService.cs" />
+    <Compile Include="Impl\GenreService.cs" />
     <Compile Include="Impl\MoviePersonService.cs" />
     <Compile Include="Impl\UserService.cs" />
     <Compile Include="IUserService.cs" />

@@ -2,7 +2,6 @@
 using System.Linq;
 using AngularJsSample.Model.Genres;
 using AngularJsSample.Model.Movies;
-using AngularJsSample.Model.Users;
 using AngularJsSample.Repositories.DatabaseModel;
 using AngularJsSample.Repositories.Mapping;
 

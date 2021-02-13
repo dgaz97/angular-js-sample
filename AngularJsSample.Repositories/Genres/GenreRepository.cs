@@ -63,7 +63,7 @@ namespace AngularJsSample.Repositories.Genres
         {
             using (var context = new AngularJsSampleDbEntities())
             {
-                if(context.Genre_DeleteMovie(genreId, movieId, userId)==1)return true;
+                if(context.Genre_DeleteMovie(movieId, genreId, userId)==1)return true;
                 else return false;
             }
         }

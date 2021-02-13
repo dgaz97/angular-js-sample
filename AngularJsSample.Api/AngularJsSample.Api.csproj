@@ -187,7 +187,10 @@
     <Compile Include="Helpers\IdentityHelper.cs" />
     <Compile Include="Hubs\MyHub.cs" />
     <Compile Include="IoC\CommonModule.cs" />
+    <Compile Include="Mapping\Genres\GenresMapper.cs" />
     <Compile Include="Mapping\MoviePersons\MoviePersonsMapper.cs" />
+    <Compile Include="Mapping\MovieRatings\MovieRatingsMapper.cs" />
+    <Compile Include="Mapping\Movies\MoviesMapper.cs" />
     <Compile Include="Mapping\Users\UsersMapper.cs" />
     <Compile Include="Models\Genres\GenreViewModel.cs" />
     <Compile Include="Models\MoviePersons\MoviePersonViewModel.cs" />

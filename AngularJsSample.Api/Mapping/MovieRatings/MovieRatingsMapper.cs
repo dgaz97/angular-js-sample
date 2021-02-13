@@ -2,10 +2,8 @@
 using AngularJsSample.Api.Mapping.Users;
 using AngularJsSample.Api.Models.MovieRatings;
 using AngularJsSample.Services.Messaging.Views.MovieRatings;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace AngularJsSample.Api.Mapping.MovieRatings
 {

@@ -46,8 +46,10 @@
   <ItemGroup>
     <Compile Include="IGenreService.cs" />
     <Compile Include="IMoviePersonService.cs" />
+    <Compile Include="IMovieService.cs" />
     <Compile Include="Impl\GenreService.cs" />
     <Compile Include="Impl\MoviePersonService.cs" />
+    <Compile Include="Impl\MovieService.cs" />
     <Compile Include="Impl\UserService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Mapping\MovieRatingsMapper.cs" />

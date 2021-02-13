@@ -51,28 +51,28 @@ namespace AngularJsSample.Repositories.Movies
             }
         }
 
-        public List<Genre> FindGenres(Movie item)
+        public List<Genre> FindGenres(int key)
         {
             using (var context = new AngularJsSampleDbEntities())
             {
-                return context.Movie_GetGenres(item.MovieId).MapToModels();
+                return context.Movie_GetGenres(key).MapToModels();
             }
         }
 
-        public bool DeleteGenre(Genre item, Movie item2, UserInfo item3)//TODO:Might break? Gotta check this later
+        public bool DeleteGenre(int genreId, int movieId, int userId)//TODO:Might break? Gotta check this later
         {
             using (var context = new AngularJsSampleDbEntities())
             {
-                context.Movie_DeleteGenre(item2.MovieId, item.GenreId, item3.Id);
+                context.Movie_DeleteGenre(movieId, genreId, userId);
                 return true;
             }
         }
 
-        public int AddGenre (Genre item, Movie item2, UserInfo item3)
+        public int AddGenre (int genreId, int movieId, int userId)
         {
             using (var context = new AngularJsSampleDbEntities())
             {
-                return context.Movie_AddGenre(item2.MovieId, item.GenreId, item3.Id);
+                return context.Movie_AddGenre(movieId, genreId, userId);
             }
         }
     }

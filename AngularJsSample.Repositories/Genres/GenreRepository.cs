@@ -2,6 +2,7 @@
 using System.Linq;
 using AngularJsSample.Model.Genres;
 using AngularJsSample.Model.Movies;
+using AngularJsSample.Model.Users;
 using AngularJsSample.Repositories.DatabaseModel;
 using AngularJsSample.Repositories.Mapping;
 
@@ -51,29 +52,30 @@ namespace AngularJsSample.Repositories.Genres
             }
         }
 
-        public List<Movie> FindMovies(Genre item)
+        public List<Movie> FindMovies(int genreId)
         {
             using (var context = new AngularJsSampleDbEntities())
             {
-                return context.Genre_GetMovies(item.GenreId).MapToModels();
+                return context.Genre_GetMovies(genreId).MapToModels();
             }
         }
 
-        public bool DeleteMovie(Genre item, Movie item2, UserInfo item3)//TODO:Might break? Gotta check this later
+        public bool DeleteMovie(int genreId, int movieId, int userId)//TODO:Might break? Gotta check this later
         {
             using (var context = new AngularJsSampleDbEntities())
             {
-                context.Genre_DeleteMovie(item.GenreId, item2.MovieId, item3.Id);
-                return true;
+                if(context.Genre_DeleteMovie(genreId, movieId, userId)==1)return true;
+                else return false;
             }
         }
 
-        public int AddMovie (Genre item, Movie item2, UserInfo item3)
+        public int AddMovie (int genreId, int movieId, int userId)//TODO: might need to return null?
         {
             using (var context = new AngularJsSampleDbEntities())
             {
-                return context.Genre_AddMovie(item2.MovieId, item.GenreId, item3.Id);
+                return context.Genre_AddMovie(movieId, genreId, userId);
             }
         }
+
     }
 }

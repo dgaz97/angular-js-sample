@@ -103,8 +103,7 @@ namespace AngularJsSample.Services.Impl
                 }
                 else
                 {
-                    response.Success = false;
-                    response.Message = "Movie person ID can't be negative";
+                    throw new Exception("Movie person ID can't be negative");
                 }
             }catch (Exception ex)
             {

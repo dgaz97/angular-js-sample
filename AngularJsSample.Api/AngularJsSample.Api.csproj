@@ -182,6 +182,7 @@
     <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\MoviePersonsController.cs" />
+    <Compile Include="Controllers\MovieRatingController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -166,7 +166,7 @@ namespace AngularJsSample.Services.Impl
                     if (_repository_.FindBy(request.Movie.MovieId) == null)
                         throw new Exception($"Movie {request.Movie.MovieId} doesn't exist");
                     checkDataForInsertOrUpdate(request.Movie);
-                    response.Movie = _repository_.Save(response.Movie.MapToModel()).MapToView();
+                    response.Movie = _repository_.Save(request.Movie.MapToModel()).MapToView();
                     response.Success = true;
                 }
                 else

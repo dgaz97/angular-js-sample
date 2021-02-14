@@ -6,8 +6,6 @@ using AngularJsSample.Api.Models.Users;
 using AngularJsSample.Services;
 using AngularJsSample.Services.Messaging.MovieRatings.Requests;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Http;
 

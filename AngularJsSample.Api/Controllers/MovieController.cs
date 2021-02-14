@@ -1,11 +1,8 @@
 ﻿using AngularJsSample.Api.Mapping.Movies;
 using AngularJsSample.Services;
 using AngularJsSample.Api.Helpers;
-using AngularJsSample.Services.Messaging.Genres.Requests;
 using AngularJsSample.Services.Messaging.Movies.Requests;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Http;
 using AngularJsSample.Api.Models.Movies;

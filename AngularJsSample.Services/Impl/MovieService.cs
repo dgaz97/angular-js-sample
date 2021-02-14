@@ -189,7 +189,7 @@ namespace AngularJsSample.Services.Impl
 
             if (movie.MovieName == null || String.IsNullOrWhiteSpace(movie.MovieName))
                 throw new Exception("Movie name can't be empty");
-            if (movie.MovieDescription.Length > 200)
+            if (movie.MovieName.Length > 200)
                 throw new Exception("Movie name can't be greater than 200 characters");
 
             if (movie.MovieDescription == null || String.IsNullOrWhiteSpace(movie.MovieName))

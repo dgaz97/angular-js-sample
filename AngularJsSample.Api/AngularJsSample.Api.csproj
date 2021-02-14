@@ -180,6 +180,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\GenreController.cs" />
+    <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\MoviePersonsController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Global.asax.cs">

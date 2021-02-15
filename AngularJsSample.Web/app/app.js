@@ -5,8 +5,7 @@
     'ui.router',
     'kendo.directives',
     'general.routing',
-    'angularValidator',
-    'oitozero.ngSweetAlert'
+    'angularValidator'
 ]);
 
 loginApp.run([

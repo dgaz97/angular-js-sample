@@ -139,8 +139,8 @@
     };
 
 
-    moviePersonProfileCtrl.$inject = ['$scope', '$state', 'SweetAlert', 'moviePerson', 'moviePersonsSvc', '$stateParams']
-    function moviePersonProfileCtrl($scope, $state, SweetAlert, moviePerson, moviePersonsSvc, $stateParams) {
+    moviePersonProfileCtrl.$inject = ['$scope', '$state', 'moviePerson', 'moviePersonsSvc', '$stateParams']
+    function moviePersonProfileCtrl($scope, $state, moviePerson, moviePersonsSvc, $stateParams) {
         var vm = this;
 
         vm.moviePerson = moviePerson;
@@ -150,7 +150,7 @@
         $scope.deleteButtonOptions = {
             click: function (e) {
                 //Modal za upozorenje o brisanju
-                SweetAlert.swal({
+                swal({
                     title: "POZOR",
                     text: "Jeste li sigurni da želite obrisati osobu `" + vm.moviePerson.firstName + " " + vm.moviePerson.lastName + "`?",
                     showCancelButton: true,
@@ -179,7 +179,7 @@
                                 $state.go("moviePersonsOverview");
                                 //Ili prikazuje modal ako dođe do greške
                             }, function (err) {
-                                SweetAlert.swal("Greška", "Došlo je do greške kod brisanja: " + err.data.messageDetail, "error");
+                                swal("Greška", "Došlo je do greške kod brisanja: " + err.data.messageDetail, "error");
                             });
                         }
                     }
@@ -189,8 +189,8 @@
 
     }
 
-    moviePersonManageCtrl.$inject = ['$scope', 'SweetAlert', 'moviePersonsSvc', 'moviePerson', '$state', '$stateParams']
-    function moviePersonManageCtrl($scope, SweetAlert, moviePersonsSvc, moviePerson, $state, $stateParams) {
+    moviePersonManageCtrl.$inject = ['$scope', 'moviePersonsSvc', 'moviePerson', '$state', '$stateParams']
+    function moviePersonManageCtrl($scope, moviePersonsSvc, moviePerson, $state, $stateParams) {
         var vm = this;
 
         //Određuje uređivamo li postojećeg redatelja, ili stvaramo novog
@@ -238,7 +238,7 @@
                 },
                     //Ili se prikazuje poruka pogreške
                     function (err) {
-                        SweetAlert.swal({
+                        swal({
                             title: "Greška",
                             text: "Došlo je do greške: " + err.data.messageDetail,
                             type: "error"
@@ -267,7 +267,7 @@
                 },
                     //Ili se prikazuje poruka pogreške
                     function (err) {
-                        SweetAlert.swal({
+                        swal({
                             title: "Greška",
                             text: "Došlo je do greške: " + err.data.messageDetail,
                             type: "error"

@@ -114,6 +114,11 @@
     <Content Include="app\login\controllers\loginCtrl.js" />
     <Content Include="app\login\loginModule.js" />
     <Content Include="app\login\partials\login.html" />
+    <Content Include="app\movies\movies.module.js" />
+    <Content Include="app\movies\moviesServices.module.js" />
+    <Content Include="app\movies\partials\manageMovie.html" />
+    <Content Include="app\movies\partials\moviesOverview.html" />
+    <Content Include="app\movies\partials\profile.html" />
     <Content Include="app\routes\general.routing.js" />
     <Content Include="assets\plugins\font-awesome\css\font-awesome.css" />
     <Content Include="assets\plugins\font-awesome\css\font-awesome.min.css" />

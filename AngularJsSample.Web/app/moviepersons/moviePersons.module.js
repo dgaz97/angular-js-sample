@@ -150,7 +150,7 @@
         $scope.deleteButtonOptions = {
             click: function (e) {
                 //Modal za upozorenje o brisanju
-                swal({
+                swal.fire({
                     title: "POZOR",
                     text: "Jeste li sigurni da želite obrisati osobu `" + vm.moviePerson.firstName + " " + vm.moviePerson.lastName + "`?",
                     showCancelButton: true,
@@ -179,7 +179,7 @@
                                 $state.go("moviePersonsOverview");
                                 //Ili prikazuje modal ako dođe do greške
                             }, function (err) {
-                                swal("Greška", "Došlo je do greške kod brisanja: " + err.data.messageDetail, "error");
+                                    swal.fire("Greška", "Došlo je do greške kod brisanja: " + err.data.messageDetail, "error");
                             });
                         }
                     }
@@ -238,7 +238,7 @@
                 },
                     //Ili se prikazuje poruka pogreške
                     function (err) {
-                        swal({
+                        swal.fire({
                             title: "Greška",
                             text: "Došlo je do greške: " + err.data.messageDetail,
                             type: "error"
@@ -267,7 +267,7 @@
                 },
                     //Ili se prikazuje poruka pogreške
                     function (err) {
-                        swal({
+                        swal.fire({
                             title: "Greška",
                             text: "Došlo je do greške: " + err.data.messageDetail,
                             type: "error"

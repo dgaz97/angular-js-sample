@@ -12,7 +12,7 @@
         this.getGenres = function () {
             return $http.get(`${serviceBase}/api/genres`);
         }
-        this.getGenre = function (id) {
+        this.getGenre = function (id) {//TODO delete?
             return $http.get(`${serviceBase}/api/genres/${id}`);
         }
         this.deleteGenre = function (id) {

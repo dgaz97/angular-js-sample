@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('genres', ['genresServices', 'angularValidator'])
+    angular.module('genres', ['genresServices'])
         .controller('genresOverviewCtrl', genresOverviewCtrl)
         ;
 

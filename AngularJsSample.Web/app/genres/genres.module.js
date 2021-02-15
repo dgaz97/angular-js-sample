@@ -92,6 +92,32 @@
             });
         };
 
+        $scope.deleteGenre = function (genre) {
+            console.log(genre);
+            swal.fire({
+                title: "POZOR",
+                text: "Jeste li sigurni da želite obrisati žanr " + genre.name + "?",
+                confirmButtonText: "Da, obriši",
+                showCancelButton: true,
+                cancelButtonText: "Prekini",
+                allowOutsideClick: "true"
+            }).then(function (result) {
+                //Ako je kliknuto Da, obriši
+                if (result.isConfirmed) {
+                    genresSvc.deleteGenre(genre.genreId).then(function (result) {
+                        genresSvc.getGenres().then(function (result2) {
+                            $scope.genresData = new kendo.data.DataSource({
+                                data: result2.data.genres,
+                                pageSize: 5
+                            });
+                        });
+                    }, function (err) {
+                        swal.fire("Greška", "Došlo je do greške kod brisanja: " + err.data.messageDetail, "error");
+                    })
+                }
+            });
+        }
+
         $scope.genresGrid = {
             //groupable: true,
             //sortable: true,
@@ -132,7 +158,20 @@
                             //Otvaramo modal
                             $scope.manageGenre(data);
                         }
-                    }
+                    },
+                    {
+                        className: "destroy",
+                        name: "obrisi",
+                        text: "Obriši",
+                        click: function (e) {
+                            //Uzmemo red
+                            var tr = $(e.target).closest("tr");
+                            //Dohvatimo podatke iz reda
+                            var data = this.dataItem(tr);
+                            //Otvaramo modal
+                            $scope.deleteGenre(data);
+                        }
+                    }]
                 }
             ]
         };

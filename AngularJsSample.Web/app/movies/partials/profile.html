@@ -1,1 +1,66 @@
-﻿<h1>Test2</h1>
+﻿<h1 class="page-header">
+    {{vm.movie.movieName}}
+    <div style="float:right">
+        <button type="button" class="btn btn-primary" ui-sref="updateMovie({{vm.movie.movieId}})">Uredi film</button>
+        <!--//TODO implementirati deleteButton-->
+        <kendo-button id="deleteButton"
+            k-options="deleteButtonOptions">Obriši film</kendo-button>
+    </div>
+</h1>
+<div class="container">
+    <div class="col-sm-3">
+        <img src="{{vm.movie.moviePosterUrl}}" style="width:100%" />
+    </div>
+    <div class="col-sm-9" style="border: solid 1px black">
+        <div class="row" style="border: solid black; border-width:0 0 1px 0">
+            <h5>PODACI O FILMU</h5>
+        </div>
+
+        <div class="col-sm-9">
+            <div class="row">
+                Naslov/Naziv:
+            </div>
+            <div class="row">
+                <span style="font-weight:bold">{{vm.movie.movieName}}</span>
+            </div>
+            <div class="row">
+                Datum izlaska:
+            </div>
+            <div class="row">
+                <span style="font-weight:bold">{{vm.movie.movieReleaseDate | date:"dd.MM.yyyy."}}</span>
+            </div>
+            <div class="row">
+                Kratki opis:
+            </div>
+            <div class="row">
+                <span style="font-weight: bold">{{vm.movie.movieDescription}}</span>
+            </div>
+            <div class="row">
+                Žanrovi:
+            </div>
+            <div class="row">
+                <span style="font-weight: bold">Žanrovi će ići ovdje</span>
+            </div>
+            <div class="row">
+                Ocjena ({{vm.movie.movieRating}}):
+            </div>
+            <div class="row">
+                <span style="font-weight: bold"><input kendo-rating 
+                                                       k-min="1" 
+                                                       k-max="5" 
+                                                       k-value="{{vm.movie.movieRating}}" 
+                                                       style="width: 100%;" 
+                                                       k-readonly="true"
+                                                       />
+                Treba uključiti i rating ulogirane osobe
+                </span>
+            </div>
+            <div class="row">
+                IMDB url
+            </div>
+            <div class="row">
+                <a href="{{vm.movie.movieImdbUrl}}">{{vm.movie.movieImdbUrl}}</a>
+            </div>
+        </div>
+    </div>
+</div>

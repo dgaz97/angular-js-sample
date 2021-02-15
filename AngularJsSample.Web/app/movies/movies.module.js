@@ -55,7 +55,11 @@
     movieProfileCtrl.$inject = ['$scope', '$state', 'movie', 'moviesSvc', '$stateParams'];
     function movieProfileCtrl($scope, $state, movie, moviesSvc, $stateParams) {
         var vm = this;
+        console.log("Profile controller");
+        console.log(movie);
         vm.movie = movie;
+
+
     }
 
     movieManageCtrl.$inject = ['$scope', '$state', 'movie', 'moviesSvc', '$stateParams'];

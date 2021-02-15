@@ -11,7 +11,7 @@
         genresSvc.getGenres().then(function (result) {
             $scope.genresData = new kendo.data.DataSource({
                 data: result.data.genres,
-                pageSize: 10
+                pageSize: 5
             });
         });
 
@@ -25,7 +25,7 @@
 
             //SweetAlert definicija
             swal.fire({
-                title: genre.genreId==undefined?"Unesi novi žanr":"Uredi žanr",
+                title: genre.genreId == undefined ? "Unesi novi žanr" : "Uredi žanr",
                 width: "60vw",
                 //Izgled modala
                 html:
@@ -71,8 +71,11 @@
                     //Ako stvaramo novi žanr
                     if (genre.genreId == undefined) {
                         genresSvc.createGenre(genre).then(function (result) {
-                            genresSvc.getGenres().then(function (result) {
-                                $scope.genresData.data = result.data.genres;
+                            genresSvc.getGenres().then(function (result2) {
+                                $scope.genresData = new kendo.data.DataSource({
+                                    data: result2.data.genres,
+                                    pageSize: 5
+                                });
                             });
                         }, function (err) {
                             swal.fire("Greška", "Došlo je do greške kod stvaranja: " + err.data.messageDetail, "error");
@@ -81,8 +84,11 @@
                     //Ako uređujemo žanr
                     else {
                         genresSvc.updateGenre(genre.genreId, genre).then(function (result) {
-                            genresSvc.getGenres().then(function (result) {
-                                $scope.genresData.data = result.data.genres;
+                            genresSvc.getGenres().then(function (result2) {
+                                $scope.genresData = new kendo.data.DataSource({
+                                    data: result2.data.genres,
+                                    pageSize: 5
+                                });
                             });
                         }, function (err) {
                             swal.fire("Greška", "Došlo je do greške kod uređivanja: " + err.data.messageDetail, "error");
@@ -147,9 +153,12 @@
                     title: "Kreirao"
                 },
                 {
+                    title: "Naredbe",
                     //definiramo gumb
-                    command: {
-                        name: "Uredi",
+                    command: [{
+                        className: "edit",
+                        name: "uredi",
+                        text: "Uredi",
                         click: function (e) {
                             //Uzmemo red
                             var tr = $(e.target).closest("tr");

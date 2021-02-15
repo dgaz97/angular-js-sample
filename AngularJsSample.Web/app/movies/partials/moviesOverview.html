@@ -1,1 +1,15 @@
-﻿<h1>Test3</h1>
+﻿<h1 class="page-header">Pregled filmova</h1>
+<div class="container col-lg-12">
+    <div class="row">
+        <div class="col-sm-6"><button type="button" class="btn btn-primary" ui-sref="newMovie">Dodaj novi film</button></div>
+    </div><br />
+    <div class="row">
+        <kendo-grid options="movieGridOptions" id="movieGrid"
+                    k-data-source="movieGridData"
+                    k-pageable="{'refresh': true, 'pageSizes': true, 'buttonCount': 5}"
+                    k-filterable="true"
+                    k-resizable="true">
+
+        </kendo-grid>
+    </div>
+</div>

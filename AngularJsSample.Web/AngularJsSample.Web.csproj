@@ -97,6 +97,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\genres\genres.module.js" />
+    <Content Include="app\genres\genresServices.module.js" />
+    <Content Include="app\genres\partials\genresOverview.html" />
     <Content Include="app\moviepersons\moviePersons.module.js" />
     <Content Include="app\moviepersons\partials\moviePersonsOverview.html" />
     <Content Include="app\moviepersons\moviePersonsServices.module.js" />

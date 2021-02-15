@@ -155,6 +155,33 @@
 
                 }
             })
+            .state('genresOverview',{
+                url: "/genres",
+                controller:"genresOverviewCtrl",
+                controllerAs: "vm",
+                templateUrl: "app/genres/partials/genresOverview.html",
+                cache: false,
+                resolve: {
+                    loginRequired: loginRequired,
+                    genresServices: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: "genresServices",
+                            files: [
+                                "app/genres/genresServices.module.js"
+                            ]
+                        });
+                    },
+                    genres: function ($ocLazyLoad, genresServices) {
+                        return $ocLazyLoad.load({
+                            name: "genres",
+                            files: [
+                                "app/genres/genres.module.js"
+                            ]
+                        });
+                    }
+
+                }
+            })
 
             ;
     }

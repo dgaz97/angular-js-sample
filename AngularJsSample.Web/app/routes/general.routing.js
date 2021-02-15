@@ -37,6 +37,7 @@
 
                 }
             })
+            //MoviePersons begin
             .state('moviePersonsOverview', {
                 url: "/moviepersons",
                 controller: "moviePersonsOverviewCtrl",
@@ -155,6 +156,8 @@
 
                 }
             })
+            //MoviePersons end
+            //Genres begin
             .state('genresOverview',{
                 url: "/genres",
                 controller:"genresOverviewCtrl",
@@ -182,6 +185,127 @@
 
                 }
             })
+            //Genres end
+            //Movies begin
+            .state('moviesOverview', {
+                url: "/movies",
+                controller: "moviesOverviewCtrl",
+                controllerAs: "vm",
+                templateUrl: "app/movies/partials/moviesOverview.html",
+                resolve: {
+                    loginRequired: loginRequired,
+                    moviesServices: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: "moviesServices",
+                            files: [
+                                "app/movies/moviesServices.module.js"
+                            ]
+                        });
+                    },
+                    movies: function ($ocLazyLoad, moviesServices) {
+                        return $ocLazyLoad.load({
+                            name: "movies",
+                            files: [
+                                "app/movies/movies.module.js"
+                            ]
+                        });
+                    }
+
+                }
+            })
+            .state('movieProfile', {
+                url: "/movies/:id",
+                controller: "movieProfileCtrl",
+                controllerAs: "vm",
+                templateUrl: "app/movies/partials/profile.html",
+                resolve: {
+                    loginRequired: loginRequired,
+                    movie: function ($stateParams, moviesSvc) {
+                        return moviesSvc.getMovie($stateParams.id).then(function (data) {
+                            return data.data;
+                        });
+                    },
+                    moviesServices: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: "moviesServices",
+                            files: [
+                                "app/movies/moviesServices.module.js"
+                            ]
+                        });
+                    },
+                    movies: function ($ocLazyLoad, moviesServices) {
+                        return $ocLazyLoad.load({
+                            name: "movies",
+                            files: [
+                                "app/movies/movies.module.js"
+                            ]
+                        });
+                    }
+                }
+            })
+            .state('newMovie', {
+                url: "/movie/new",
+                controller: "movieManageCtrl",
+                controllerAs: "vm",
+                templateUrl: "app/movies/partials/manageMovie.html",
+                cache: false,
+                resolve: {
+                    loginRequired: loginRequired,
+                    movie: function () {
+                        return null;
+                    },
+                    moviesServices: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: "moviesServices",
+                            files: [
+                                "app/movies/moviesServices.module.js"
+                            ]
+                        });
+                    },
+                    movies: function ($ocLazyLoad, moviesServices, movie) {
+                        return $ocLazyLoad.load({
+                            name: "movies",
+                            files: [
+                                "app/movies/movies.module.js"
+                            ]
+                        });
+                    }
+
+                }
+            })
+            .state('updateMovie', {
+                url: "/movie/update/:id",
+                controller: "movieManageCtrl",
+                controllerAs: "vm",
+                templateUrl: "app/movies/partials/manageMovie.html",
+                cache: false,
+                resolve: {
+                    loginRequired: loginRequired,
+                    moviesServices: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: "moviesServices",
+                            files: [
+                                "app/movies/moviesServices.module.js"
+                            ]
+                        });
+                    },
+                    movie: function ($stateParams, moviesSvc) {
+                        return moviesSvc.getMovie($stateParams.id).then(function (data) {
+                            return data.data;
+                        });
+                    },
+                    movies: function ($ocLazyLoad, moviesServices, movie) {
+                        return $ocLazyLoad.load({
+                            name: "movies",
+                            files: [
+                                "app/movies/movies.module.js"
+                            ]
+                        });
+                    }
+
+                }
+            })
+            //Movies end
 
             ;
     }

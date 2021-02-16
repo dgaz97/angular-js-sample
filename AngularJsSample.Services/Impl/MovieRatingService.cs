@@ -120,8 +120,8 @@ namespace AngularJsSample.Services.Impl
                     throw new Exception($"Movie {request.MovieRating.Movie.MovieId} doesn't exist");
                 //if (request.MovieRating.UserRating==0)
                 //    throw new Exception("Movie rating must be set");
-                if (request.MovieRating.UserRating < 1 || request.MovieRating.UserRating > 5)//TODO ili možda 10
-                    throw new Exception("Movie rating must be between 1 and 5");
+                if (request.MovieRating.UserRating < 0 || request.MovieRating.UserRating > 5)//TODO ili možda 10
+                    throw new Exception("Movie rating must be between 0 and 5");
 
                 _repository_.Add(request.MovieRating.MapToModel());
                 //response.MovieRating = request.MovieRating;

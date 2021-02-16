@@ -202,6 +202,22 @@
                             ]
                         });
                     },
+                    movieRatingsServices: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: "movieRatingsServices",
+                            files: [
+                                "app/movieratings/movieRatingsServices.module.js"
+                            ]
+                        });
+                    },
+                    genresServices: function($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: "genresServices",
+                            files: [
+                                "app/genres/genresServices.module.js"
+                            ]
+                        });
+                    },
                     movies: function ($ocLazyLoad, moviesServices) {
                         return $ocLazyLoad.load({
                             name: "movies",
@@ -286,6 +302,14 @@
                             ]
                         });
                     },
+                    genresServices: function($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: "genresServices",
+                            files: [
+                                "app/genres/genresServices.module.js"
+                            ]
+                        });
+                    },
                     movies: function ($ocLazyLoad, moviesServices, movie) {
                         return $ocLazyLoad.load({
                             name: "movies",
@@ -313,9 +337,20 @@
                             ]
                         });
                     },
+                    genresServices: function($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: "genresServices",
+                            files: [
+                                "app/genres/genresServices.module.js"
+                            ]
+                        });
+                    },
                     movie: function ($stateParams, moviesSvc) {
                         return moviesSvc.getMovie($stateParams.id).then(function (data) {
-                            return data.data;
+                            return moviesSvc.getGenresOfMovie($stateParams.id).then(function (data2) {
+                                data.data.genres = data2.data.genres;
+                                return data.data;
+                            })
                         });
                     },
                     movies: function ($ocLazyLoad, moviesServices, movie) {

@@ -184,35 +184,6 @@ namespace AngularJsSample.Repositories.DatabaseModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Movie_GetGenres_Result>("Movie_GetGenres", movieIdParameter);
         }
     
-        public virtual int Movie_Insert(Nullable<int> userCreatedId, string movieName, string movieDescription, Nullable<System.DateTimeOffset> movieReleaseDate, string moviePosterUrl, string movieImdbUrl)
-        {
-            var userCreatedIdParameter = userCreatedId.HasValue ?
-                new ObjectParameter("UserCreatedId", userCreatedId) :
-                new ObjectParameter("UserCreatedId", typeof(int));
-    
-            var movieNameParameter = movieName != null ?
-                new ObjectParameter("MovieName", movieName) :
-                new ObjectParameter("MovieName", typeof(string));
-    
-            var movieDescriptionParameter = movieDescription != null ?
-                new ObjectParameter("MovieDescription", movieDescription) :
-                new ObjectParameter("MovieDescription", typeof(string));
-    
-            var movieReleaseDateParameter = movieReleaseDate.HasValue ?
-                new ObjectParameter("MovieReleaseDate", movieReleaseDate) :
-                new ObjectParameter("MovieReleaseDate", typeof(System.DateTimeOffset));
-    
-            var moviePosterUrlParameter = moviePosterUrl != null ?
-                new ObjectParameter("MoviePosterUrl", moviePosterUrl) :
-                new ObjectParameter("MoviePosterUrl", typeof(string));
-    
-            var movieImdbUrlParameter = movieImdbUrl != null ?
-                new ObjectParameter("MovieImdbUrl", movieImdbUrl) :
-                new ObjectParameter("MovieImdbUrl", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Movie_Insert", userCreatedIdParameter, movieNameParameter, movieDescriptionParameter, movieReleaseDateParameter, moviePosterUrlParameter, movieImdbUrlParameter);
-        }
-    
         public virtual int Movie_Update(Nullable<int> userModifiedId, Nullable<int> movieId, string movieName, string movieDescription, Nullable<System.DateTimeOffset> movieReleaseDate, string moviePosterUrl, string movieImdbUrl)
         {
             var userModifiedIdParameter = userModifiedId.HasValue ?
@@ -433,6 +404,35 @@ namespace AngularJsSample.Repositories.DatabaseModel
                 new ObjectParameter("MovieId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MovieRating_GetByUserAndMovie_Result>("MovieRating_GetByUserAndMovie", userCreatedIdParameter, movieIdParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> Movie_Insert(Nullable<int> userCreatedId, string movieName, string movieDescription, Nullable<System.DateTimeOffset> movieReleaseDate, string moviePosterUrl, string movieImdbUrl)
+        {
+            var userCreatedIdParameter = userCreatedId.HasValue ?
+                new ObjectParameter("UserCreatedId", userCreatedId) :
+                new ObjectParameter("UserCreatedId", typeof(int));
+    
+            var movieNameParameter = movieName != null ?
+                new ObjectParameter("MovieName", movieName) :
+                new ObjectParameter("MovieName", typeof(string));
+    
+            var movieDescriptionParameter = movieDescription != null ?
+                new ObjectParameter("MovieDescription", movieDescription) :
+                new ObjectParameter("MovieDescription", typeof(string));
+    
+            var movieReleaseDateParameter = movieReleaseDate.HasValue ?
+                new ObjectParameter("MovieReleaseDate", movieReleaseDate) :
+                new ObjectParameter("MovieReleaseDate", typeof(System.DateTimeOffset));
+    
+            var moviePosterUrlParameter = moviePosterUrl != null ?
+                new ObjectParameter("MoviePosterUrl", moviePosterUrl) :
+                new ObjectParameter("MoviePosterUrl", typeof(string));
+    
+            var movieImdbUrlParameter = movieImdbUrl != null ?
+                new ObjectParameter("MovieImdbUrl", movieImdbUrl) :
+                new ObjectParameter("MovieImdbUrl", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Movie_Insert", userCreatedIdParameter, movieNameParameter, movieDescriptionParameter, movieReleaseDateParameter, moviePosterUrlParameter, movieImdbUrlParameter);
         }
     }
 }

@@ -158,8 +158,9 @@ namespace AngularJsSample.Services.Impl
                 {
                     checkDataForInsertOrUpdate(request.Movie);
                     //response.Movie = request.Movie;
-                    _repository_.Add(request.Movie.MapToModel());
+                    var newId = _repository_.Add(request.Movie.MapToModel());
                     response.Success = true;
+                    response.Movie = new Messaging.Views.Movies.Movie() { MovieId = newId };
                 }
                 else if (request.Movie?.MovieId > 0)
                 {

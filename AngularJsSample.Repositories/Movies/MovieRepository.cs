@@ -13,7 +13,7 @@ namespace AngularJsSample.Repositories.Movies
         {
             using (var context = new AngularJsSampleDbEntities())
             {
-                return context.Movie_Insert(item.UserCreated.Id, item.MovieName, item.MovieDescription, item.MovieReleaseDate, item.MoviePosterUrl, item.MovieImdbUrl);
+                return context.Movie_Insert(item.UserCreated.Id, item.MovieName, item.MovieDescription, item.MovieReleaseDate, item.MoviePosterUrl, item.MovieImdbUrl).First().Value;
             }
         }
 

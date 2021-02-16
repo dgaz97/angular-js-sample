@@ -195,14 +195,6 @@
           <FunctionImport Name="Movie_GetGenres" ReturnType="Collection(AngularJsSampleDbModel.Movie_GetGenres_Result)">
           <Parameter Name="MovieId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Movie_Insert">
-            <Parameter Name="UserCreatedId" Mode="In" Type="Int32" />
-            <Parameter Name="MovieName" Mode="In" Type="String" />
-            <Parameter Name="MovieDescription" Mode="In" Type="String" />
-            <Parameter Name="MovieReleaseDate" Mode="In" Type="DateTimeOffset" />
-            <Parameter Name="MoviePosterUrl" Mode="In" Type="String" />
-            <Parameter Name="MovieImdbUrl" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="Movie_Update">
             <Parameter Name="UserModifiedId" Mode="In" Type="Int32" />
             <Parameter Name="MovieId" Mode="In" Type="Int32" />
@@ -257,14 +249,22 @@
           <FunctionImport Name="Movie_GetAll" ReturnType="Collection(AngularJsSampleDbModel.Movie_GetAll_Result)" />
           <FunctionImport Name="MovieRating_GetAll" ReturnType="Collection(AngularJsSampleDbModel.MovieRating_GetAll_Result)" />
           <FunctionImport Name="MovieRating_GetByMovie" ReturnType="Collection(AngularJsSampleDbModel.MovieRating_GetByMovie_Result)">
-            <Parameter Name="MovieId" Mode="In" Type="Int32" />
+          <Parameter Name="MovieId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="MovieRating_GetByUser" ReturnType="Collection(AngularJsSampleDbModel.MovieRating_GetByUser_Result)">
-            <Parameter Name="UserCreatedId" Mode="In" Type="Int32" />
+          <Parameter Name="UserCreatedId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="MovieRating_GetByUserAndMovie" ReturnType="Collection(AngularJsSampleDbModel.MovieRating_GetByUserAndMovie_Result)">
             <Parameter Name="UserCreatedId" Mode="In" Type="Int32" />
             <Parameter Name="MovieId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Movie_Insert" ReturnType="Collection(Int32)">
+            <Parameter Name="UserCreatedId" Mode="In" Type="Int32" />
+            <Parameter Name="MovieName" Mode="In" Type="String" />
+            <Parameter Name="MovieDescription" Mode="In" Type="String" />
+            <Parameter Name="MovieReleaseDate" Mode="In" Type="DateTimeOffset" />
+            <Parameter Name="MoviePosterUrl" Mode="In" Type="String" />
+            <Parameter Name="MovieImdbUrl" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Genre_Get_Result">
@@ -578,7 +578,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Movie_Insert" FunctionName="AngularJsSampleDbModel.Store.Movie_Insert" />
           <FunctionImportMapping FunctionImportName="Movie_Update" FunctionName="AngularJsSampleDbModel.Store.Movie_Update" />
           <FunctionImportMapping FunctionImportName="MoviePerson_Delete" FunctionName="AngularJsSampleDbModel.Store.MoviePerson_Delete" />
           <FunctionImportMapping FunctionImportName="MoviePerson_Get" FunctionName="AngularJsSampleDbModel.Store.MoviePerson_Get">
@@ -793,6 +792,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Movie_Insert" FunctionName="AngularJsSampleDbModel.Store.Movie_Insert" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

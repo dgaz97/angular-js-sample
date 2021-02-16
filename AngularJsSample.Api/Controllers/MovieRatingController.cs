@@ -96,7 +96,7 @@ namespace AngularJsSample.Api.Controllers
             {
                 RequestToken = Guid.NewGuid(),
                 UserId = loggedUserId,
-                RequestedUser = userId,
+                RequestedUser = userId==0?loggedUserId: userId,
                 MovieId = movieId
             };
 

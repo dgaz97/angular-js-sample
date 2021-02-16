@@ -52,13 +52,75 @@
         }
     }
 
-    movieProfileCtrl.$inject = ['$scope', '$state', 'movie', 'moviesSvc', '$stateParams'];
-    function movieProfileCtrl($scope, $state, movie, moviesSvc, $stateParams) {
+    movieProfileCtrl.$inject = ['$scope', '$state', 'movie', 'moviesSvc', 'movieRating', 'movieRatingsSvc', '$stateParams'];
+    function movieProfileCtrl($scope, $state, movie, moviesSvc, movieRating, movieRatingsSvc, $stateParams) {
         var vm = this;
-        console.log("Profile controller");
-        console.log(movie);
         vm.movie = movie;
+        vm.movieRating = movieRating;
 
+        kendo.culture('de-DE');//"hr-HR" kvari rating, izbacuje decimalnu točku (kaže npr. 32 umjesto 3,2)
+
+        $scope.ratingOptions = {
+            min: 1,
+            max: 5,
+            label: { template: "<span>#=value# od #=maxValue#</span>" },
+            precision: "half",
+            readonly: true
+        };
+
+        $scope.genreOptions = {
+            dataTextField: "name",
+            dataSource: {
+                data: vm.movie.genres
+            }
+        }
+
+        $scope.userRatingOptions = {
+            min: 1,
+            max: 5,
+            label: { template: "<span>#=value# od #=maxValue#</span>" },
+            precision: "half",
+            change: function(e) {
+                movieRatingsSvc.addMovieRating(vm.movie.movieId, { "userRating": e.newValue }).then(function(result) {
+                    moviesSvc.getMovie(vm.movie.movieId).then(function(data) {
+                        vm.movie = data.data;
+                        //$scope.ratingOptions.value(data.data.movieRating);
+                    }, function(err) {
+                        swal.fire("Greška", "Došlo je do greške kod ažuriranja filma: " + err.data.messageDetail, "error");
+                    });
+                }, function(err) {
+                    vm.movieRating.userRating = e.oldValue;
+                    swal.fire("Greška", "Došlo je do greške kod dodavanja ratinga, pokušajte ponovno", "error");
+                });
+            }
+        };
+
+        $scope.deleteButtonOptions = {
+            click: function(e) {
+                //Modal za upozorenje o brisanju
+                swal.fire({
+                    title: "POZOR",
+                    text: "Jeste li sigurni da želite obrisati film `" + vm.movie.movieName + "`?",
+                    showCancelButton: true,
+                    confirmButtonText: "Da",
+                    cancelButtonText: "Ne",
+                    closeOnCancel: true,
+                    closeOnConfirm: true,
+                    closeOnEsc: true
+                })
+                    .then(function(isConfirm) {
+                        if (isConfirm) {
+                            moviesSvc.deleteMovie(vm.movie.movieId).then(function(data) {
+                                //Premješta na pregled svih redatelja
+                                $state.go("moviesOverview");
+                                //Ili prikazuje modal ako dođe do greške
+                            }, function(err) {
+                                swal.fire("Greška", "Došlo je do greške kod brisanja: " + err.data.messageDetail, "error");
+                            });
+                        }
+                    });
+            }
+        };
 
     }
 

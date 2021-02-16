@@ -1,10 +1,10 @@
 ﻿<h1 class="page-header">
     {{vm.movie.movieName}}
     <div style="float:right">
-        <button type="button" class="btn btn-primary" ui-sref="updateMovie({{vm.movie.movieId}})">Uredi film</button>
+        <button type="button" class="btn btn-primary" ui-sref="updateMovie({id:{{vm.movie.movieId}}})">Uredi film</button>
         <!--//TODO implementirati deleteButton-->
         <kendo-button id="deleteButton"
-            k-options="deleteButtonOptions">Obriši film</kendo-button>
+                      k-options="deleteButtonOptions">Obriši film</kendo-button>
     </div>
 </h1>
 <div class="container">
@@ -39,20 +39,25 @@
                 Žanrovi:
             </div>
             <div class="row">
-                <span style="font-weight: bold">Žanrovi će ići ovdje</span>
+                <!--<span style="font-weight: bold">Žanrovi će ići ovdje</span>-->
+                <span ng-repeat="genre in vm.movie.genres" class="badge badge-secondary">
+                    {{genre.name}}
+                </span>
             </div>
             <div class="row">
-                Ocjena ({{vm.movie.movieRating}}):
+                Ocjena:
+                <input kendo-rating
+                       k-options="ratingOptions"
+                       k-ng-model="vm.movie.movieRating"
+                       style="width: 100%;" />
             </div>
             <div class="row">
-                <span style="font-weight: bold"><input kendo-rating 
-                                                       k-min="1" 
-                                                       k-max="5" 
-                                                       k-value="{{vm.movie.movieRating}}" 
-                                                       style="width: 100%;" 
-                                                       k-readonly="true"
-                                                       />
-                Treba uključiti i rating ulogirane osobe
+                <span>
+                    Vaša ocjena:
+                    <input kendo-rating
+                           k-options="userRatingOptions"
+                           k-ng-model="vm.movieRating.userRating"
+                           style="width: 100%;" />
                 </span>
             </div>
             <div class="row">

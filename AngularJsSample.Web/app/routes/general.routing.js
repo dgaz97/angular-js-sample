@@ -222,7 +222,15 @@
                     loginRequired: loginRequired,
                     movie: function ($stateParams, moviesSvc) {
                         return moviesSvc.getMovie($stateParams.id).then(function (data) {
-                            return data.data;
+                            return moviesSvc.getGenresOfMovie($stateParams.id).then(function (data2) {
+                                data.data.genres = data2.data.genres;
+                                return data.data;
+                            })
+                        });
+                    },
+                    movieRating: function ($stateParams, movieRatingsSvc) {
+                        return movieRatingsSvc.getMovieRatingByUserAndMovie(0,$stateParams.id).then(function (data) {
+                            return data.data.movieRating;
                         });
                     },
                     moviesServices: function ($ocLazyLoad) {
@@ -230,6 +238,22 @@
                             name: "moviesServices",
                             files: [
                                 "app/movies/moviesServices.module.js"
+                            ]
+                        });
+                    },
+                    movieRatingsServices: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: "movieRatingsServices",
+                            files: [
+                                "app/movieratings/movieRatingsServices.module.js"
+                            ]
+                        });
+                    },
+                    genresServices: function($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: "genresServices",
+                            files: [
+                                "app/genres/genresServices.module.js"
                             ]
                         });
                     },

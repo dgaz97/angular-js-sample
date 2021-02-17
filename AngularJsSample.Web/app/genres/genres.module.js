@@ -33,7 +33,7 @@
                         <div class="form-group row">
                             <label for="name">Naziv</label>
                             <input id="name" class="form-control" value="`+ genre.name + `"/>
-                            <label for="description">Opis</label>
+                            <label for="description">Kratki opis</label>
                             <textarea id="description" class="form-control"
                             style="max-width:100%; min-width:100%;min-height:10vh; max-height:30vh">`+ genre.description + `</textarea>
                         </div>

@@ -23,7 +23,8 @@ namespace AngularJsSample.Api.Mapping.Movies
                 MovieReleaseDate = view.MovieReleaseDate,
                 MovieRating = view.MovieRating,
                 MoviePosterUrl = view.MoviePosterUrl,
-                MovieImdbUrl = view.MovieImdbUrl
+                MovieImdbUrl = view.MovieImdbUrl,
+                Genres = null
             };
         }
         public static List<MovieViewModel> MapToViewModels (this IEnumerable<Movie> views)
@@ -49,7 +50,8 @@ namespace AngularJsSample.Api.Mapping.Movies
                 MovieReleaseDate = viewModel.MovieReleaseDate,
                 MovieRating = viewModel.MovieRating,
                 MoviePosterUrl = viewModel.MoviePosterUrl,
-                MovieImdbUrl = viewModel.MovieImdbUrl
+                MovieImdbUrl = viewModel.MovieImdbUrl,
+                Genres = null
             };
         }
     }

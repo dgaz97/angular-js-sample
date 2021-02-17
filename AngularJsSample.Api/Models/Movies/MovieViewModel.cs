@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using AngularJsSample.Api.Models.Genres;
 using AngularJsSample.Api.Models.Users;
 
 namespace AngularJsSample.Api.Models.Movies
@@ -16,5 +18,6 @@ namespace AngularJsSample.Api.Models.Movies
         public decimal MovieRating { get; set; }
         public string MoviePosterUrl { get; set; }
         public string MovieImdbUrl { get; set; }
+        public List<GenreViewModel> Genres { get; set; }
     }
 }

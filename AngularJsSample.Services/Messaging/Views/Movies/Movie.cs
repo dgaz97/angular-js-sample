@@ -1,5 +1,7 @@
-﻿using AngularJsSample.Services.Messaging.Views.Users;
+﻿using AngularJsSample.Services.Messaging.Views.Genres;
+using AngularJsSample.Services.Messaging.Views.Users;
 using System;
+using System.Collections.Generic;
 
 namespace AngularJsSample.Services.Messaging.Views.Movies
 {
@@ -16,6 +18,7 @@ namespace AngularJsSample.Services.Messaging.Views.Movies
         public decimal MovieRating { get; set; }
         public string MoviePosterUrl { get; set; }
         public string MovieImdbUrl { get; set; }
+        public List<Genre> Genres { get; set; }
 
     }
 }

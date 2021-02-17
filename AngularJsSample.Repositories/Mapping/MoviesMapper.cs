@@ -36,7 +36,8 @@ namespace AngularJsSample.Repositories.Mapping
                 MovieRating = dbResult.MovieRating,
                 MovieImdbUrl = dbResult.MovieImdbUrl,
                 MoviePosterUrl = dbResult.MoviePosterUrl,
-                MovieReleaseDate = dbResult.MovieReleaseDate
+                MovieReleaseDate = dbResult.MovieReleaseDate,
+                Genres = null
             };
         }
 
@@ -70,7 +71,8 @@ namespace AngularJsSample.Repositories.Mapping
                 MovieRating = dbResult.MovieRating,
                 MovieImdbUrl = dbResult.MovieImdbUrl,
                 MoviePosterUrl = dbResult.MoviePosterUrl,
-                MovieReleaseDate = dbResult.MovieReleaseDate
+                MovieReleaseDate = dbResult.MovieReleaseDate,
+                Genres = null
             };
         }
 
@@ -114,7 +116,8 @@ namespace AngularJsSample.Repositories.Mapping
                 MovieRating = dbResult.MovieRating,
                 MovieImdbUrl = dbResult.MovieImdbUrl,
                 MoviePosterUrl = dbResult.MoviePosterUrl,
-                MovieReleaseDate = dbResult.MovieReleaseDate
+                MovieReleaseDate = dbResult.MovieReleaseDate,
+                Genres = null
             };
         }
 

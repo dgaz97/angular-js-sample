@@ -1,5 +1,7 @@
-﻿using AngularJsSample.Model.Users;
+﻿using AngularJsSample.Model.Genres;
+using AngularJsSample.Model.Users;
 using System;
+using System.Collections.Generic;
 
 namespace AngularJsSample.Model.Movies
 {
@@ -16,6 +18,7 @@ namespace AngularJsSample.Model.Movies
         public decimal MovieRating { get; set; }
         public string MoviePosterUrl { get; set; }
         public string MovieImdbUrl { get; set; }
+        public List<Genre> Genres { get; set; }
 
     }
 }

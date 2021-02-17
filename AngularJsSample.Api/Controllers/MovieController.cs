@@ -6,12 +6,13 @@ using System;
 using System.Web;
 using System.Web.Http;
 using AngularJsSample.Api.Models.Movies;
+using AngularJsSample.Api.Mapping.Genres;
 
 namespace AngularJsSample.Api.Controllers
 {
     [Authorize]
     [RoutePrefix("api/movies")]
-    public class MovieController:ApiController
+    public class MovieController : ApiController
     {
         private IMovieService _movieService;
         public MovieController(IMovieService movieService)
@@ -38,12 +39,26 @@ namespace AngularJsSample.Api.Controllers
             var response = _movieService.GetAllMovies(request);
             if (!response.Success)
                 return BadRequest(response.Message);
+
+            var moviesWithGenresViewModels = response.Movies.MapToViewModels();
+            moviesWithGenresViewModels.ForEach(x =>
+            {
+                var req2 = new FindMovieGenresRequest()
+                {
+                    RequestToken = Guid.NewGuid(),
+                    UserId = loggedUserId,
+                    MovieId = x.MovieId
+                };
+                var res2 = _movieService.FindMovieGenres(req2);
+                x.Genres = res2.Genres.MapToViewModels();
+            });
             return Ok(new
             {
-                movies = response.Movies.MapToViewModels()
+                movies = moviesWithGenresViewModels
             });
 
         }
+
 
         /**
          * Dohvaća jedan film
@@ -58,14 +73,28 @@ namespace AngularJsSample.Api.Controllers
             {
                 RequestToken = Guid.NewGuid(),
                 UserId = loggedUserId,
-                MovieId=id
+                MovieId = id
             };
 
 
             var response = _movieService.GetMovie(request);
             if (!response.Success)
                 return BadRequest(response.Message);
-            return Ok(response.Movie.MapToViewModel());
+
+            var movieWithGenresViewModel = response.Movie.MapToViewModel();
+
+            var req2 = new FindMovieGenresRequest()
+            {
+                RequestToken = Guid.NewGuid(),
+                UserId = loggedUserId,
+                MovieId = movieWithGenresViewModel.MovieId
+            };
+            var res2 = _movieService.FindMovieGenres(req2);
+
+            movieWithGenresViewModel.Genres = res2.Genres.MapToViewModels();
+
+
+            return Ok(movieWithGenresViewModel);
 
         }
 
@@ -121,7 +150,7 @@ namespace AngularJsSample.Api.Controllers
          */
         [HttpDelete]
         [Route("{id}")]
-        public IHttpActionResult Delete (int id)
+        public IHttpActionResult Delete(int id)
         {
             var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
 

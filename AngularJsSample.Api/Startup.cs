@@ -55,7 +55,7 @@ namespace AngularJsSample.Api
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw ex; 
             }
         }
 

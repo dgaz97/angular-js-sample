@@ -9,48 +9,100 @@
         .controller('movieManageCtrl', movieManageCtrl)
         ;
 
-    moviesOverviewCtrl.$inject = ['$scope', 'moviesSvc'];
-    function moviesOverviewCtrl($scope, moviesSvc) {
+    moviesOverviewCtrl.$inject = ['$scope', 'moviesSvc', 'genresSvc'];
+    //$scope.movieGridData = {};
+    function moviesOverviewCtrl($scope, moviesSvc, genresSvc) {
         var vm = this;
 
         moviesSvc.getMovies().then(function(result) {
-            console.log(result.data);
-            $scope.movieGridData = new kendo.data.DataSource({
-                data: result.data.movies,
-                pageSize: 5
-            })
-        })
-
-
-        $scope.movieGridOptions = {
-            dataBound: function() {
-                for (var i = 0; i < this.columns.length; i++) {
-                    if (i == 1) continue;
-                    this.autoFitColumn(i);
-                }
-            },
-            columns: [
-                {
-                    field: "movieName",
-                    title: "Naziv",
-                    template: '<a ui-sref="movieProfile({ id:#: data.movieId#})" href=" /movies/#: data.movieId#">#: data.movieName#</a>'
-                },
-                {
-                    field: "movieDescription",
-                    title: "Opis",
-                    //template: '<a ui-sref="movieProfile({ id:#: data.id#})" href=" /movies/#: data.id#">#: data.movieDescription#</a>'
-                },
-                {
-                    field: "movieReleaseDate",
-                    title: "Mjesto rođenja",
-                    template: '#= kendo.toString(kendo.parseDate(data.movieReleaseDate), "dd.MM.yyyy.") #'
-                },
-                {
-                    field: "movieRating",
-                    title: "Ocjena",
-                },
-            ]
+            vm.movies = result.data.movies;
+            vm.moviesOriginalCopy = result.data.movies.slice();
         }
+        ).then(function() {
+            //Set up grid
+            $scope.movieGridOptions = {
+                dataSource: {
+                    data: vm.movies,
+                    pageSize: 5
+                },
+                dataBound: function() {
+                    for (var i = 0; i < this.columns.length; i++) {
+                        if (i == 1) continue;
+                        this.autoFitColumn(i);
+                    }
+                },
+                columns: [
+                    {
+                        field: "movieName",
+                        title: "Naziv",
+                        template: '<a ui-sref="movieProfile({ id:#: data.movieId#})" href=" /movies/#: data.movieId#">#: data.movieName#</a>'
+                    },
+                    {
+                        field: "movieDescription",
+                        title: "Kratki opis",
+                    },
+                    {
+                        field: "movieReleaseDate",
+                        title: "Mjesto rođenja",
+                        template: '#= kendo.toString(kendo.parseDate(data.movieReleaseDate), "dd.MM.yyyy.") #'
+                    },
+                    {
+                        field: "movieRating",
+                        title: "Ocjena",
+                    },
+                    //{
+                    //    field: "genres",
+                    //    title: "Žanrovi",
+                    //    template: `# data.genres.forEach(x=>{#
+                    //               <span class="badge badge-secondary">
+                    //                   #: x.name#
+                    //               </span><br>
+                    //               # })#`
+                    //}
+                ]
+            }
+
+            //Genre dropdown
+            genresSvc.getGenres().then(function(result) {
+                vm.genres = new kendo.data.DataSource({ data: result.data.genres });
+                $scope.selectOptions = {
+                    dataTextField: "name",
+                    dataValueField: "genreId",
+                    dataSource: vm.genres,
+                    value: $scope.selectedGenres,
+                    placeholder: "Odaberite žanrove",
+                    change: function(e) {//You're entering the cringe zone
+
+                        var listOfMovies = vm.moviesOriginalCopy.slice();//Kopiramo početnu listu filmova, po vrijednosti
+                        
+                        if ($scope.selectedGenres != null) //Ako ima odabranih žanrova
+                        {
+                            var selected = $scope.selectedGenres.map(Number);//string array ---> number array
+                            var toRemove = [];//Array filmova koje treba maknuti
+                            for (var i = 0; i < listOfMovies.length; i++) {//Prolazimo kroz listu filmova
+                                var genreIdsOfMovie = [];
+                                listOfMovies[i].genres.forEach(y => genreIdsOfMovie.push(y.genreId));//Vadimo ID-jeve za lakše iteriranje
+
+                                if (selected.some(x => !genreIdsOfMovie.includes(x))) {//Ako neki žanr od traženih nije prisutan u filmu
+                                    toRemove.push(listOfMovies[i].movieId);//Stavljamo ga u array za brisanje
+                                }
+                            }
+
+                            var purifiedList = listOfMovies.filter(x => !toRemove.includes(x.movieId));//Čistimo početnu listu, makivamo nepotrebne filmove
+                            listOfMovies = purifiedList.slice();
+                        }
+
+                        vm.movies = listOfMovies.slice();
+
+                        angular.element('#movieGrid').data('kendoGrid').dataSource.data(vm.movies);//Zapisujemo nove podatke u grid
+
+                    }
+                }
+            });
+        });
+        $scope.selectedGenres = {};
+
+
     }
 
     movieProfileCtrl.$inject = ['$scope', '$state', 'movie', 'moviesSvc', 'movieRating', 'movieRatingsSvc', '$stateParams'];

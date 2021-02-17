@@ -2,10 +2,12 @@
 <div class="container col-lg-12">
     <div class="row">
         <div class="col-sm-6"><button type="button" class="btn btn-primary" ui-sref="newMovie">+ Novi film</button></div>
+    <div class="col-sm-6">
+        <select kendo-multi-select k-options="selectOptions" ng-model="selectedGenres"/>
+    </div>
     </div><br />
     <div class="row">
         <kendo-grid options="movieGridOptions" id="movieGrid"
-                    k-data-source="movieGridData"
                     k-pageable="{'refresh': true, 'pageSizes': true, 'buttonCount': 5}"
                     k-filterable="true"
                     k-resizable="true">

@@ -1,4 +1,4 @@
-﻿(function() {
+﻿(function () {
 
     'use strict';
 
@@ -14,18 +14,18 @@
     function moviesOverviewCtrl($scope, moviesSvc, genresSvc) {
         var vm = this;
 
-        moviesSvc.getMovies().then(function(result) {
+        moviesSvc.getMovies().then(function (result) {
             vm.movies = result.data.movies;
             vm.moviesOriginalCopy = result.data.movies.slice();
         }
-        ).then(function() {
+        ).then(function () {
             //Set up grid
             $scope.movieGridOptions = {
                 dataSource: {
                     data: vm.movies,
                     pageSize: 5
                 },
-                dataBound: function() {
+                dataBound: function () {
                     for (var i = 0; i < this.columns.length; i++) {
                         if (i == 1) continue;
                         this.autoFitColumn(i);
@@ -63,7 +63,7 @@
             }
 
             //Genre dropdown
-            genresSvc.getGenres().then(function(result) {
+            genresSvc.getGenres().then(function (result) {
                 vm.genres = new kendo.data.DataSource({ data: result.data.genres });
                 $scope.selectOptions = {
                     dataTextField: "name",
@@ -71,10 +71,10 @@
                     dataSource: vm.genres,
                     value: $scope.selectedGenres,
                     placeholder: "Odaberite žanrove",
-                    change: function(e) {//You're entering the cringe zone
+                    change: function (e) {//You're entering the cringe zone
 
                         var listOfMovies = vm.moviesOriginalCopy.slice();//Kopiramo početnu listu filmova, po vrijednosti
-                        
+
                         if ($scope.selectedGenres != null) //Ako ima odabranih žanrova
                         {
                             var selected = $scope.selectedGenres.map(Number);//string array ---> number array
@@ -133,15 +133,15 @@
             max: 5,
             label: { template: "<span>#=value# od #=maxValue#</span>" },
             precision: "half",
-            change: function(e) {
-                movieRatingsSvc.addMovieRating(vm.movie.movieId, { "userRating": e.newValue }).then(function(result) {
-                    moviesSvc.getMovie(vm.movie.movieId).then(function(data) {
+            change: function (e) {
+                movieRatingsSvc.addMovieRating(vm.movie.movieId, { "userRating": e.newValue }).then(function (result) {
+                    moviesSvc.getMovie(vm.movie.movieId).then(function (data) {
                         vm.movie = data.data;
                         //$scope.ratingOptions.value(data.data.movieRating);
-                    }, function(err) {
+                    }, function (err) {
                         swal.fire("Greška", "Došlo je do greške kod ažuriranja filma: " + err.data.messageDetail, "error");
                     });
-                }, function(err) {
+                }, function (err) {
                     vm.movieRating.userRating = e.oldValue;
                     swal.fire("Greška", "Došlo je do greške kod dodavanja ratinga, pokušajte ponovno", "error");
                 });
@@ -187,7 +187,7 @@
         vm.title = vm.movie ? true : false;
 
 
-        genresSvc.getGenres().then(function(result) {
+        genresSvc.getGenres().then(function (result) {
             vm.startingGenres = [];
             if (vm.movie != null) vm.movie.genres.forEach(i => vm.startingGenres.push(i.genreId))
             $scope.selectedGenres = vm.startingGenres.slice();
@@ -204,7 +204,7 @@
 
 
         //Provjeravamo je li link slike ispravnog formata
-        $scope.validateImageUrl = function(text) {
+        $scope.validateImageUrl = function (text) {
             if ((!text || /^\s*$/.test(text))) return true;
             var validHttp = /^https?:\/\//g.test(text);
             var validImg = /\.jpg$|\.jpeg$|\.png$|\.gif$/g.test(text);
@@ -213,17 +213,17 @@
         }
 
         //Provjeravamo je li IMDb link ispravnog formata
-        $scope.validateImdbUrl = function(text) {
+        $scope.validateImdbUrl = function (text) {
             var validImdbLink = /^https?:\/\/(www\.)?imdb.com/g.test(text);
             if (validImdbLink) return true;
             else return "IMDb URL nije ispravnog formata";
         }
 
         //Submit
-        $scope.submitForm = function() {
+        $scope.submitForm = function () {
 
             if (movie) {//Ako ažuriramo film
-                moviesSvc.updateMovie(vm.movie.movieId, vm.movie).then(function(result) { });//ažurirati film
+                moviesSvc.updateMovie(vm.movie.movieId, vm.movie).then(function (result) { });//ažurirati film
 
                 $scope.selectedGenres = $scope.selectedGenres.map(Number);//string array u number array
                 var common = vm.startingGenres.filter(value => $scope.selectedGenres.includes(value));//Razlika - žanrovi koji se ne mijenjanju
@@ -232,16 +232,16 @@
                 $scope.selectedGenres = $scope.selectedGenres.filter((el) => !common.includes(el));//maknuti zajedničke iz novih
 
                 $scope.selectedGenres.forEach(x => {//Dodati potrebne žanrove
-                    moviesSvc.addGenreToMovie(vm.movie.movieId, x).then(function(result) { });
+                    moviesSvc.addGenreToMovie(vm.movie.movieId, x).then(function (result) { });
                 });
                 vm.startingGenres.forEach(x => {//Obrisati potrebne žanrove
-                    moviesSvc.removeGenreFromMovie(vm.movie.movieId, x).then(function(result) { });
+                    moviesSvc.removeGenreFromMovie(vm.movie.movieId, x).then(function (result) { });
                 });
 
                 $state.go("moviesOverview");
             }
             else {//Ako stvaramo novi film
-                moviesSvc.createMovie(vm.movie).then(function(result) {
+                moviesSvc.createMovie(vm.movie).then(function (result) {
                     var id = result.data.movieId;
 
                     $scope.selectedGenres = $scope.selectedGenres.map(Number);//string array u number array
@@ -251,10 +251,10 @@
                     $scope.selectedGenres = $scope.selectedGenres.filter((el) => !common.includes(el));//maknuti zajedničke iz novih
 
                     $scope.selectedGenres.forEach(x => {//Dodati potrebne žanrove
-                        moviesSvc.addGenreToMovie(id, x).then(function(result) { });
+                        moviesSvc.addGenreToMovie(id, x).then(function (result) { });
                     });
                     vm.startingGenres.forEach(x => {//Obrisati potrebne žanrove
-                        moviesSvc.removeGenreFromMovie(id, x).then(function(result) { });
+                        moviesSvc.removeGenreFromMovie(id, x).then(function (result) { });
                     });
                     $state.go("moviesOverview");
                 });

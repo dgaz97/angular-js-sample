@@ -1,4 +1,4 @@
-﻿(function() {
+﻿(function () {
 
     'use strict';
 
@@ -22,9 +22,9 @@
 
 
         // Declare a function on the chat hub so the server can invoke it
-        hub.client.updateMoviePersons = function() {
+        hub.client.updateMoviePersons = function () {
             //Dohvati nove podatke
-            moviePersonsSvc.getMoviePersons().then(function(result) {
+            moviePersonsSvc.getMoviePersons().then(function (result) {
                 $scope.moviePersonGridData = new kendo.data.DataSource({
                     data: result.data.persons,
                     pageSize: 20
@@ -32,11 +32,11 @@
             });
         }
         // Start the connection
-        signalRConn.hub.start().done(function() {
+        signalRConn.hub.start().done(function () {
         });
 
         //Dohvaćamo podatke preko servisa
-        moviePersonsSvc.getMoviePersons().then(function(result) {
+        moviePersonsSvc.getMoviePersons().then(function (result) {
             //Spremamo u DataSource
             $scope.moviePersonGridData = new kendo.data.DataSource({
                 data: result.data.persons,
@@ -49,7 +49,7 @@
                 //sortable: true,
 
                 //Auto-Fit sve stupce osim petog (opis)
-                dataBound: function() {
+                dataBound: function () {
                     for (var i = 0; i < this.columns.length; i++) {
                         if (i == 5) continue;
                         this.autoFitColumn(i);
@@ -131,7 +131,7 @@
             ]
         })
 
-        $scope.onSelectChanged = function(kendoEvent) {
+        $scope.onSelectChanged = function (kendoEvent) {
             //Dohvaćamo podatke grida, te ih sortiramo: field je po kojem stupce, dir je u kojem smjeru (uzlazno ili silazno)
             $scope.moviePersonGridData.sort({ field: $scope.sortParams.col, dir: $scope.sortParams.dir });
         }
@@ -353,14 +353,14 @@
             //Ako stvaramo novog redatelja
             if (!vm.title) {
                 //Poziva se servis za stvaranje novog autora
-                moviePersonsSvc.createMoviePerson(vm.moviePerson).then(function(result) {
+                moviePersonsSvc.createMoviePerson(vm.moviePerson).then(function (result) {
                     // Proxy created on the fly
                     var signalRConn = $.connection;
                     signalRConn.hub.url = `${serviceBase}/signalr`;
                     //Dohvaćamo Hub (MyHub klasa u Api projektu)
                     var hub = signalRConn.myHub;
 
-                    signalRConn.hub.start().done(function() {
+                    signalRConn.hub.start().done(function () {
                         hub.server.refresh();
                     });
                     signalRConn.hub.stop();
@@ -386,14 +386,14 @@
             //Ako se uređuje postojeći redatelj
             else {
                 //Poziva se servis za uređivanje postojećeg autora
-                moviePersonsSvc.updateMoviePerson(vm.moviePerson.id, vm.moviePerson).then(function(result) {
+                moviePersonsSvc.updateMoviePerson(vm.moviePerson.id, vm.moviePerson).then(function (result) {
                     // Proxy created on the fly
                     var signalRConn = $.connection;
                     signalRConn.hub.url = `${serviceBase}/signalr`;
                     //Dohvaćamo Hub (MyHub klasa u Api projektu)
                     var hub = signalRConn.myHub;
 
-                    signalRConn.hub.start().done(function() {
+                    signalRConn.hub.start().done(function () {
                         hub.server.refresh();
                     });
                     signalRConn.hub.stop();

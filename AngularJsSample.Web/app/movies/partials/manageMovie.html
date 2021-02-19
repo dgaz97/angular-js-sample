@@ -22,21 +22,22 @@
         <div class="row">
             <div class="col-md-12 form-group">
                 <div class="">
-                    <label for="movieName" class="form-control">Naziv</label>
+                    <label for="movieName" class="control-label">Naziv</label>
                 </div>
                 <div class="">
                     <input type="text" id="movieName" class="form-control"
                            ng-model="vm.movie.movieName"
                            validate-on="dirty"
                            required-message="'Naziv mora biti ispunjen'"
-                           required />
+                           ng-required />
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-6 form-group">
                 <div class="">
-                    <label for="movieReleaseDate" class="form-control">Datum izlaska:</label>
+                    <label for="movieReleaseDate" class="control-label">Datum izlaska:</label>
                 </div>
                 <div class="">
                     <input type="text" id="movieReleaseDate" class="form-control"
@@ -50,10 +51,11 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-12 form-group">
                 <div class="">
-                    <label for="movieDescription" class="form-control">Opis</label>
+                    <label for="movieDescription" class="control-label">Opis</label>
                 </div>
                 <div class="">
                     <textarea id="movieDescription" class="form-control" style="max-width:100%;max-height:25%"
@@ -62,22 +64,24 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-12 form-group">
                 <div class="">
-                    <label for="movieGenres" class="form-control">Žanrovi</label>
+                    <label for="movieGenres" class="control-label">Žanrovi</label>
                 </div>
                 <div class="">
-                    <select kendo-multi-select k-options="selectOptions" ng-model="selectedGenres"
+                    <select kendo-multi-select k-options="selectOptions" ng-model="selectedGenres" class="form-control"
                             validate-on="dirty" required required-message="Morate odabrati barem jedan žanr"
                             ></select>
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-12 form-group">
                 <div class="">
-                    <label for="moviePosterUrl" class="form-control">URL postera</label>
+                    <label for="moviePosterUrl" class="control-label">URL postera</label>
                 </div>
                 <div class="">
                     <input type="text" id="moviePosterUrl" class="form-control"
@@ -91,10 +95,11 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-12 form-group">
                 <div class="">
-                    <label for="movieImdbUrl" class="form-control">IMDb URL</label>
+                    <label for="movieImdbUrl" class="control-label">IMDb URL</label>
                 </div>
                 <div class="">
                     <input type="text" id="movieImdbUrl" class="form-control"

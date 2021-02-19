@@ -302,6 +302,14 @@
                             ]
                         });
                     },
+                    movieRatingsServices: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: "movieRatingsServices",
+                            files: [
+                                "app/movieratings/movieRatingsServices.module.js"
+                            ]
+                        });
+                    },
                     genresServices: function($ocLazyLoad) {
                         return $ocLazyLoad.load({
                             name: "genresServices",
@@ -342,6 +350,14 @@
                             name: "genresServices",
                             files: [
                                 "app/genres/genresServices.module.js"
+                            ]
+                        });
+                    },
+                    movieRatingsServices: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: "movieRatingsServices",
+                            files: [
+                                "app/movieratings/movieRatingsServices.module.js"
                             ]
                         });
                     },

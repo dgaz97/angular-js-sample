@@ -169,7 +169,7 @@
                     title: "Naredbe",
                     //definiramo gumb
                     command: [{
-                        className: "edit",
+                        className: "btn btn-info btn-outline",
                         name: "uredi",
                         text: "Uredi",
                         click: function (e) {
@@ -182,7 +182,7 @@
                         }
                     },
                     {
-                        className: "destroy",
+                        className: "btn btn-danger btn-outline",
                         name: "obrisi",
                         text: "Obriši",
                         click: function (e) {

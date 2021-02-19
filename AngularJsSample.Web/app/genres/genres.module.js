@@ -29,7 +29,7 @@
                 width: "60vw",
                 //Izgled modala
                 html:
-                    `<div class="container">
+                    `<div class="container-fluid">
                         <div class="form-group row">
                             <label for="name">Naziv</label>
                             <input id="name" class="form-control" value="`+ genre.name + `"/>

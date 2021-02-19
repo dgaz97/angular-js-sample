@@ -285,6 +285,10 @@
         }
         //Image url
         $scope.validationFunctions.validateImageUrl = function (text) {
+            if (text.length > 200) {
+                $scope.errors.imageUrlError = true;
+                return "Link slike ne smije biti dulji od 200 znakova";
+            }
             if ((!text || /^\s*$/.test(text))) {
                 $scope.errors.imageUrlError = false;
                 return false;
@@ -302,6 +306,10 @@
         }
         //IMDb url
         $scope.validationFunctions.validateImdbUrl = function (text) {
+            if (text.length > 100) {
+                $scope.errors.imdbUrlError = true;
+                return "IMDb link ne smije biti dulji od 100 znakova";
+            }
             var validImdbLink = /^https?:\/\/(www\.)?imdb.com/g.test(text);
             if (validImdbLink) {
                 $scope.errors.imdbUrlError = false;

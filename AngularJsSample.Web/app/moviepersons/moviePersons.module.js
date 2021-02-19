@@ -145,45 +145,49 @@
 
         vm.moviePerson = moviePerson;
 
+        //Kendo button sucks, can't remove k-button class, so i'm using a normal button with click listener
+        $scope.onDeleteButtonClick = function (e) {
+            swal.fire({
+                title: "POZOR",
+                icon: "warning",
+                text: "Jeste li sigurni da želite obrisati osobu `" + vm.moviePerson.firstName + " " + vm.moviePerson.lastName + "`?",
+                showCancelButton: true,
+                confirmButtonText: "Da",
+                cancelButtonText: "Ne",
+                closeOnCancel: true,
+                closeOnConfirm: true,
+                closeOnEsc: true,
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: 'btn btn-danger btn-outline',
+                    cancelButton: 'btn btn-primary btn-outline'
+                },
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    moviePersonsSvc.deleteMoviePerson($stateParams.id).then(function (data) {
 
-        //postavke za gumb brisanja
-        $scope.deleteButtonOptions = {
-            click: function(e) {
-                //Modal za upozorenje o brisanju
-                swal.fire({
-                    title: "POZOR",
-                    text: "Jeste li sigurni da želite obrisati osobu `" + vm.moviePerson.firstName + " " + vm.moviePerson.lastName + "`?",
-                    showCancelButton: true,
-                    confirmButtonText: "Da",
-                    cancelButtonText: "Ne",
-                    closeOnCancel: true,
-                    closeOnConfirm: true,
-                    closeOnEsc: true
-                }).then(function(isConfirm) {
-                    if (isConfirm) {
-                        moviePersonsSvc.deleteMoviePerson($stateParams.id).then(function(data) {
+                        // Proxy created on the fly
+                        var signalRConn = $.connection;
+                        signalRConn.hub.url = `${serviceBase}/signalr`;
+                        //Dohvaćamo Hub (MyHub klasa u Api projektu)
+                        var hub = signalRConn.myHub;
 
-                            // Proxy created on the fly
-                            var signalRConn = $.connection;
-                            signalRConn.hub.url = `${serviceBase}/signalr`;
-                            //Dohvaćamo Hub (MyHub klasa u Api projektu)
-                            var hub = signalRConn.myHub;
-
-                            signalRConn.hub.start().done(function() {
-                                hub.server.refresh();
-                            });
-                            signalRConn.hub.stop();
-
-                            //Premješta na pregled svih redatelja
-                            $state.go("moviePersonsOverview");
-                            //Ili prikazuje modal ako dođe do greške
-                        }, function(err) {
-                            swal.fire("Greška", "Došlo je do greške kod brisanja: " + err.data.messageDetail, "error");
+                        signalRConn.hub.start().done(function () {
+                            hub.server.refresh();
                         });
-                    }
-                })
-            }
+                        signalRConn.hub.stop();
+
+                        //Premješta na pregled svih redatelja
+                        $state.go("moviePersonsOverview");
+                        //Ili prikazuje modal ako dođe do greške
+                    }, function (err) {
+                        swal.fire("Greška", "Došlo je do greške kod brisanja: " + err.data.messageDetail, "error");
+                    });
+                }
+            })
         };
+
+
 
     }
 
@@ -235,11 +239,15 @@
                     $state.go("moviePersonsOverview");
                 },
                     //Ili se prikazuje poruka pogreške
-                    function(err) {
+                    function (err) {
                         swal.fire({
                             title: "Greška",
-                            text: "Došlo je do greške: " + err.data.messageDetail,
-                            type: "error"
+                            text: "Došlo je do greške: " + err.data.message,
+                            type: "error",
+                            buttonsStyling: false,
+                            customClass: {
+                                confirmButton: 'btn btn-primary btn-outline'
+                            }
 
                         });
                     }
@@ -264,11 +272,15 @@
                     $state.go("moviePersonsOverview");
                 },
                     //Ili se prikazuje poruka pogreške
-                    function(err) {
+                    function (err) {
                         swal.fire({
                             title: "Greška",
-                            text: "Došlo je do greške: " + err.data.messageDetail,
-                            type: "error"
+                            text: "Došlo je do greške: " + err.data.message,
+                            type: "error",
+                            buttonsStyling: false,
+                            customClass: {
+                                confirmButton: 'btn btn-primary btn-outline'
+                            }
                         });
                     }
                 );

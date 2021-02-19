@@ -148,33 +148,36 @@
             }
         };
 
-        $scope.deleteButtonOptions = {
-            click: function(e) {
-                //Modal za upozorenje o brisanju
-                swal.fire({
-                    title: "POZOR",
-                    text: "Jeste li sigurni da želite obrisati film `" + vm.movie.movieName + "`?",
-                    showCancelButton: true,
-                    confirmButtonText: "Da",
-                    cancelButtonText: "Ne",
-                    closeOnCancel: true,
-                    closeOnConfirm: true,
-                    closeOnEsc: true
-                })
-                    .then(function(isConfirm) {
-                        if (isConfirm) {
-                            moviesSvc.deleteMovie(vm.movie.movieId).then(function(data) {
-                                //Premješta na pregled svih redatelja
-                                $state.go("moviesOverview");
-                                //Ili prikazuje modal ako dođe do greške
-                            }, function(err) {
-                                swal.fire("Greška", "Došlo je do greške kod brisanja: " + err.data.messageDetail, "error");
-                            });
-                        }
-                    });
-            }
-        };
-
+        $scope.onDeleteButtonClick = function (e) {
+            //Modal za upozorenje o brisanju
+            swal.fire({
+                title: "POZOR",
+                icon:"warning",
+                text: "Jeste li sigurni da želite obrisati film `" + vm.movie.movieName + "`?",
+                showCancelButton: true,
+                confirmButtonText: "Da",
+                cancelButtonText: "Ne",
+                closeOnCancel: true,
+                closeOnConfirm: true,
+                closeOnEsc: true,
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: 'btn btn-danger btn-outline',
+                    cancelButton: 'btn btn-primary btn-outline'
+                },
+            })
+                .then(function (result) {
+                    if (result.isConfirm) {
+                        moviesSvc.deleteMovie(vm.movie.movieId).then(function (data) {
+                            //Premješta na pregled svih redatelja
+                            $state.go("moviesOverview");
+                            //Ili prikazuje modal ako dođe do greške
+                        }, function (err) {
+                            swal.fire("Greška", "Došlo je do greške kod brisanja: " + err.data.messageDetail, "error");
+                        });
+                    }
+                });
+        }
     }
 
     movieManageCtrl.$inject = ['$scope', '$state', 'movie', 'moviesSvc', 'genresSvc', '$stateParams'];

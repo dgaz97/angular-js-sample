@@ -1,9 +1,8 @@
 ﻿<h1 class="page-header">
     {{vm.moviePerson.firstName}} {{vm.moviePerson.lastName}}
     <div style="float:right">
-        <button type="button" class="btn btn-primary" ui-sref="updateMoviePerson({id:{{vm.moviePerson.id}}})">Uredi osobu</button>
-        <kendo-button id="deleteButton"
-                      k-options="deleteButtonOptions">Obriši osobu</kendo-button>
+        <button type="button" class="btn btn-primary btn-outline" ui-sref="updateMoviePerson({id:{{vm.moviePerson.id}}})" id="editMoviePersonButton">Uredi osobu</button>
+        <button type="button" ng-click="onDeleteButtonClick()" id="deleteButton" class="btn btn-danger btn-outline">Obriši osobu</button>
     </div>
 </h1>
 <div class="container col-md-9" style="border: solid 1px black">

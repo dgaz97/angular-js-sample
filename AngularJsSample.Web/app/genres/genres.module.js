@@ -42,6 +42,12 @@
                 showCancelButton: true,
                 cancelButtonText: "Prekini",
                 allowOutsideClick: "true",
+                //BS tema na gumbe u modalu
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: 'btn btn-primary btn-outline',
+                    cancelButton:'btn btn-info btn-outline'
+                },
                 //Vratiti će vrijednosti input elemenata
                 preConfirm: () => {
                     return {
@@ -102,11 +108,18 @@
             console.log(genre);
             swal.fire({
                 title: "POZOR",
+                icon:"warning",
                 text: "Jeste li sigurni da želite obrisati žanr " + genre.name + "?",
                 confirmButtonText: "Da, obriši",
                 showCancelButton: true,
                 cancelButtonText: "Prekini",
-                allowOutsideClick: "true"
+                allowOutsideClick: "true",
+                //BS tema na gumbe u modalu
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: 'btn btn-danger btn-outline',
+                    cancelButton:'btn btn-primary btn-outline'
+                },
             }).then(function (result) {
                 //Ako je kliknuto Da, obriši
                 if (result.isConfirmed) {

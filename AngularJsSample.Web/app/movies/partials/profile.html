@@ -1,10 +1,9 @@
 ﻿<h1 class="page-header">
     {{vm.movie.movieName}}
     <div style="float:right">
-        <button type="button" class="btn btn-primary" ui-sref="updateMovie({id:{{vm.movie.movieId}}})">Uredi film</button>
+        <button type="button" class="btn btn-primary btn-outline" ui-sref="updateMovie({id:{{vm.movie.movieId}}})" id="editMovieButton">Uredi film</button>
         <!--//TODO implementirati deleteButton-->
-        <kendo-button id="deleteButton"
-                      k-options="deleteButtonOptions">Obriši film</kendo-button>
+        <button type="button" id="deleteButton" class="btn btn-danger btn-outline" ng-click="onDeleteButtonClick()">Obriši film</button>
     </div>
 </h1>
 <div class="container">

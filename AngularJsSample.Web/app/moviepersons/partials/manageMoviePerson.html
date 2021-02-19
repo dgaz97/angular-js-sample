@@ -15,129 +15,160 @@
 </h1>
 <div class="k-container-fluid">
     <form name="personForm" id="personForm" class="col-lg-10 col-md-12"
-          angular-validator
           ng-disabled="personForm.$invalid"
-          angular-validator-submit="submitForm()">
+          ng-submit="submitForm($event)"
+          novalidate>
+
         <div class="row">
             <div class="col-md-6 form-group">
                 <div class="">
-                    <label for="firstName" class="form-control">Ime</label>
+                    <label class="control-label" for="firstName">Ime</label>
                 </div>
                 <div class="">
                     <input type="text" id="firstName" class="form-control"
                            ng-model="vm.moviePerson.firstName"
-                           validate-on="dirty"
-                           required-message="'Ime mora biti ispunjeno'"
-                           required />
+                           ng-model-options="{ updateOn: 'mousedown blur' }"
+                           ng-change="validationFunctions.validateFirstName(vm.moviePerson.firstName)"
+                           ng-required />
+                    <p style="color:#b94a48;font-weight:bold" ng-show="errors.firstNameError===true">
+                        {{errors.firstNameError?validationFunctions.validateFirstName(vm.moviePerson.firstName):""}}
+                    </p>
                 </div>
             </div>
+
             <div class="col-md-6 form-group">
                 <div class="">
-                    <label for="lastName" class="form-control">Prezime</label>
+                    <label class="control-label" for="lastName">Prezime</label>
                 </div>
                 <div class="">
                     <input type="text" id="lastName" class="form-control"
                            ng-model="vm.moviePerson.lastName"
-                           validate-on="dirty"
-                           required-message="'Prezime mora biti ispunjeno'"
-                           required />
+                           ng-model-options="{ updateOn: 'mousedown blur' }"
+                           ng-change="validationFunctions.validateLastName(vm.moviePerson.lastName)"
+                           ng-required />
+                    <p style="color:#b94a48;font-weight:bold" ng-show="errors.lastNameError===true">
+                        {{errors.lastNameError?validationFunctions.validateLastName(vm.moviePerson.lastName):""}}
+                    </p>
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-6 form-group">
                 <div class="">
-                    <label for="birthDate" class="form-control">Datum rođenja</label>
+                    <label class="control-label" for="birthDate">Datum rođenja</label>
                 </div>
                 <div class="">
-                    <input type="text" id="birthDate" class="form-control"
+                    <input type="text" id="birthDate" class="form-control" name="birthDate"
                            kendo-date-picker
-                           validate-on="dirty"
                            k-max="'{{vm.now}}'"
                            k-min="'1800-01-01'"
                            k-format="'yyyy-MM-dd'"
                            ng-model="vm.moviePerson.birthDate"
-                           required-message="'Datum rođenja mora biti ispunjen'"
-                           required />
+                           ng-model-options="{ updateOn: 'mousedown blur' }"
+                           ng-change="validationFunctions.validateBirthDate(vm.moviePerson.birthDate)"
+                           ng-required />
+                    <p style="color:#b94a48;font-weight:bold" ng-show="errors.birthDateError===true">
+                        {{errors.birthDateError?validationFunctions.validateBirthDate(vm.moviePerson.birthDate):""}}
+                    </p>
                 </div>
             </div>
+
             <div class="col-md-6 form-group">
                 <div class="">
-                    <label for="birthPlace" class="form-control">Mjesto rođenja</label>
+                    <label class="control-label" for="birthPlace">Mjesto rođenja</label>
                 </div>
                 <div class="">
                     <input id="birthPlace" class="form-control"
-                           ng-model="vm.moviePerson.birthPlace"
-                           validate-on="dirty"
-                           required-message="'Mjesto rođenja mora biti ispunjeno'"
-                           required />
+                           ng-model="vm.moviePerson.birthPlace" ,
+                           ng-model-options="{ updateOn: 'mousedown blur' }"
+                           ng-change="validationFunctions.validateBirthPlace(vm.moviePerson.birthPlace)"
+                           ng-required />
+                    <p style="color:#b94a48;font-weight:bold" ng-show="errors.birthPlaceError===true">
+                        {{errors.birthPlaceError?validationFunctions.validateBirthPlace(vm.moviePerson.birthPlace):""}}
+                    </p>
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-12 form-group">
                 <div class="">
-                    <label for="biography" class="form-control">Opis</label>
+                    <label class="control-label" for="biography">Opis</label>
                 </div>
                 <div class="">
                     <textarea id="biography" class="form-control" style="max-width:100%;max-height:25%"
                               ng-model="vm.moviePerson.biography"
-                              maxlength="2000" />
+                              maxlength="2000"
+                              ng-model-options="{ updateOn: 'mousedown blur' }"
+                              ng-change="validationFunctions.validateBiography(vm.moviePerson.biography)"
+                              ng-required />
+                    <p style="color:#b94a48;font-weight:bold" ng-show="errors.biographyError===true">
+                        {{errors.biographyError?validationFunctions.validateBiography(vm.moviePerson.biography):""}}
+                    </p>
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-12 form-group">
                 <div class="">
-                    <label for="imageUrl" class="form-control">URL Slike</label>
+                    <label class="control-label" for="imageUrl">URL Slike</label>
                 </div>
                 <div class="">
                     <input type="text" id="imageUrl" class="form-control"
-                           validate-on="dirty"
-                           validator="validateImageUrl(vm.moviePerson.imageUrl) === true"
-                           invalid-message="validateImageUrl(vm.moviePerson.imageUrl)"
-                           ng-model="vm.moviePerson.imageUrl" />
+                           ng-model="vm.moviePerson.imageUrl"
+                           ng-model-options="{ updateOn: 'mousedown blur' }"
+                           ng-change="validationFunctions.validateImageUrl(vm.moviePerson.imageUrl)"
+                           ng-required />
+                    <p style="color:#b94a48;font-weight:bold" ng-show="errors.imageUrlError===true">
+                        {{errors.imageUrlError?validationFunctions.validateImageUrl(vm.moviePerson.imageUrl):""}}
+                    </p>
                 </div>
                 <div>
                     <h6>Ako nije prazno, mora početi s http(s), a mora završiti s .jpg, .jpeg, .png ili .gif</h6>
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-12 form-group">
                 <div class="">
-                    <label for="imdbUrl" class="form-control">IMDb URL</label>
+                    <label class="control-label" for="imdbUrl">IMDb URL</label>
                 </div>
                 <div class="">
                     <input type="text" id="imdbUrl" class="form-control"
                            ng-model="vm.moviePerson.imdbUrl"
-                           validate-on="dirty"
-                           validator="validateImdbUrl(vm.moviePerson.imdbUrl) === true"
-                           invalid-message="validateImdbUrl(vm.moviePerson.imdbUrl)"
-                           required
-                           required-message="'IMDb URL mora biti ispunjen'" />
+                           ng-model-options="{ updateOn: 'mousedown blur' }"
+                           ng-change="validationFunctions.validateImdbUrl(vm.moviePerson.imdbUrl)"
+                           ng-required />
+                    <p style="color:#b94a48;font-weight:bold" ng-show="errors.imdbUrlError===true">
+                        {{errors.imdbUrlError?validationFunctions.validateImdbUrl(vm.moviePerson.imdbUrl):""}}
+                    </p>
                 </div>
                 <div>
                     <h6>Mora biti IMDb URL, te mora početi s http(s)</h6>
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-6 form-group">
                 <div class="">
-                    <label for="popularity" class="form-control">Popularnost</label>
+                    <label class="control-label" for="popularity">Popularnost</label>
                 </div>
                 <div class="col-md-12">
-                    <span>
-                        <input id="popularity" class="form-control" style="width:100%"
-                               kendo-numeric-text-box
-                               k-min="1"
-                               k-decimals="0"
-                               ng-model="vm.moviePerson.popularity"
-                               validate-on="dirty"
-                               required
-                               required-message="'Popularnost mora biti ispunjena'" />
-                    </span>
+                    <input id="popularity" class="form-control" style="width:100%"
+                           kendo-numeric-text-box
+                           k-min="1"
+                           k-decimals="0"
+                           ng-model="vm.moviePerson.popularity"
+                           ng-model-options="{ updateOn: 'mousedown blur' }"
+                           ng-change="validationFunctions.validatePopularity(vm.moviePerson.popularity)"
+                           ng-required />
+                    <p style="color:#b94a48;font-weight:bold" ng-show="errors.popularityError===true">
+                        {{errors.popularityError?validationFunctions.validatePopularity(vm.moviePerson.popularity):""}}
+                    </p>
                 </div>
             </div>
         </div>

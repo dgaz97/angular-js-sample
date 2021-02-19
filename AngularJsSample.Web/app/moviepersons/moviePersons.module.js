@@ -196,30 +196,160 @@
         var vm = this;
 
         //Određuje uređivamo li postojećeg redatelja, ili stvaramo novog
-        vm.moviePerson = moviePerson ? moviePerson : null;
-
         vm.title = vm.moviePerson ? true : false;
+        vm.moviePerson = moviePerson ? moviePerson : {};
+
 
         //Trenutno vrijeme, treba da ograničimo datum rođenja autora
         vm.now = new Date().toISOString();
 
-        //Provjeravamo je li link slike ispravnog formata
-        $scope.validateImageUrl = function(text) {
-            if ((!text || /^\s*$/.test(text))) return true;
+        $scope.errors = {};
+        $scope.errors.firstNameError = false;
+        $scope.errors.lastNameError = false;
+        $scope.errors.birthDateError = false;
+        $scope.errors.birthPlaceError = false;
+        $scope.errors.biographyError = false;
+        $scope.errors.imageUrlError = false;
+        $scope.errors.imdbUrlError = false;
+        $scope.errors.popularityError = false;
+
+        $scope.validationFunctions = {};//if function returns false, it means that there's no error
+        //First name
+        $scope.validationFunctions.validateFirstName = function (text) {
+            if (typeof text === 'undefined' || !text) {
+                $scope.errors.firstNameError = true;
+                return "Ime ne smije biti prazno";
+            }
+            if (text.length > 50) {
+                $scope.errors.firstNameError = true;
+                return "Ime ne smije biti dulje od 50 znakova";
+            }
+            $scope.errors.firstNameError = false;
+            return false;
+        }
+        //Last name
+        $scope.validationFunctions.validateLastName = function (text) {
+            if (typeof text === 'undefined' || !text) {
+                $scope.errors.lastNameError = true;
+                return "Prezime ne smije biti prazno";
+            }
+            if (text.length > 50) {
+                $scope.errors.lastNameError = true;
+                return "Prezime ne smije biti dulje od 50 znakova";
+            }
+            $scope.errors.lastNameError = false;
+            return false;
+        }
+        //Birth date
+        $scope.validationFunctions.validateBirthDate = function (text) {
+            if (typeof text === 'undefined' || !text) {
+                $scope.errors.birthDateError = true;
+                return "Datum ne smije biti prazan";
+            }
+            if (text > vm.now) {
+                $scope.errors.birthDateError = true;
+                return "Datum ne smije biti nakon današnjeg";
+            }
+            if (text < "1800-01-01") {
+                $scope.errors.birthDateError = true;
+                return "Datum ne smije biti prije 1. siječnja 1800.";
+            }
+            $scope.errors.birthDateError = false;
+            return false;
+        }
+        //Birth place
+        $scope.validationFunctions.validateBirthPlace = function (text) {
+            if (typeof text === 'undefined' || !text) {
+                $scope.errors.birthPlaceError = true;
+                return "Mjesto rođenja ne smije biti prazno";
+            }
+            if (text.length > 50) {
+                $scope.errors.birthPlaceError = true;
+                return "Mjesto rođenja ne smije biti dulje od 50 znakova";
+            }
+            $scope.errors.birthPlaceError = false;
+            return false;
+        }
+        //Biography
+        $scope.validationFunctions.validateBiography = function (text) {
+            if (typeof text === 'undefined' || !text) {
+                $scope.errors.biographyError = false;
+                return false;
+            }
+            if (text.length > 2000) {
+                $scope.errors.biographyError = true;
+                return "Opis ne smije biti dulji od 2000 znakova";
+            }
+            $scope.errors.biographyError = false;
+            return false;
+        }
+        //Image url
+        $scope.validationFunctions.validateImageUrl = function (text) {
+            if ((!text || /^\s*$/.test(text))) {
+                $scope.errors.imageUrlError = false;
+                return false;
+            }
             var validHttp = /^https?:\/\//g.test(text);
             var validImg = /\.jpg$|\.jpeg$|\.png$|\.gif$/g.test(text);
-            if (validImg && validHttp) return true;
-            else return "URL slike nije ispravnog formata";
+            if (validImg && validHttp) {
+                $scope.errors.imageUrlError = false;
+                return false;
+            }
+            else {
+                $scope.errors.imageUrlError = true;
+                return "URL slike nije ispravnog formata";
+            }
         }
-
-        //Provjeravamo je li IMDb link ispravnog formata
-        $scope.validateImdbUrl = function(text) {
+        //IMDb url
+        $scope.validationFunctions.validateImdbUrl = function (text) {
             var validImdbLink = /^https?:\/\/(www\.)?imdb.com/g.test(text);
-            if (validImdbLink) return true;
-            else return "IMDb URL nije ispravnog formata";
+            if (validImdbLink) {
+                $scope.errors.imdbUrlError = false;
+                return false;
+            }
+            else {
+                $scope.errors.imdbUrlError = true;
+                return "IMDb URL nije ispravnog formata";
+            }
+        }
+        //Popularity
+        $scope.validationFunctions.validatePopularity = function (text) {
+            if (typeof text === 'undefined' || !text) {
+                $scope.errors.popularityError = true;
+                return "Popularnost ne smije biti prazna";
+            }
+            if (text < 1) {
+                $scope.errors.popularityError = true;
+                return "Popularnost ne smije biti manja od 1";
+            }
+            $scope.errors.popularityError = false;
+            return false;
         }
 
-        $scope.submitForm = function() {
+
+
+
+
+
+        $scope.submitForm = function ($event) {
+
+            //Validate all inputs
+            $scope.validationFunctions.validateFirstName(vm.moviePerson.firstName);
+            $scope.validationFunctions.validateLastName(vm.moviePerson.lastName);
+            $scope.validationFunctions.validateBirthDate(vm.moviePerson.birthDate);
+            $scope.validationFunctions.validateBirthPlace(vm.moviePerson.birthPlace);
+            $scope.validationFunctions.validateBiography(vm.moviePerson.biography);
+            $scope.validationFunctions.validateImageUrl(vm.moviePerson.imageUrl);
+            $scope.validationFunctions.validateImdbUrl(vm.moviePerson.imdbUrl);
+            $scope.validationFunctions.validatePopularity(vm.moviePerson.popularity);
+
+            //If any control has error
+            if (Object.values($scope.errors).some(x => x === true)) {
+                return;
+            }
+
+            //if (Object.values($scope.validationFunctions).any)
+
             //Ako stvaramo novog redatelja
             if (!vm.title) {
                 //Poziva se servis za stvaranje novog autora

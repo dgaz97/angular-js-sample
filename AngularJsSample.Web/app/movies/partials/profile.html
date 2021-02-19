@@ -6,65 +6,99 @@
         <button type="button" id="deleteButton" class="btn btn-danger btn-outline" ng-click="onDeleteButtonClick()">Obriši film</button>
     </div>
 </h1>
-<div class="container">
-    <div class="col-sm-3">
-        <img src="{{vm.movie.moviePosterUrl}}" style="width:100%" />
+<div class="col-sm-3">
+    <img src="{{vm.movie.moviePosterUrl}}" style="width:100%" />
+</div>
+<div class="col-sm-9 container-fluid panel panel-info">
+    <div class="panel-heading">
+        <h5 class="panel-title">PODACI O FILMU</h5>
     </div>
-    <div class="col-sm-9" style="border: solid 1px black">
-        <div class="row" style="border: solid black; border-width:0 0 1px 0">
-            <h5>PODACI O FILMU</h5>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12 panel panel-default">
+                <div class="panel-heading">
+                    <p class="panel-title">Naslov/Naziv:</p>
+                </div>
+                <div class="panel-body">
+                    <span style="font-weight:bold">{{vm.movie.movieName}}</span>
+                </div>
+            </div>
         </div>
 
-        <div class="col-sm-9">
-            <div class="row">
-                Naslov/Naziv:
+        <div class="row">
+            <div class="col-md-12 panel panel-default">
+                <div class="panel-heading">
+                    <p class="panel-title">Datum izlaska:</p>
+                </div>
+                <div class="panel-body">
+                    <span style="font-weight:bold">{{vm.movie.movieReleaseDate | date:"dd.MM.yyyy."}}</span>
+                </div>
             </div>
-            <div class="row">
-                <span style="font-weight:bold">{{vm.movie.movieName}}</span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 panel panel-default">
+                <div class="panel-heading">
+                    <p class="panel-title">Kratki opis:</p>
+                </div>
+                <div class="panel-body">
+                    <span style="font-weight: bold">{{vm.movie.movieDescription}}</span>
+                </div>
             </div>
-            <div class="row">
-                Datum izlaska:
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 panel panel-default">
+                <div class="panel-heading">
+                    <p class="panel-title">Žanrovi:</p>
+                </div>
+                <div class="panel-body">
+                    <span ng-repeat="genre in vm.movie.genres" class="badge badge-secondary">
+                        {{genre.name}}
+                    </span>
+                </div>
             </div>
-            <div class="row">
-                <span style="font-weight:bold">{{vm.movie.movieReleaseDate | date:"dd.MM.yyyy."}}</span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 panel panel-default">
+                <div class="panel-heading">
+                    <p class="panel-title">Ocjena:</p>
+                </div>
+                <div class="panel-body">
+                    <span>
+                        <input kendo-rating
+                               k-options="ratingOptions"
+                               k-ng-model="vm.movie.movieRating"
+                               style="width: 100%;" />
+                    </span>
+                </div>
             </div>
-            <div class="row">
-                Kratki opis:
+            <div class="col-md-6 panel panel-default">
+                <div class="panel-heading">
+                    <p class="panel-title">Vaša ocjena:</p>
+                </div>
+                <div class="panel-body">
+                    <span>
+                        <input kendo-rating
+                               k-options="userRatingOptions"
+                               k-ng-model="vm.movieRating.userRating"
+                               style="width: 100%;" />
+                    </span>
+                </div>
             </div>
-            <div class="row">
-                <span style="font-weight: bold">{{vm.movie.movieDescription}}</span>
-            </div>
-            <div class="row">
-                Žanrovi:
-            </div>
-            <div class="row">
-                <!--<span style="font-weight: bold">Žanrovi će ići ovdje</span>-->
-                <span ng-repeat="genre in vm.movie.genres" class="badge badge-secondary">
-                    {{genre.name}}
-                </span>
-            </div>
-            <div class="row">
-                Ocjena:
-                <input kendo-rating
-                       k-options="ratingOptions"
-                       k-ng-model="vm.movie.movieRating"
-                       style="width: 100%;" />
-            </div>
-            <div class="row">
-                <span>
-                    Vaša ocjena:
-                    <input kendo-rating
-                           k-options="userRatingOptions"
-                           k-ng-model="vm.movieRating.userRating"
-                           style="width: 100%;" />
-                </span>
-            </div>
-            <div class="row">
-                IMDB url
-            </div>
-            <div class="row">
-                <a href="{{vm.movie.movieImdbUrl}}">{{vm.movie.movieImdbUrl}}</a>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 panel panel-default">
+                <div class="panel-heading">
+                    <p class="panel-title">IMDB url</p>
+                </div>
+                <div class="panel-body">
+                    <a href="{{vm.movie.movieImdbUrl}}">{{vm.movie.movieImdbUrl}}</a>
+                </div>
             </div>
         </div>
     </div>
+
 </div>

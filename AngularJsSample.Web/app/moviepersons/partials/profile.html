@@ -5,59 +5,78 @@
         <button type="button" ng-click="onDeleteButtonClick()" id="deleteButton" class="btn btn-danger btn-outline">Obriši osobu</button>
     </div>
 </h1>
-<div class="container col-md-9" style="border: solid 1px black">
-    <div class="row" style="border: solid black; border-width:0 0 1px 0">
-        <h5>PODACI O OSOBI</h5>
+<div class="col-md-9 panel panel-info container-fluid">
+    <div class="panel-heading">
+        <h5 class="panel-title">PODACI O OSOBI</h5>
     </div>
-    <div class="col-md-6">
-        <div class="row">
-            Ime:
-        </div>
-        <div class="row">
-            <span style="font-weight:bold">{{vm.moviePerson.firstName}}</span>
-        </div>
-        <div class="row">
-            Datum rođenja:
-        </div>
-        <div class="row">
-            <span style="font-weight:bold">{{vm.moviePerson.birthDate | date:"dd.MM.yyyy."}}</span>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="row">
-            Prezime:
-        </div>
-        <div class="row">
-            <span style="font-weight: bold">{{vm.moviePerson.lastName}}</span>
-        </div>
-        <div class="row">
-            Mjesto rođenja:
-        </div>
-        <div class="row">
-            <span style="font-weight: bold">{{vm.moviePerson.birthPlace}}</span>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="row">
-            Kratka biografija
-        </div>
-        <div class="row">
-            <p>{{vm.moviePerson.biography}}</p>
-        </div>
-    </div>
+    <div class="panel-body">
 
-    <div class="col-md-6">
         <div class="row">
-            IMDB url
+            <div class="col-md-6 panel panel-default">
+                <div class="panel-heading">
+                    <p class="panel-title">Ime:</p>
+                </div>
+                <div class="panel-body">
+                    <span style="font-weight:bold">{{vm.moviePerson.firstName}}</span>
+                </div>
+            </div>
+            <div class="col-md-6 panel panel-default">
+                <div class="panel-heading">
+                    <p class="panel-title">Datum rođenja:</p>
+                </div>
+                <div class="panel-body">
+                    <span style="font-weight:bold">{{vm.moviePerson.birthDate | date:"dd.MM.yyyy."}}</span>
+                </div>
+            </div>
         </div>
+
         <div class="row">
-            <a href="{{vm.moviePerson.imdbUrl}}">{{vm.moviePerson.imdbUrl}}</a>
+            <div class="col-md-6 panel panel-default">
+                <div class="panel-heading">
+                    <p class="panel-title">Prezime:</p>
+                </div>
+                <div class="panel-body">
+                    <span style="font-weight: bold">{{vm.moviePerson.lastName}}</span>
+                </div>
+            </div>
+            <div class="col-md-6 panel panel-default">
+                <div class="panel-heading">
+                    <p class="panel-title">Mjesto rođenja:</p>
+                </div>
+                <div class="panel-body">
+                    <span style="font-weight: bold">{{vm.moviePerson.birthPlace}}</span>
+                </div>
+            </div>
         </div>
+
         <div class="row">
-            Popularnost
+            <div class="col-md-12 panel panel-default">
+                <div class="panel-heading">
+                    <p class="panel-title">Kratka biografija</p>
+                </div>
+                <div class="panel-body">
+                    <p>{{vm.moviePerson.biography}}</p>
+                </div>
+            </div>
         </div>
+
         <div class="row">
-            <p style="font-weight: bold">#{{vm.moviePerson.popularity}}</p>
+            <div class="col-md-6 panel panel-default">
+                <div class="panel-heading">
+                    <p class="panel-title">IMDB url</p>
+                </div>
+                <div class="panel-body">
+                    <p style="font-weight:bold"><a href="{{vm.moviePerson.imdbUrl}}">{{vm.moviePerson.imdbUrl}}</a></p>
+                </div>
+            </div>
+            <div class="col-md-6 panel panel-default">
+                <div class="panel-heading">
+                    <p class="panel-title">Popularnost</p>
+                </div>
+                <div class="panel-body">
+                    <p style="font-weight: bold">#{{vm.moviePerson.popularity}}</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

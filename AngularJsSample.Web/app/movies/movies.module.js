@@ -43,7 +43,7 @@
                     },
                     {
                         field: "movieReleaseDate",
-                        title: "Mjesto rođenja",
+                        title: "Datum izlaska",
                         template: '#= kendo.toString(kendo.parseDate(data.movieReleaseDate), "dd.MM.yyyy.") #'
                     },
                     {
@@ -152,7 +152,7 @@
             //Modal za upozorenje o brisanju
             swal.fire({
                 title: "POZOR",
-                icon:"warning",
+                icon: "warning",
                 text: "Jeste li sigurni da želite obrisati film `" + vm.movie.movieName + "`?",
                 showCancelButton: true,
                 confirmButtonText: "Da",
@@ -180,52 +180,156 @@
         }
     }
 
-    movieManageCtrl.$inject = ['$scope', '$state', 'movie', 'moviesSvc', 'genresSvc', '$stateParams'];
-    function movieManageCtrl($scope, $state, movie, moviesSvc, genresSvc, $stateParams) {
+    movieManageCtrl.$inject = ['$scope', '$state', 'movie', 'moviesSvc', 'genresSvc', 'genres', '$stateParams'];
+    function movieManageCtrl($scope, $state, movie, moviesSvc, genresSvc, genres, $stateParams) {
         var vm = this;
-        vm.movie = movie ? movie : null;
-        vm.title = vm.movie ? true : false;
+        vm.title = movie ? true : false;
+        vm.movie = movie ? movie : {};
+        if (vm.title && vm.movie.moviePosterUrl == 'https://via.placeholder.com/250x400') {
+            vm.movie.moviePosterUrl = "";
+        }
+
+        vm.startingGenres = [];
+        vm.genres = genres;
+
+        if (vm.title) vm.movie.genres.forEach(i => vm.startingGenres.push(i.genreId));
+        $scope.selectedGenres = vm.startingGenres.slice();
 
 
-        genresSvc.getGenres().then(function (result) {
-            vm.startingGenres = [];
-            if (vm.movie != null) vm.movie.genres.forEach(i => vm.startingGenres.push(i.genreId))
-            $scope.selectedGenres = vm.startingGenres.slice();
+        $scope.selectOptions = {
+            dataTextField: "name",
+            dataValueField: "genreId",
+            dataSource: { data: vm.genres },
+            value: $scope.selectedGenres
+        }
+        
 
-            vm.genres = new kendo.data.DataSource({ data: result.data.genres });
-            $scope.selectOptions = {
-                dataTextField: "name",
-                dataValueField: "genreId",
-                dataSource: vm.genres,
-                value: $scope.selectedGenres
+
+        //$scope.genreReady = false;
+
+        $scope.errors = {};
+        $scope.errors.movieNameError = false;
+        $scope.errors.movieReleaseDateError = false;
+        $scope.errors.movieDescriptionError = false;
+        $scope.errors.genresError = false;
+        $scope.errors.movieRatingError = false;
+        $scope.errors.userRatingError = false;
+
+        $scope.validationFunctions = {};
+
+        //Movie name
+        $scope.validationFunctions.validateMovieName = function (text) {
+            if (typeof text === 'undefined' || !text) {
+                $scope.errors.movieNameError = true;
+                return "Naziv ne smije biti prazan";
             }
-        });
-
-
-
-        //Provjeravamo je li link slike ispravnog formata
-        $scope.validateImageUrl = function (text) {
-            if ((!text || /^\s*$/.test(text))) return true;
+            if (text.length > 200) {
+                $scope.errors.movieNameError = true;
+                return "Naziv ne smije biti dulji od 200 znakova";
+            }
+            $scope.errors.movieNameError = false;
+            return false;
+        }
+        //Movie release date
+        $scope.validationFunctions.validateMovieReleaseDate = function (text) {
+            if (typeof text === 'undefined' || !text) {
+                $scope.errors.movieReleaseDateError = true;
+                return "Datum izlaska ne smije biti prazan";
+            }
+            if (text < "1800-01-01") {
+                $scope.errors.movieReleaseDateError = true;
+                return "Datum ne smije biti prije 1. siječnja 1800.";
+            }
+            $scope.errors.movieReleaseDateError = false;
+            return false;
+        }
+        //Movie description
+        $scope.validationFunctions.validateMovieDescription = function (text) {
+            if (typeof text === 'undefined' || !text) {
+                $scope.errors.movieDescriptionError = false;
+                return false;
+            }
+            if (text.length > 2000) {
+                $scope.errors.movieDescriptionError = true;
+                return "Opis ne smije biti dulji od 2000 znakova";
+            }
+            $scope.errors.movieDescriptionError = false;
+            return false;
+        }
+        //Movie genres
+        $scope.validationFunctions.validateMovieGenres = function () {
+            var d = angular.element("#movieGenres").data("kendoMultiSelect").value();
+            //console.log(d);
+            if (d == null || d.length==0) {
+                $scope.errors.genresError = true;
+                return "Morate odabrati barem jedan žanr";
+            }
+            //if (text.length > 2000) {
+            //    $scope.errors.moviegenres = true;
+            //    return "Opis ne smije biti dulji od 2000 znakova";
+            //}
+            $scope.errors.genresError = false;
+            return false;
+        }
+        //Poster url
+        $scope.validationFunctions.validateImageUrl = function (text) {
+            if ((!text || /^\s*$/.test(text))) {
+                $scope.errors.imageUrlError = false;
+                return false;
+            }
+            if (text.length > 200) {
+                $scope.errors.imageUrlError = true;
+                return "Link slike ne smije biti dulji od 200 znakova";
+            }
             var validHttp = /^https?:\/\//g.test(text);
             var validImg = /\.jpg$|\.jpeg$|\.png$|\.gif$/g.test(text);
-            if (validImg && validHttp) return true;
-            else return "URL slike nije ispravnog formata";
+            if (validImg && validHttp) {
+                $scope.errors.imageUrlError = false;
+                return false;
+            }
+            else {
+                $scope.errors.imageUrlError = true;
+                return "URL slike nije ispravnog formata";
+            }
+        }
+        //IMDb url
+        $scope.validationFunctions.validateImdbUrl = function (text) {
+            if (text.length > 100) {
+                $scope.errors.imdbUrlError = true;
+                return "IMDb link ne smije biti dulji od 100 znakova";
+            }
+            var validImdbLink = /^https?:\/\/(www\.)?imdb.com/g.test(text);
+            if (validImdbLink) {
+                $scope.errors.imdbUrlError = false;
+                return false;
+            }
+            else {
+                $scope.errors.imdbUrlError = true;
+                return "IMDb URL nije ispravnog formata";
+            }
         }
 
-        //Provjeravamo je li IMDb link ispravnog formata
-        $scope.validateImdbUrl = function (text) {
-            var validImdbLink = /^https?:\/\/(www\.)?imdb.com/g.test(text);
-            if (validImdbLink) return true;
-            else return "IMDb URL nije ispravnog formata";
-        }
 
         //Submit
-        $scope.submitForm = function () {
+        $scope.submitForm = function ($event) {
 
-            if (movie) {//Ako ažuriramo film
+            $scope.validationFunctions.validateMovieName(vm.movie.movieName);
+            $scope.validationFunctions.validateMovieReleaseDate(vm.movie.movieReleaseDate);
+            $scope.validationFunctions.validateMovieDescription(vm.movie.movieDescription);
+            $scope.validationFunctions.validateMovieGenres($scope.selectedGenres);
+            $scope.validationFunctions.validateImageUrl(vm.movie.moviePosterUrl);
+            $scope.validationFunctions.validateImdbUrl(vm.movie.movieImdbUrl);
+
+            //If any control has error
+            if (Object.values($scope.errors).some(x => x === true)) {
+                return;
+            }
+
+            //$event.preventDefault();
+            if (vm.title) {//Ako ažuriramo film
                 moviesSvc.updateMovie(vm.movie.movieId, vm.movie).then(function (result) { });//ažurirati film
+                $scope.selectedGenres = angular.element("#movieGenres").data("kendoMultiSelect").value();//Get genres from multiselect
 
-                $scope.selectedGenres = $scope.selectedGenres.map(Number);//string array u number array
                 var common = vm.startingGenres.filter(value => $scope.selectedGenres.includes(value));//Razlika - žanrovi koji se ne mijenjanju
 
                 vm.startingGenres = vm.startingGenres.filter((el) => !common.includes(el));//maknuti zajedničke iz početnih
@@ -237,19 +341,19 @@
                 vm.startingGenres.forEach(x => {//Obrisati potrebne žanrove
                     moviesSvc.removeGenreFromMovie(vm.movie.movieId, x).then(function (result) { });
                 });
-
+            
                 $state.go("moviesOverview");
             }
             else {//Ako stvaramo novi film
                 moviesSvc.createMovie(vm.movie).then(function (result) {
                     var id = result.data.movieId;
-
-                    $scope.selectedGenres = $scope.selectedGenres.map(Number);//string array u number array
+            
+                    $scope.selectedGenres = angular.element("#movieGenres").data("kendoMultiSelect").value();//string array u number array
                     var common = vm.startingGenres.filter(value => $scope.selectedGenres.includes(value));//Razlika - žanrovi koji se ne mijenjanju
-
+            
                     vm.startingGenres = vm.startingGenres.filter((el) => !common.includes(el));//maknuti zajedničke iz početnih
                     $scope.selectedGenres = $scope.selectedGenres.filter((el) => !common.includes(el));//maknuti zajedničke iz novih
-
+            
                     $scope.selectedGenres.forEach(x => {//Dodati potrebne žanrove
                         moviesSvc.addGenreToMovie(id, x).then(function (result) { });
                     });

@@ -85,7 +85,7 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                if (request.MoviePerson?.Id == 0)
+                if (request.MoviePerson?.Id == 0)//create new
                 {
                     if (request.MoviePerson.Id != 0) throw new Exception("Movie person ID must be null or 0");
                     checkDataForInsertOrUpdate(request.MoviePerson.MapToModel());
@@ -93,7 +93,7 @@ namespace AngularJsSample.Services.Impl
                     _repository.Add(request.MoviePerson.MapToModel());
                     response.Success = true;
                 }
-                else if (request.MoviePerson?.Id > 0)
+                else if (request.MoviePerson?.Id > 0)//edit
                 {
                     if (request.MoviePerson.Id == null || request.MoviePerson.Id <= 0) throw new Exception("Movie person ID can't be null");
                     if (_repository.FindBy(request.MoviePerson.Id) == null) throw new Exception($"Person {request.MoviePerson.Id} doesn't exist");

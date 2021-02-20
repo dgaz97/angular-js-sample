@@ -196,8 +196,12 @@
         var vm = this;
 
         //Određuje uređivamo li postojećeg redatelja, ili stvaramo novog
-        vm.title = vm.moviePerson ? true : false;
+        vm.title = moviePerson ? true : false;
         vm.moviePerson = moviePerson ? moviePerson : {};
+        if (vm.title && moviePerson.imageUrl == "https://via.placeholder.com/200x200") {
+            moviePerson.imageUrl = "";
+
+        }
 
 
         //Trenutno vrijeme, treba da ograničimo datum rođenja autora
@@ -244,15 +248,15 @@
         $scope.validationFunctions.validateBirthDate = function (text) {
             if (typeof text === 'undefined' || !text) {
                 $scope.errors.birthDateError = true;
-                return "Datum ne smije biti prazan";
+                return "Datum rođenja ne smije biti prazan";
             }
             if (text > vm.now) {
                 $scope.errors.birthDateError = true;
-                return "Datum ne smije biti nakon današnjeg";
+                return "Datum rođenja ne smije biti nakon današnjeg";
             }
             if (text < "1800-01-01") {
                 $scope.errors.birthDateError = true;
-                return "Datum ne smije biti prije 1. siječnja 1800.";
+                return "Datum rođenja ne smije biti prije 1. siječnja 1800.";
             }
             $scope.errors.birthDateError = false;
             return false;
@@ -285,13 +289,13 @@
         }
         //Image url
         $scope.validationFunctions.validateImageUrl = function (text) {
-            if (text.length > 200) {
-                $scope.errors.imageUrlError = true;
-                return "Link slike ne smije biti dulji od 200 znakova";
-            }
             if ((!text || /^\s*$/.test(text))) {
                 $scope.errors.imageUrlError = false;
                 return false;
+            }
+            if (text.length > 200) {
+                $scope.errors.imageUrlError = true;
+                return "Link slike ne smije biti dulji od 200 znakova";
             }
             var validHttp = /^https?:\/\//g.test(text);
             var validImg = /\.jpg$|\.jpeg$|\.png$|\.gif$/g.test(text);
@@ -340,7 +344,6 @@
 
 
         $scope.submitForm = function ($event) {
-
             //Validate all inputs
             $scope.validationFunctions.validateFirstName(vm.moviePerson.firstName);
             $scope.validationFunctions.validateLastName(vm.moviePerson.lastName);
@@ -350,14 +353,14 @@
             $scope.validationFunctions.validateImageUrl(vm.moviePerson.imageUrl);
             $scope.validationFunctions.validateImdbUrl(vm.moviePerson.imdbUrl);
             $scope.validationFunctions.validatePopularity(vm.moviePerson.popularity);
-
+            
             //If any control has error
             if (Object.values($scope.errors).some(x => x === true)) {
                 return;
             }
-
+            
             //if (Object.values($scope.validationFunctions).any)
-
+            
             //Ako stvaramo novog redatelja
             if (!vm.title) {
                 //Poziva se servis za stvaranje novog autora
@@ -367,12 +370,12 @@
                     signalRConn.hub.url = `${serviceBase}/signalr`;
                     //Dohvaćamo Hub (MyHub klasa u Api projektu)
                     var hub = signalRConn.myHub;
-
+            
                     signalRConn.hub.start().done(function () {
                         hub.server.refresh();
                     });
                     signalRConn.hub.stop();
-
+            
                     //Te se otvara pogled sa pregledom redatelja, ako je uspješno stvoren
                     $state.go("moviePersonsOverview");
                 },
@@ -386,7 +389,7 @@
                             customClass: {
                                 confirmButton: 'btn btn-primary btn-outline'
                             }
-
+            
                         });
                     }
                 );
@@ -400,12 +403,12 @@
                     signalRConn.hub.url = `${serviceBase}/signalr`;
                     //Dohvaćamo Hub (MyHub klasa u Api projektu)
                     var hub = signalRConn.myHub;
-
+            
                     signalRConn.hub.start().done(function () {
                         hub.server.refresh();
                     });
                     signalRConn.hub.stop();
-
+            
                     //Te se otvara pogled sa pregledom redatelja, ako je uspješno uređen
                     $state.go("moviePersonsOverview");
                 },

@@ -1,24 +1,24 @@
 ﻿<h1 class="page-header">
     <span>{{vm.title?"Uredi film":"Novi film"}}</span>
     <div style="float:right">
-        <button id="submit-button"
-                type="submit"
+        <button id="submit-button" type="submit"
                 form="movieForm"
-                class="btn btn-primary btn-outline">
+                class="btn btn-success btn-outline">
             Save
         </button>
         <button type="button"
-                class="btn btn-default btn-outline"
-                ui-sref="moviePersonsOverview">
+                class="btn btn-primary btn-outline"
+                ui-sref="moviesOverview">
             Cancel
         </button>
     </div>
 </h1>
-<div class="k-content">
+<div class="k-container-fluid">
     <form name="movieForm" id="movieForm" class="col-lg-10 col-md-12"
-          angular-validator
           ng-disabled="movieForm.$invalid"
-          angular-validator-submit="submitForm()">
+          ng-submit="submitForm($event)"
+          novalidate>
+
         <div class="row">
             <div class="col-md-12 form-group">
                 <div class="">
@@ -27,9 +27,12 @@
                 <div class="">
                     <input type="text" id="movieName" class="form-control"
                            ng-model="vm.movie.movieName"
-                           validate-on="dirty"
-                           required-message="'Naziv mora biti ispunjen'"
+                           ng-model-options="{ updateOn: 'mousedown blur' }"
+                           ng-change="validationFunctions.validateMovieName(vm.movie.movieName)"
                            ng-required />
+                    <p style="color:#b94a48;font-weight:bold" ng-show="errors.movieNameError===true">
+                        {{errors.movieNameError?validationFunctions.validateMovieName(vm.movie.movieName):""}}
+                    </p>
                 </div>
             </div>
         </div>
@@ -42,12 +45,15 @@
                 <div class="">
                     <input type="text" id="movieReleaseDate" class="form-control"
                            kendo-date-picker
-                           validate-on="dirty"
                            k-min="'1800-01-01'"
                            k-format="'yyyy-MM-dd'"
                            ng-model="vm.movie.movieReleaseDate"
-                           required-message="'Datum rođenja mora biti ispunjen'"
-                           required />
+                           ng-model-options="{ updateOn: 'mousedown blur' }"
+                           ng-change="validationFunctions.validateMovieReleaseDate(vm.movie.movieReleaseDate)"
+                           ng-required />
+                    <p style="color:#b94a48;font-weight:bold" ng-show="errors.movieReleaseDateError===true">
+                        {{errors.movieReleaseDateError?validationFunctions.validateMovieReleaseDate(vm.movie.movieReleaseDate):""}}
+                    </p>
                 </div>
             </div>
         </div>
@@ -59,8 +65,14 @@
                 </div>
                 <div class="">
                     <textarea id="movieDescription" class="form-control" style="max-width:100%;max-height:25%"
+                              maxlength="2000"
                               ng-model="vm.movie.movieDescription"
-                              maxlength="2000" />
+                              ng-model-options="{ updateOn: 'mousedown blur' }"
+                              ng-change="validationFunctions.validateMovieDescription(vm.movie.movieDescription)"
+                              ng-required />
+                    <p style="color:#b94a48;font-weight:bold" ng-show="errors.movieDescriptionError===true">
+                        {{errors.movieDescriptionError?validationFunctions.validateMovieDescription(vm.movie.movieDescription):""}}
+                    </p>
                 </div>
             </div>
         </div>
@@ -71,9 +83,15 @@
                     <label for="movieGenres" class="control-label">Žanrovi</label>
                 </div>
                 <div class="">
-                    <select kendo-multi-select k-options="selectOptions" ng-model="selectedGenres" class="form-control"
-                            validate-on="dirty" required required-message="Morate odabrati barem jedan žanr"
-                            ></select>
+                    <select kendo-multi-select class="form-control" id="movieGenres"
+                            k-options="selectOptions"
+                            ng-model="selectedGenres"
+                            ng-model-options="{ updateOn: 'mousedown blur' }"
+                            ng-change="validationFunctions.validateMovieGenres()"
+                            ng-required />
+                    <p style="color:#b94a48;font-weight:bold" ng-show="errors.genresError===true">
+                        {{errors.genresError?validationFunctions.validateMovieGenres():""}}
+                    </p>
                 </div>
             </div>
         </div>
@@ -85,10 +103,13 @@
                 </div>
                 <div class="">
                     <input type="text" id="moviePosterUrl" class="form-control"
-                           validate-on="dirty"
-                           validator="validateImageUrl(vm.movie.moviePosterUrl) === true"
-                           invalid-message="validateImageUrl(vm.movie.moviePosterUrl)"
-                           ng-model="vm.movie.moviePosterUrl" />
+                           ng-model="vm.movie.moviePosterUrl"
+                           ng-model-options="{ updateOn: 'mousedown blur' }"
+                           ng-change="validationFunctions.validateImageUrl(vm.movie.moviePosterUrl)"
+                           ng-required />
+                    <p style="color:#b94a48;font-weight:bold" ng-show="errors.imageUrlError===true">
+                        {{errors.imageUrlError?validationFunctions.validateImageUrl(vm.movie.moviePosterUrl):""}}
+                    </p>
                 </div>
                 <div>
                     <h6>Ako nije prazno, mora početi s http(s), a mora završiti s .jpg, .jpeg, .png ili .gif</h6>
@@ -104,11 +125,12 @@
                 <div class="">
                     <input type="text" id="movieImdbUrl" class="form-control"
                            ng-model="vm.movie.movieImdbUrl"
-                           validate-on="dirty"
-                           validator="validateImdbUrl(vm.movie.movieImdbUrl) === true"
-                           invalid-message="validateImdbUrl(vm.movie.movieImdbUrl)"
-                           required
-                           required-message="'IMDb URL mora biti ispunjen'" />
+                           ng-model-options="{ updateOn: 'mousedown blur' }"
+                           ng-change="validationFunctions.validateImdbUrl(vm.movie.movieImdbUrl)"
+                           ng-required />
+                    <p style="color:#b94a48;font-weight:bold" ng-show="errors.imdbUrlError===true">
+                        {{errors.imdbUrlError?validationFunctions.validateImdbUrl(vm.movie.movieImdbUrl):""}}
+                    </p>
                 </div>
                 <div>
                     <h6>Mora biti IMDb URL, te mora početi s http(s)</h6>

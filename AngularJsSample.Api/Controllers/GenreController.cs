@@ -67,9 +67,9 @@ namespace AngularJsSample.Api.Controllers
         /**
          * Žanru dodaje film
          */
-        [HttpPut]
+        [HttpPost]
         [Route("{genreId}/{movieId}")]
-        public IHttpActionResult Put(int genreId, int movieId)
+        public IHttpActionResult Post(int genreId, int movieId)
         {
             var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
 

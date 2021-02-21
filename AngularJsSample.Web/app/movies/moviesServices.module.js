@@ -28,7 +28,7 @@
             return $http.put(`${serviceBase}/api/movies/${id}`, movie);
         }
         this.addGenreToMovie = function (movieId, genreId) {
-            return $http.put(`${serviceBase}/api/movies/${movieId}/${genreId}`);
+            return $http.post(`${serviceBase}/api/movies/${movieId}/${genreId}`);
         }
         this.removeGenreFromMovie = function (movieId, genreId) {
             return $http.delete(`${serviceBase}/api/movies/${movieId}/${genreId}`);

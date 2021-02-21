@@ -103,7 +103,7 @@ namespace AngularJsSample.Api.Controllers
          */
         [HttpPost]
         [Route("")]
-        public IHttpActionResult Put(MovieViewModel movie)
+        public IHttpActionResult Post(MovieViewModel movie)
         {
             var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
 
@@ -191,9 +191,9 @@ namespace AngularJsSample.Api.Controllers
         /**
          * Dodaje žanr filmu
          */
-        [HttpPut]
+        [HttpPost]
         [Route("{movieId}/{genreId}")]
-        public IHttpActionResult Put(int movieId, int genreId)
+        public IHttpActionResult Post(int movieId, int genreId)
         {
             var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
 

@@ -31,9 +31,9 @@
                 html:
                     `<div class="container-fluid">
                         <div class="form-group row">
-                            <label for="name" class="form-control">Naziv</label>
+                            <label for="name" class="control-label">Naziv</label>
                             <input id="name" class="form-control" value="`+ genre.name + `"/>
-                            <label for="description" class="form-control">Kratki opis</label>
+                            <label for="description" class="control-label">Kratki opis</label>
                             <textarea id="description" class="form-control"
                             style="max-width:100%; min-width:100%;min-height:10vh; max-height:30vh">`+ genre.description + `</textarea>
                         </div>

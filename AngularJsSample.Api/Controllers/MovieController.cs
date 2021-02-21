@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Http;
 using AngularJsSample.Api.Models.Movies;
 using AngularJsSample.Api.Mapping.Genres;
+using AngularJsSample.Api.Models.MovieGenres;
 
 namespace AngularJsSample.Api.Controllers
 {
@@ -141,13 +142,13 @@ namespace AngularJsSample.Api.Controllers
         /// <param name="movie">Movie object with new data</param>
         /// <returns>Ok response with the movie object, or BadRequest with error message</returns>
         [HttpPut]
-        [Route("{id}")]
-        public IHttpActionResult Put(int id, MovieViewModel movie)
+        [Route("")]
+        public IHttpActionResult Put(MovieViewModel movie)
         {
             var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
 
             movie.UserLastModified = new Models.Users.UserViewModel() { Id = loggedUserId };
-            movie.MovieId = id;
+            //movie.MovieId = id;
             var request = new SaveMovieRequest()
             {
                 RequestToken = Guid.NewGuid(),
@@ -210,12 +211,11 @@ namespace AngularJsSample.Api.Controllers
         /// <summary>
         /// Adds genre to movie
         /// </summary>
-        /// <param name="movieId">Movie that we're adding the genre to</param>
-        /// <param name="genreId">Genre that we're adding to the movie</param>
+        /// <param name="movieGenre">MovieGenre object</param>
         /// <returns>Empty Ok response, or BadRequest with error message</returns>
         [HttpPost]
-        [Route("{movieId}/{genreId}")]
-        public IHttpActionResult Post(int movieId, int genreId)
+        [Route("genres/")]
+        public IHttpActionResult Post(MovieGenreViewModel movieGenre)
         {
             var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
 
@@ -223,8 +223,8 @@ namespace AngularJsSample.Api.Controllers
             {
                 RequestToken = Guid.NewGuid(),
                 UserId = loggedUserId,
-                MovieId = movieId,
-                GenreId = genreId
+                MovieId = movieGenre.Movie.MovieId,
+                GenreId = movieGenre.Genre.GenreId
             };
 
             var response = _movieService.AddGenreToMovie(request);

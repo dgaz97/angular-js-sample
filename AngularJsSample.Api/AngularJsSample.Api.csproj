@@ -196,6 +196,7 @@
     <Compile Include="Mapping\Movies\MoviesMapper.cs" />
     <Compile Include="Mapping\Users\UsersMapper.cs" />
     <Compile Include="Models\Genres\GenreViewModel.cs" />
+    <Compile Include="Models\MovieGenres\MovieGenreViewModel.cs" />
     <Compile Include="Models\MoviePersons\MoviePersonViewModel.cs" />
     <Compile Include="Models\MovieRatings\MovieRatingViewModel.cs" />
     <Compile Include="Models\Movies\MovieViewModel.cs" />

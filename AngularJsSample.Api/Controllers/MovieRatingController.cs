@@ -56,7 +56,7 @@ namespace AngularJsSample.Api.Controllers
         /// <param name="id">ID of movie</param>
         /// <returns>Ok response with a list of all movie ratings for requested movie, or BadRequest with error message</returns>
         [HttpGet]
-        [Route("movie/{id}")]
+        [Route("movies/{id}")]
         public IHttpActionResult GetByMovie(int id)
         {
             var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
@@ -79,7 +79,7 @@ namespace AngularJsSample.Api.Controllers
         /// <param name="id">ID of user</param>
         /// <returns>Ok response with a list of all movie ratings for requested user, or BadRequest with error message</returns>
         [HttpGet]
-        [Route("user/{id}")]
+        [Route("users/{id}")]
         public IHttpActionResult GetByUser(int id)
         {
             var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
@@ -124,16 +124,15 @@ namespace AngularJsSample.Api.Controllers
         /// <summary>
         /// Creates a new movie rating for requested movie
         /// </summary>
-        /// <param name="movieId">Movie ID</param>
         /// <param name="movieRating">Movie rating object</param>
         /// <returns>Empty Ok response, or BadRequest with error message</returns>
         [HttpPost]
-        [Route("{movieId}")]
-        public IHttpActionResult Put(int movieId, MovieRatingViewModel movieRating)
+        [Route("")]
+        public IHttpActionResult Post(MovieRatingViewModel movieRating)
         {
             var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
             movieRating.UserCreated = new UserViewModel() { Id = loggedUserId };
-            movieRating.Movie = new MovieViewModel() { MovieId = movieId };
+            //movieRating.Movie = new MovieViewModel() { MovieId = movieId };
             var request = new SaveMovieRatingRequest()
             {
                 RequestToken = Guid.NewGuid(),

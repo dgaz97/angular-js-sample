@@ -397,7 +397,8 @@
             //Ako se uređuje postojeći redatelj
             else {
                 //Poziva se servis za uređivanje postojećeg autora
-                moviePersonsSvc.updateMoviePerson(vm.moviePerson.id, vm.moviePerson).then(function (result) {
+
+                moviePersonsSvc.updateMoviePerson(vm.moviePerson).then(function (result) {
                     // Proxy created on the fly
                     var signalRConn = $.connection;
                     signalRConn.hub.url = `${serviceBase}/signalr`;

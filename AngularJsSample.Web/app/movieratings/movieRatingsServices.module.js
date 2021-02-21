@@ -10,8 +10,8 @@
         this.getMovieRatingByUserAndMovie=function(idUser, idMovie){
             return $http.get(`${serviceBase}/api/movieRatings/${idUser}/${idMovie}`);
         }
-        this.addMovieRating = function (idMovie, movieRating) {
-            return $http.post(`${serviceBase}/api/movieRatings/${idMovie}`, movieRating);
+        this.addMovieRating = function (movieRating) {
+            return $http.post(`${serviceBase}api/movieRatings`, movieRating);
         }
     }
 }) ();

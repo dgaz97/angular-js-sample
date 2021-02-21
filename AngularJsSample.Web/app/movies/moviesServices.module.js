@@ -24,11 +24,11 @@
         this.createMovie = function (movie) {
             return $http.post(`${serviceBase}/api/movies`, movie);
         }
-        this.updateMovie = function (id, movie) {
-            return $http.put(`${serviceBase}/api/movies/${id}`, movie);
+        this.updateMovie = function (movie) {
+            return $http.put(`${serviceBase}/api/movies`, movie);
         }
-        this.addGenreToMovie = function (movieId, genreId) {
-            return $http.post(`${serviceBase}/api/movies/${movieId}/${genreId}`);
+        this.addGenreToMovie = function (movieGenre) {
+            return $http.post(`${serviceBase}/api/movies/genres`, movieGenre);
         }
         this.removeGenreFromMovie = function (movieId, genreId) {
             return $http.delete(`${serviceBase}/api/movies/${movieId}/${genreId}`);

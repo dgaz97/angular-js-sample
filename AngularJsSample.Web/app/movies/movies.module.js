@@ -134,7 +134,7 @@
             label: { template: "<span>#=value# od #=maxValue#</span>" },
             precision: "half",
             change: function (e) {
-                movieRatingsSvc.addMovieRating(vm.movie.movieId, { "userRating": e.newValue }).then(function (result) {
+                movieRatingsSvc.addMovieRating({ "userRating": e.newValue, "movie": { "movieId": vm.movie.movieId } }).then(function (result) {
                     moviesSvc.getMovie(vm.movie.movieId).then(function (data) {
                         vm.movie = data.data;
                         //$scope.ratingOptions.value(data.data.movieRating);
@@ -200,7 +200,7 @@
             dataSource: { data: vm.genres },
             value: $scope.selectedGenres
         }
-        
+
 
 
         //$scope.genreReady = false;
@@ -258,7 +258,7 @@
         $scope.validationFunctions.validateMovieGenres = function () {
             var d = angular.element("#movieGenres").data("kendoMultiSelect").value();
             //console.log(d);
-            if (d == null || d.length==0) {
+            if (d == null || d.length == 0) {
                 $scope.errors.genresError = true;
                 return "Morate odabrati barem jedan žanr";
             }
@@ -325,7 +325,7 @@
 
             //$event.preventDefault();
             if (vm.title) {//Ako ažuriramo film
-                moviesSvc.updateMovie(vm.movie.movieId, vm.movie).then(function (result) { });//ažurirati film
+                moviesSvc.updateMovie(vm.movie).then(function (result) { });//ažurirati film
                 $scope.selectedGenres = angular.element("#movieGenres").data("kendoMultiSelect").value();//Get genres from multiselect
 
                 var common = vm.startingGenres.filter(value => $scope.selectedGenres.includes(value));//Razlika - žanrovi koji se ne mijenjanju
@@ -334,26 +334,26 @@
                 $scope.selectedGenres = $scope.selectedGenres.filter((el) => !common.includes(el));//maknuti zajedničke iz novih
 
                 $scope.selectedGenres.forEach(x => {//Dodati potrebne žanrove
-                    moviesSvc.addGenreToMovie(vm.movie.movieId, x).then(function (result) { });
+                    moviesSvc.addGenreToMovie({ "movie": { "movieId": vm.movie.movieId }, "genre": { "genreId": x } }).then(function (result) { });
                 });
                 vm.startingGenres.forEach(x => {//Obrisati potrebne žanrove
                     moviesSvc.removeGenreFromMovie(vm.movie.movieId, x).then(function (result) { });
                 });
-            
+
                 $state.go("moviesOverview");
             }
             else {//Ako stvaramo novi film
                 moviesSvc.createMovie(vm.movie).then(function (result) {
                     var id = result.data.movieId;
-            
+
                     $scope.selectedGenres = angular.element("#movieGenres").data("kendoMultiSelect").value();//string array u number array
                     var common = vm.startingGenres.filter(value => $scope.selectedGenres.includes(value));//Razlika - žanrovi koji se ne mijenjanju
-            
+
                     vm.startingGenres = vm.startingGenres.filter((el) => !common.includes(el));//maknuti zajedničke iz početnih
                     $scope.selectedGenres = $scope.selectedGenres.filter((el) => !common.includes(el));//maknuti zajedničke iz novih
-            
+
                     $scope.selectedGenres.forEach(x => {//Dodati potrebne žanrove
-                        moviesSvc.addGenreToMovie(id, x).then(function (result) { });
+                        moviesSvc.addGenreToMovie({ "movie": { "movieId": id }, "genre": { "genreId": x } }).then(function (result) { });
                     });
                     vm.startingGenres.forEach(x => {//Obrisati potrebne žanrove
                         moviesSvc.removeGenreFromMovie(id, x).then(function (result) { });

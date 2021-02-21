@@ -1,6 +1,7 @@
 ﻿using AngularJsSample.Api.Helpers;
 using AngularJsSample.Api.Mapping.Genres;
 using AngularJsSample.Api.Models.Genres;
+using AngularJsSample.Api.Models.MovieGenres;
 using AngularJsSample.Services;
 using AngularJsSample.Services.Messaging.Genres.Requests;
 using System;
@@ -78,12 +79,11 @@ namespace AngularJsSample.Api.Controllers
         /// <summary>
         /// Adds genre to movie
         /// </summary>
-        /// <param name="genreId">Genre that we're adding to the movie</param>
-        /// <param name="movieId">Movie that we're adding the genre to</param>
+        /// <param name="movieGenre">MovieGenre object</param>
         /// <returns>Empty Ok response, or BadRequest with error message</returns>
         [HttpPost]
-        [Route("{genreId}/{movieId}")]
-        public IHttpActionResult Post(int genreId, int movieId)
+        [Route("movies/")]
+        public IHttpActionResult Post(MovieGenreViewModel movieGenre)
         {
             var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
 
@@ -91,8 +91,8 @@ namespace AngularJsSample.Api.Controllers
             {
                 RequestToken = Guid.NewGuid(),
                 UserId = loggedUserId,
-                GenreId = genreId,
-                MovieId = movieId
+                GenreId = movieGenre.Genre.GenreId,
+                MovieId = movieGenre.Movie.MovieId
             };
 
             var response = _genreService.AddMovieToGenre(request);
@@ -202,13 +202,12 @@ namespace AngularJsSample.Api.Controllers
         /// <summary>
         /// Updates genre with ID
         /// </summary>
-        /// <param name="id">ID of genre that we're updating</param>
         /// <param name="genre">Genre object with new data</param>
         /// <returns>Ok response with the genre object, or BadRequest with error message</returns>
 
         [HttpPut]
-        [Route("{id}")]
-        public IHttpActionResult Put(int id, GenreViewModel genre)
+        [Route("")]
+        public IHttpActionResult Put(GenreViewModel genre)
         {
             var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
             
@@ -216,7 +215,6 @@ namespace AngularJsSample.Api.Controllers
             {
                 Id = loggedUserId
             };
-            genre.GenreId = id;
 
             var request = new SaveGenreRequest()
             {

@@ -21,8 +21,8 @@
         this.createMoviePerson = function (moviePerson) {
             return $http.post(`${serviceBase}/api/moviepersons`, moviePerson);
         }
-        this.updateMoviePerson = function (id, moviePerson) {
-            return $http.put(`${serviceBase}/api/moviepersons/${id}`, moviePerson);
+        this.updateMoviePerson = function (moviePerson) {
+            return $http.put(`${serviceBase}/api/moviepersons`, moviePerson);
         }
     };
 

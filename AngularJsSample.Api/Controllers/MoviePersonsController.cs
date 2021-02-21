@@ -142,12 +142,11 @@ namespace AngularJsSample.Api.Controllers
         /// <summary>
         /// Updates movie person with ID
         /// </summary>
-        /// <param name="id">ID of movie person</param>
         /// <param name="moviePerson">Movie person object with new data</param>
         /// <returns>Ok response with the movie person object, or BadRequest with error message</returns>
         [HttpPut]
-        [Route("{id}")]
-        public IHttpActionResult Put(int id, MoviePersonViewModel moviePerson)
+        [Route("")]
+        public IHttpActionResult Put(MoviePersonViewModel moviePerson)
         {
             var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
             moviePerson.UserLastModified = new Models.Users.UserViewModel()
@@ -155,7 +154,7 @@ namespace AngularJsSample.Api.Controllers
                 Id = loggedUserId
             };
             moviePerson.DateLastModified = DateTimeOffset.Now;
-            moviePerson.Id = id;
+            //moviePerson.Id = id;
 
             var request = new SaveMoviePersonRequest()
             {

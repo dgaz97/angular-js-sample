@@ -89,7 +89,7 @@
                     }
                     //Ako uređujemo žanr
                     else {
-                        genresSvc.updateGenre(genre.genreId, genre).then(function (result) {
+                        genresSvc.updateGenre(genre).then(function (result) {
                             genresSvc.getGenres().then(function (result2) {
                                 $scope.genresData = new kendo.data.DataSource({
                                     data: result2.data.genres,

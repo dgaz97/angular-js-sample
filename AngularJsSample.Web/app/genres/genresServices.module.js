@@ -21,8 +21,8 @@
         this.createGenre = function (genre) {
             return $http.post(`${serviceBase}/api/genres`, genre);
         }
-        this.updateGenre = function (id, genre) {
-            return $http.put(`${serviceBase}/api/genres/${id}`, genre);
+        this.updateGenre = function (genre) {
+            return $http.put(`${serviceBase}/api/genres`, genre);
         }
     }
 

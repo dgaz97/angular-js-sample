@@ -9,12 +9,12 @@ namespace AngularJsSample.Services.Impl
 {
     public class GenreService : IGenreService
     {
-        private IGenreRepository _repository_;
-        private IMovieRepository _repository2_;
+        private IGenreRepository _repository;
+        private IMovieRepository _repository2;
         public GenreService(IGenreRepository repository, IMovieRepository repository2)
         {
-            _repository_ = repository;
-            _repository2_ = repository2;
+            _repository = repository;
+            _repository2 = repository2;
         }
         public AddMovieToGenreResponse AddMovieToGenre(AddMovieToGenreRequest request)
         {
@@ -25,9 +25,9 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                if (_repository_.FindBy(request.GenreId) == null) throw new Exception($"Genre {request.GenreId} doesn't exist");
-                if (_repository2_.FindBy(request.MovieId) == null) throw new Exception($"Movie {request.MovieId} doesn't exist");
-                _repository_.AddMovie(request.GenreId, request.MovieId, request.UserId);
+                if (_repository.FindBy(request.GenreId) == null) throw new Exception($"Genre {request.GenreId} doesn't exist");
+                if (_repository2.FindBy(request.MovieId) == null) throw new Exception($"Movie {request.MovieId} doesn't exist");
+                _repository.AddMovie(request.GenreId, request.MovieId, request.UserId);
                 response.Success = true;
             }
             catch (Exception ex)
@@ -47,9 +47,9 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                var genre = _repository_.FindBy(request.GenreId);
+                var genre = _repository.FindBy(request.GenreId);
                 if (genre == null) throw new Exception($"Genre {request.GenreId} doesn't exist");
-                response.Success = _repository_.Delete(new Genre() { GenreId = request.GenreId, UserLastModified = new Model.Users.UserInfo() { Id = request.UserId } });
+                response.Success = _repository.Delete(new Genre() { GenreId = request.GenreId, UserLastModified = new Model.Users.UserInfo() { Id = request.UserId } });
             }
             catch (Exception ex)
             {
@@ -68,7 +68,7 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                if (_repository_.DeleteMovie(request.GenreId, request.MovieId, request.UserId))
+                if (_repository.DeleteMovie(request.GenreId, request.MovieId, request.UserId))
                 {
                     response.Success = true;
                 }
@@ -91,7 +91,7 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                response.Movies = _repository_.FindMovies(request.GenreId).MapToViews();
+                response.Movies = _repository.FindMovies(request.GenreId).MapToViews();
                 response.Success = true;
             }
             catch (Exception ex)
@@ -111,7 +111,7 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                response.Genres = _repository_.FindAll().MapToViews();
+                response.Genres = _repository.FindAll().MapToViews();
                 response.Success = true;
             }
             catch (Exception ex)
@@ -131,7 +131,7 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                response.Genre = _repository_.FindBy(request.GenreId).MapToView();
+                response.Genre = _repository.FindBy(request.GenreId).MapToView();
                 response.Success = true;
             }
             catch (Exception ex)
@@ -159,20 +159,20 @@ namespace AngularJsSample.Services.Impl
                     if (request.Genre.Description == null) request.Genre.Description = "";
                     if (request.Genre.Description.Length > 1000)
                         throw new Exception("Genre description can't be greater than 1000 characters");
-                    _repository_.Add(request.Genre.MapToModel());
                     //response.Genre = _repository_.FindBy(newId).MapToView();
+                    _repository.Add(request.Genre.MapToModel());
                     response.Success = true;
                 }
                 else if (request.Genre?.GenreId > 0)
                 {
-                    if (_repository_.FindBy(request.Genre.GenreId) == null) throw new Exception($"Genre {request.Genre.GenreId} doesn't exist");
                     if (request.Genre.Name == null || String.IsNullOrWhiteSpace(request.Genre.Name)) throw new Exception("Genre name can't be empty");
                     if (request.Genre.Name.Length > 50)
                         throw new Exception("Genre name can't be greater than 50 characters");
                     if (request.Genre.Description == null) request.Genre.Description = "";
                     if (request.Genre.Description.Length > 1000)
                         throw new Exception("Genre description can't be greater than 1000 characters");
-                    response.Genre = _repository_.Save(request.Genre.MapToModel()).MapToView();
+                    if (_repository.FindBy(request.Genre.GenreId) == null) throw new Exception($"Genre {request.Genre.GenreId} doesn't exist");
+                    response.Genre = _repository.Save(request.Genre.MapToModel()).MapToView();
                     response.Success = true;
                 }
                 else

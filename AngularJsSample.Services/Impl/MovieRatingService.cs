@@ -10,14 +10,14 @@ namespace AngularJsSample.Services.Impl
 {
     public class MovieRatingService : IMovieRatingService
     {
-        private IMovieRatingRepository _repository_;
-        private IUserRepository _repository2_;
-        private IMovieRepository _repository3_;
+        private IMovieRatingRepository _repository;
+        private IUserRepository _repository2;
+        private IMovieRepository _repository3;
         public MovieRatingService(IMovieRatingRepository repository, IUserRepository repository2, IMovieRepository repository3)
         {
-            _repository_ = repository;
-            _repository2_ = repository2;
-            _repository3_ = repository3;
+            _repository = repository;
+            _repository2 = repository2;
+            _repository3 = repository3;
         }
         public GetAllMovieRatingsResponse GetAllMovieRatings(GetAllMovieRatingsRequest request)
         {
@@ -28,7 +28,7 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                response.MovieRatings = _repository_.FindAll().MapToViews();
+                response.MovieRatings = _repository.FindAll().MapToViews();
                 response.Success = true;
             }
             catch (Exception ex)
@@ -48,11 +48,11 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                if (_repository2_.FindBy(request.RequestedUser) == null)
+                if (_repository2.FindBy(request.RequestedUser) == null)
                     throw new Exception($"User {request.RequestedUser} doesn't exist");
-                if (_repository3_.FindBy(request.MovieId) == null)
+                if (_repository3.FindBy(request.MovieId) == null)
                     throw new Exception($"Movie {request.MovieId} doesn't exist");
-                response.MovieRating = _repository_.FindByUserAndMovie(request.MovieId, request.RequestedUser).MapToView();
+                response.MovieRating = _repository.FindByUserAndMovie(request.MovieId, request.RequestedUser).MapToView();
                 response.Success = true;
             }
             catch (Exception ex)
@@ -72,9 +72,9 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                if (_repository3_.FindBy(request.MovieId) == null)
+                if (_repository3.FindBy(request.MovieId) == null)
                     throw new Exception($"Movie {request.MovieId} doesn't exist");
-                response.MovieRatings = _repository_.FindByMovie(request.MovieId).MapToViews();
+                response.MovieRatings = _repository.FindByMovie(request.MovieId).MapToViews();
                 response.Success = true;
             }
             catch (Exception ex)
@@ -94,9 +94,9 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                if (_repository2_.FindBy(request.RequestedUser) == null)
+                if (_repository2.FindBy(request.RequestedUser) == null)
                     throw new Exception($"User {request.RequestedUser} doesn't exist");
-                response.MovieRatings = _repository_.FindByUser(request.RequestedUser).MapToViews();
+                response.MovieRatings = _repository.FindByUser(request.RequestedUser).MapToViews();
                 response.Success = true;
             }
             catch (Exception ex)
@@ -116,15 +116,12 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                if (_repository3_.FindBy(request.MovieRating.Movie.MovieId) == null)
+                if (_repository3.FindBy(request.MovieRating.Movie.MovieId) == null)
                     throw new Exception($"Movie {request.MovieRating.Movie.MovieId} doesn't exist");
-                //if (request.MovieRating.UserRating==0)
-                //    throw new Exception("Movie rating must be set");
                 if (request.MovieRating.UserRating < 0 || request.MovieRating.UserRating > 5)//TODO ili možda 10
                     throw new Exception("Movie rating must be between 0 and 5");
 
-                _repository_.Add(request.MovieRating.MapToModel());
-                //response.MovieRating = request.MovieRating;
+                _repository.Add(request.MovieRating.MapToModel());
                 response.Success = true;
             }
             catch (Exception ex)

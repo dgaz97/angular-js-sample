@@ -5,6 +5,9 @@ using AngularJsSample.Api.Models.Users;
 
 namespace AngularJsSample.Api.Models.Movies
 {
+    /// <summary>
+    /// ViewModel for Movie
+    /// </summary>
     public class MovieViewModel
     {
         public int MovieId { get; set; }

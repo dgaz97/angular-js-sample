@@ -5,8 +5,15 @@ using System;
 
 namespace AngularJsSample.Repositories.Validation
 {
+    /// <summary>
+    /// Static class for validating Genre objects before insert/update
+    /// </summary>
     public static class GenreValidation
     {
+        /// <summary>
+        /// Checks whether Genre object is valid, throws exception if not
+        /// </summary>
+        /// <param name="item">Genre object</param>
         public static void CheckGenreForInsertOrUpdate(this Genre item)
         {
             if (item.Name == null || String.IsNullOrWhiteSpace(item.Name)) throw new Exception("Genre name can't be empty");

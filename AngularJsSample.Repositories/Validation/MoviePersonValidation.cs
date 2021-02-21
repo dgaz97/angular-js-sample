@@ -8,8 +8,15 @@ using System.Threading.Tasks;
 
 namespace AngularJsSample.Repositories.Validation
 {
+    /// <summary>
+    /// Static class for validating Movie person objects before insert/update
+    /// </summary>
     public static class MoviePersonValidation
     {
+        /// <summary>
+        /// Checks whether Movie person objects is valid, throws exception if not
+        /// </summary>
+        /// <param name="item">Movie person object</param>
         public static void CheckDataForInsertOrUpdate(this MoviePerson item)
         {
             if (item.FirstName == null || String.IsNullOrWhiteSpace(item.FirstName)) throw new Exception("First name can't be empty");

@@ -3,6 +3,9 @@ using System;
 
 namespace AngularJsSample.Model.MoviePersons
 {
+    /// <summary>
+    /// Model class for Movie Person
+    /// </summary>
     public class MoviePerson
     {
         public int Id { get; set; }

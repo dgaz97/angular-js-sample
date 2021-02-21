@@ -8,17 +8,27 @@ using AngularJsSample.Services.Messaging.Users;
 
 namespace AngularJsSample.Api.Controllers
 {
+    /// <summary>
+    /// User API controller
+    /// </summary>
     [Authorize]
     public class UserInfoController : ApiController
     {
         private readonly IUserService _userService;
-
+        /// <summary>
+        /// Constructor, for use with AutoFac, that accepts an IUserService implementation
+        /// </summary>
+        /// <param name="userService">IUserService implementation</param>
         public UserInfoController(IUserService userService)
         {
             _userService = userService;
         }
 
-
+        /// <summary>
+        /// Gets requested user
+        /// </summary>
+        /// <param name="id">ID of user</param>
+        /// <returns>Ok response with the requested user, or BadRequest with error message</returns>
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
@@ -38,6 +48,10 @@ namespace AngularJsSample.Api.Controllers
             return BadRequest(response.Message);
         }
 
+        /// <summary>
+        /// Gets all users
+        /// </summary>
+        /// <returns>Ok response with a list of users, or BadRequest with error message</returns>
         [HttpGet]
         public IHttpActionResult Get()
         {

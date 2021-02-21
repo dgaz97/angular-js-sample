@@ -10,19 +10,27 @@ using AngularJsSample.Api.Mapping.Genres;
 
 namespace AngularJsSample.Api.Controllers
 {
+    /// <summary>
+    /// Movie API controller
+    /// </summary>
     [Authorize]
     [RoutePrefix("api/movies")]
     public class MovieController : ApiController
     {
         private IMovieService _movieService;
+        /// <summary>
+        /// Constructor, for use with AutoFac, that accepts an IMovieService implementation
+        /// </summary>
+        /// <param name="movieService">An IMovieService implementation</param>
         public MovieController(IMovieService movieService)
         {
             _movieService = movieService;
         }
 
-        /**
-         * Dohvaća sve filmove
-         */
+        /// <summary>
+        /// Gets a list of all movies
+        /// </summary>
+        /// <returns>Ok response with a list of all movies, or BadRequest with error message</returns>
         [HttpGet]
         [Route("")]
         public IHttpActionResult Get()
@@ -60,9 +68,11 @@ namespace AngularJsSample.Api.Controllers
         }
 
 
-        /**
-         * Dohvaća jedan film
-         */
+        /// <summary>
+        /// Gets one movie, by ID
+        /// </summary>
+        /// <param name="id">ID of movie that we're getting</param>
+        /// <returns>Ok response with the movie that we're getting, or BadRequest with error message</returns>
         [HttpGet]
         [Route("{id}")]
         public IHttpActionResult Get(int id)
@@ -98,9 +108,11 @@ namespace AngularJsSample.Api.Controllers
 
         }
 
-        /**
-         * Dodaje novi film
-         */
+        /// <summary>
+        /// Adds a new movie
+        /// </summary>
+        /// <param name="movie">Movie object</param>
+        /// <returns>Ok response with a Movie object (only contains newly created ID), or BadRequest with error message</returns>
         [HttpPost]
         [Route("")]
         public IHttpActionResult Post(MovieViewModel movie)
@@ -122,9 +134,12 @@ namespace AngularJsSample.Api.Controllers
 
         }
 
-        /**
-         * Ažurira postojeći film
-         */
+        /// <summary>
+        /// Updates movie with ID
+        /// </summary>
+        /// <param name="id">ID of movie that we're updating</param>
+        /// <param name="movie">Movie object with new data</param>
+        /// <returns>Ok response with the movie object, or BadRequest with error message</returns>
         [HttpPut]
         [Route("{id}")]
         public IHttpActionResult Put(int id, MovieViewModel movie)
@@ -145,9 +160,11 @@ namespace AngularJsSample.Api.Controllers
             return Ok(response.Movie.MapToViewModel());
         }
 
-        /**
-         * Briše film
-         */
+        /// <summary>
+        /// Deletes movie
+        /// </summary>
+        /// <param name="id">ID of movie that we're deleting</param>
+        /// <returns>Empty Ok response, or BadRequest with error message</returns>
         [HttpDelete]
         [Route("{id}")]
         public IHttpActionResult Delete(int id)
@@ -167,9 +184,11 @@ namespace AngularJsSample.Api.Controllers
             return Ok();
         }
 
-        /**
-         * Dohvaća žanrove filma
-         */
+        /// <summary>
+        /// Gets genres of requested
+        /// </summary>
+        /// <param name="id">ID of movie</param>
+        /// <returns>Ok response with a list of genres, or BadRequest with error message</returns>
         [HttpGet]
         [Route("genres/{id}")]
         public IHttpActionResult GetGenres(int id)
@@ -188,9 +207,12 @@ namespace AngularJsSample.Api.Controllers
             return Ok(new { response.Genres });
         }
 
-        /**
-         * Dodaje žanr filmu
-         */
+        /// <summary>
+        /// Adds genre to movie
+        /// </summary>
+        /// <param name="movieId">Movie that we're adding the genre to</param>
+        /// <param name="genreId">Genre that we're adding to the movie</param>
+        /// <returns>Empty Ok response, or BadRequest with error message</returns>
         [HttpPost]
         [Route("{movieId}/{genreId}")]
         public IHttpActionResult Post(int movieId, int genreId)
@@ -214,9 +236,12 @@ namespace AngularJsSample.Api.Controllers
 
 
 
-        /**
-         * Briše žanr filma
-         */
+        /// <summary>
+        /// Deletes genre from movie
+        /// </summary>
+        /// <param name="movieId">Movie that we're deleting the genre from</param>
+        /// <param name="genreId">Genre that we're deleting from movie</param>
+        /// <returns>Empty Ok response, or BadRequest with error message</returns>
         [HttpDelete]
         [Route("{movieId}/{genreId}")]
         public IHttpActionResult Delete(int movieId, int genreId)

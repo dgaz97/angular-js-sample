@@ -1,5 +1,8 @@
 ﻿namespace AngularJsSample.Api.Models.Users
 {
+    /// <summary>
+    /// ViewModel for User
+    /// </summary>
     public class UserViewModel
     {
         public int Id { get; set; }

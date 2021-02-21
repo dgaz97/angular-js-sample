@@ -11,19 +11,27 @@ using System.Web.Http;
 
 namespace AngularJsSample.Api.Controllers
 {
+    /// <summary>
+    /// Movie rating API controller
+    /// </summary>
     [Authorize]
     [RoutePrefix("api/movieRatings")]
     public class MovieRatingController: ApiController
     {
         private IMovieRatingService _movieRatingService;
+        /// <summary>
+        /// Constructor, for use with AutoFac, that accepts an IMovieRatingService implementation
+        /// </summary>
+        /// <param name="movieRatingService">IMovieRatingService implementation</param>
         public MovieRatingController(IMovieRatingService movieRatingService)
         {
             _movieRatingService = movieRatingService;
         }
 
-        /**
-         * Dohvaća sve ratinge
-         */
+        /// <summary>
+        /// Gets a list of all movie ratings
+        /// </summary>
+        /// <returns>Ok response with a list of all movie ratings, or BadRequest with error message</returns>
         [HttpGet]
         [Route("")]
         public IHttpActionResult Get()
@@ -42,9 +50,11 @@ namespace AngularJsSample.Api.Controllers
             return Ok(new { response.MovieRatings });
         }
 
-        /**
-         * Dohvaća ratinge za traženi film
-         */
+        /// <summary>
+        /// Gets ratings for movie
+        /// </summary>
+        /// <param name="id">ID of movie</param>
+        /// <returns>Ok response with a list of all movie ratings for requested movie, or BadRequest with error message</returns>
         [HttpGet]
         [Route("movie/{id}")]
         public IHttpActionResult GetByMovie(int id)
@@ -63,9 +73,11 @@ namespace AngularJsSample.Api.Controllers
             return Ok(new { response.MovieRatings });
         }
 
-        /**
-         * Dohvaća ratinge za traženog korisnika
-         */
+        /// <summary>
+        /// Gets ratings of user
+        /// </summary>
+        /// <param name="id">ID of user</param>
+        /// <returns>Ok response with a list of all movie ratings for requested user, or BadRequest with error message</returns>
         [HttpGet]
         [Route("user/{id}")]
         public IHttpActionResult GetByUser(int id)
@@ -84,9 +96,12 @@ namespace AngularJsSample.Api.Controllers
             return Ok(new { response.MovieRatings });
         }
 
-        /**
-         * Dohvaća ratinge za film i traženog korisnika
-         */
+        /// <summary>
+        /// Gets movie rating of requested movie by requested user
+        /// </summary>
+        /// <param name="userId">ID of user</param>
+        /// <param name="movieId">ID of movie</param>
+        /// <returns>Ok response with a movie rating for requested user and movie, or BadRequest with error message</returns>
         [HttpGet]
         [Route("{userId}/{movieId}")]
         public IHttpActionResult GetByMovieAndUser(int userId, int movieId)
@@ -106,9 +121,12 @@ namespace AngularJsSample.Api.Controllers
             return Ok(new { response.MovieRating });
         }
 
-        /**
-         * spremi novi rating
-         */
+        /// <summary>
+        /// Creates a new movie rating for requested movie
+        /// </summary>
+        /// <param name="movieId">Movie ID</param>
+        /// <param name="movieRating">Movie rating object</param>
+        /// <returns>Empty Ok response, or BadRequest with error message</returns>
         [HttpPost]
         [Route("{movieId}")]
         public IHttpActionResult Put(int movieId, MovieRatingViewModel movieRating)

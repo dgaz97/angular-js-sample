@@ -6,8 +6,16 @@ using System.Linq;
 
 namespace AngularJsSample.Api.Mapping.MoviePersons
 {
+    /// <summary>
+    /// Static class for mapping between MoviePerson View and View Model
+    /// </summary>
     public static class MoviePersonsMapper
     {
+        /// <summary>
+        /// Maps MoviePerson View to View Model
+        /// </summary>
+        /// <param name="view">MoviePerson View</param>
+        /// <returns>MoviePerson ViewModel</returns>
         public static MoviePersonViewModel MapToViewModel(this MoviePerson view)
         {
             if (view == null) return null;
@@ -28,6 +36,11 @@ namespace AngularJsSample.Api.Mapping.MoviePersons
                 Popularity = view.Popularity
             };
         }
+        /// <summary>
+        /// Maps MoviePerson View Model to MoviePerson View
+        /// </summary>
+        /// <param name="viewModel">MoviePerson View Model</param>
+        /// <returns>MoviePerson View</returns>
         public static MoviePerson MapToView(this MoviePersonViewModel viewModel)
         {
             if (viewModel == null) return null;
@@ -48,7 +61,11 @@ namespace AngularJsSample.Api.Mapping.MoviePersons
                 Popularity = viewModel.Popularity
             };
         }
-
+        /// <summary>
+        /// Maps multiple MoviePerson Views to a List of MoviePerson ViewModels
+        /// </summary>
+        /// <param name="views">IEnumerable of MoviePerson Views</param>
+        /// <returns>List of MoviePerson View Models</returns>
         public static List<MoviePersonViewModel> MapToViewModels(this IEnumerable<MoviePerson> views)
         {
             var result = new List<MoviePersonViewModel>();

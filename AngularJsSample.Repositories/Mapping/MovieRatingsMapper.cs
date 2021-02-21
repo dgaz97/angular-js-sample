@@ -5,8 +5,16 @@ using AngularJsSample.Model.MovieRatings;
 
 namespace AngularJsSample.Repositories.Mapping
 {
+    /// <summary>
+    /// Static class for mapping movie ratins between database results and model classes
+    /// </summary>
     public static class MovieRatingsMapper
     {
+        /// <summary>
+        /// Maps Movie rating from database to model class
+        /// </summary>
+        /// <param name="dbResult">Movie rating database result</param>
+        /// <returns>Movie rating Model object</returns>
         public static MovieRating MapToModel(this MovieRating_GetByUserAndMovie_Result dbResult)
         {
             if (dbResult == null) return null;
@@ -36,6 +44,11 @@ namespace AngularJsSample.Repositories.Mapping
         }
 
         #region Mapper za MovieRating_GetAll_Result
+        /// <summary>
+        /// Maps Movie rating from database to model class
+        /// </summary>
+        /// <param name="dbResult">Movie rating database result</param>
+        /// <returns>Movie rating Model object</returns>
         public static MovieRating MapToModel(this MovieRating_GetAll_Result dbResult)
         {
             if (dbResult == null) return null;
@@ -64,6 +77,11 @@ namespace AngularJsSample.Repositories.Mapping
             };
         }
 
+        /// <summary>
+        /// Maps list of Movie rating from database to model class
+        /// </summary>
+        /// <param name="dbResult">IEnumerable of Movie rating database results</param>
+        /// <returns>List of Movie rating models</returns>
         public static List<MovieRating> MapToModels(this IEnumerable<MovieRating_GetAll_Result> dbResult)
         {
             var result = new List<MovieRating>();
@@ -75,6 +93,11 @@ namespace AngularJsSample.Repositories.Mapping
 
         #region Mapper za MovieRating_GetByMovie_Result
 
+        /// <summary>
+        /// Maps Movie rating from database to model class
+        /// </summary>
+        /// <param name="dbResult">Movie rating database result</param>
+        /// <returns>Movie rating Model object</returns>
         public static MovieRating MapToModel(this MovieRating_GetByMovie_Result dbResult)
         {
             if (dbResult == null) return null;
@@ -102,6 +125,11 @@ namespace AngularJsSample.Repositories.Mapping
                 UserRating = dbResult.UserRating
             };
         }
+        /// <summary>
+        /// Maps list of Movie rating from database to model class
+        /// </summary>
+        /// <param name="dbResult">IEnumerable of Movie rating database results</param>
+        /// <returns>List of Movie rating models</returns>
         public static List<MovieRating> MapToModels(this IEnumerable<MovieRating_GetByMovie_Result> dbResult)
         {
             var result = new List<MovieRating>();
@@ -112,6 +140,11 @@ namespace AngularJsSample.Repositories.Mapping
         #endregion
 
         #region Mapper za MovieRating_GetByUser_Result
+        /// <summary>
+        /// Maps Movie rating from database to model class
+        /// </summary>
+        /// <param name="dbResult">Movie rating database result</param>
+        /// <returns>Movie rating Model object</returns>
         public static MovieRating MapToModel(this MovieRating_GetByUser_Result dbResult)
         {
             if (dbResult == null) return null;
@@ -139,6 +172,11 @@ namespace AngularJsSample.Repositories.Mapping
                 UserRating = dbResult.UserRating
             };
         }
+        /// <summary>
+        /// Maps list of Movie rating from database to model class
+        /// </summary>
+        /// <param name="dbResult">IEnumerable of Movie rating database results</param>
+        /// <returns>List of Movie rating models</returns>
         public static List<MovieRating> MapToModels(this IEnumerable<MovieRating_GetByUser_Result> dbResult)
         {
             var result = new List<MovieRating>();

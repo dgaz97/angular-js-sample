@@ -4,6 +4,9 @@ using System;
 
 namespace AngularJsSample.Api.Models.MovieRatings
 {
+    /// <summary>
+    /// ViewModel for Movie Rating
+    /// </summary>
     public class MovieRatingViewModel
     {
         public MovieViewModel Movie { get; set; }

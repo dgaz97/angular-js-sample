@@ -14,6 +14,9 @@ using Autofac;
 
 namespace AngularJsSample.Api.IoC
 {
+    /// <summary>
+    /// Class with configuration for AutoFac
+    /// </summary>
     public class CommonModule:Module
     {
         protected override void Load(ContainerBuilder builder)

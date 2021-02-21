@@ -6,8 +6,16 @@ using System.Linq;
 
 namespace AngularJsSample.Api.Mapping.Movies
 {
+    /// <summary>
+    /// Static class for mapping between Movie View and View Model
+    /// </summary>
     public static class MoviesMapper
     {
+        /// <summary>
+        /// Maps Movie View to Movie ViewModel
+        /// </summary>
+        /// <param name="view">Movie View</param>
+        /// <returns>Movie View Model</returns>
         public static MovieViewModel MapToViewModel(this Movie view)
         {
             if (view == null) return null;
@@ -27,6 +35,11 @@ namespace AngularJsSample.Api.Mapping.Movies
                 Genres = null
             };
         }
+        /// <summary>
+        /// Maps multiple Movie Views to a List of Movie ViewModels
+        /// </summary>
+        /// <param name="views">IEnumerable of Movie Views</param>
+        /// <returns>List of Movie View Models</returns>
         public static List<MovieViewModel> MapToViewModels (this IEnumerable<Movie> views)
         {
             var result = new List<MovieViewModel>();
@@ -35,6 +48,11 @@ namespace AngularJsSample.Api.Mapping.Movies
             return result;
         }
 
+        /// <summary>
+        /// Maps Movie View Model to Movie View
+        /// </summary>
+        /// <param name="viewModel">Movie View Model</param>
+        /// <returns>Movie View</returns>
         public static Movie MapToView (this MovieViewModel viewModel)
         {
             if (viewModel == null) return null;

@@ -8,8 +8,15 @@ using System.Threading.Tasks;
 
 namespace AngularJsSample.Repositories.Validation
 {
+    /// <summary>
+    /// Static class for validating Movie objects before insert/update
+    /// </summary>
     public static class MovieValidation
     {
+        /// <summary>
+        /// Checks whether Movie object is valid, throws exception if not
+        /// </summary>
+        /// <param name="item">Movie object</param>
         public static void CheckMovieForInsertOrUpdate(this Movie item)
         {
 
@@ -26,7 +33,7 @@ namespace AngularJsSample.Repositories.Validation
             if (item.MovieReleaseDate == DateTime.MinValue || item.MovieReleaseDate == null)
                 throw new Exception("Movie release date can't be empty");
 
-            //Movie rating se izračunava u bazi nakon svakog ratinga, ne upisuje se ovdje
+            //Movie rating is calculated in database after every new rating and is not written here
 
             Regex rxHttp = new Regex(@"^https?:\/\/");
             Regex rxImage = new Regex(@"\.jpg$|\.jpeg$|\.png$|\.gif$");

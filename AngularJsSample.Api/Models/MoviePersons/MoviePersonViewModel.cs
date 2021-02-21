@@ -3,6 +3,9 @@ using System;
 
 namespace AngularJsSample.Api.Models
 {
+    /// <summary>
+    /// ViewModel for Movie Person
+    /// </summary>
     public class MoviePersonViewModel
     {
         public int Id { get; set; }

@@ -5,8 +5,16 @@ using System.Linq;
 
 namespace AngularJsSample.Repositories.Mapping
 {
+    /// <summary>
+    /// Static class for mapping movie persons between database results and model classes
+    /// </summary>
     public static class MoviePersonsMapper
     {
+        /// <summary>
+        /// Maps movie person from database to model class
+        /// </summary>
+        /// <param name="dbResult">Movie person database result</param>
+        /// <returns>Movie person Model object</returns>
         public static MoviePerson MapToModel(this MoviePerson_Get_Result dbResult)
         {
             if (dbResult == null) return null;
@@ -42,6 +50,11 @@ namespace AngularJsSample.Repositories.Mapping
             };
         }
 
+        /// <summary>
+        /// Maps list of Movie persons from database to model class
+        /// </summary>
+        /// <param name="dbResults">IEnumerable of Movie person database results</param>
+        /// <returns>List of Movie person models</returns>
         public static List<MoviePerson> MapToModels (this IEnumerable<MoviePerson_GetAll_Result> dbResults)
         {
             var result = new List<MoviePerson>();
@@ -52,6 +65,11 @@ namespace AngularJsSample.Repositories.Mapping
 
         }
 
+        /// <summary>
+        /// Maps movie person from database to model class
+        /// </summary>
+        /// <param name="dbResult">Movie person database result</param>
+        /// <returns>Movie person Model object</returns>
         public static MoviePerson MapToModel(this MoviePerson_GetAll_Result dbResult)
         {
             if (dbResult == null) return null;

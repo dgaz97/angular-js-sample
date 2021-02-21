@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace AngularJsSample.Model.Movies
 {
+    /// <summary>
+    /// Model class for Movie
+    /// </summary>
     public class Movie
     {
         public int MovieId { get; set; }

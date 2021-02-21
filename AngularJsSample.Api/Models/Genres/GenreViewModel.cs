@@ -3,6 +3,9 @@ using System;
 
 namespace AngularJsSample.Api.Models.Genres
 {
+    /// <summary>
+    /// ViewModel for Genre
+    /// </summary>
     public class GenreViewModel
     {
         public int GenreId { get; set; }

@@ -4,6 +4,9 @@ using System;
 
 namespace AngularJsSample.Model.MovieRatings
 {
+    /// <summary>
+    /// Model class for Movie Rating
+    /// </summary>
     public class MovieRating
     {
         public Movie Movie { get; set;}

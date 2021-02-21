@@ -3,8 +3,16 @@ using AngularJsSample.Api.Models.Users;
 
 namespace AngularJsSample.Api.Mapping.Users
 {
+    /// <summary>
+    /// Static class for mapping between User View and View Model
+    /// </summary>
     public static class UsersMapper
     {
+        /// <summary>
+        /// Maps User View to User ViewModel
+        /// </summary>
+        /// <param name="view">User View</param>
+        /// <returns>User View Model</returns>
         public static UserViewModel MapToViewModel(this UserInfo view)
         {
             if (view == null)
@@ -19,6 +27,11 @@ namespace AngularJsSample.Api.Mapping.Users
             };
         }
 
+        /// <summary>
+        /// Maps User ViewModel to View
+        /// </summary>
+        /// <param name="viewModel">User ViewModel</param>
+        /// <returns>User View</returns>
         public static UserInfo MapToView(this UserViewModel viewModel)
         {
             if (viewModel == null)

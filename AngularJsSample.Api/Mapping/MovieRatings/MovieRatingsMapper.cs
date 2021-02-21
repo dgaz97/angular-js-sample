@@ -7,8 +7,16 @@ using System.Linq;
 
 namespace AngularJsSample.Api.Mapping.MovieRatings
 {
+    /// <summary>
+    /// Static class for mapping between MovieRating View and View Model
+    /// </summary>
     public static class MovieRatingsMapper
     {
+        /// <summary>
+        /// Maps MovieRating View to View Model
+        /// </summary>
+        /// <param name="view">MovieRating View</param>
+        /// <returns>MovieRating ViewModel</returns>
         public static MovieRatingViewModel MapToViewModel(this MovieRating view)
         {
             if (view == null) return null;
@@ -20,6 +28,11 @@ namespace AngularJsSample.Api.Mapping.MovieRatings
                 UserRating = view.UserRating
             };
         }
+        /// <summary>
+        /// Maps multiple MovieRating Views to a List of MovieRating ViewModels
+        /// </summary>
+        /// <param name="views">IEnumerable of MovieRating Views</param>
+        /// <returns>List of MovieRating View Models</returns>
         public static List<MovieRatingViewModel> MapToViewModels(this IEnumerable<MovieRating> views)
         {
             var result = new List<MovieRatingViewModel>();
@@ -28,6 +41,11 @@ namespace AngularJsSample.Api.Mapping.MovieRatings
             return result;
         }
 
+        /// <summary>
+        /// Maps MovieRating View Model to MovieRating View
+        /// </summary>
+        /// <param name="viewModel">MovieRating View Model</param>
+        /// <returns>MovieRating View</returns>
         public static MovieRating MapToView(this MovieRatingViewModel viewModel)
         {
             if (viewModel == null) return null;

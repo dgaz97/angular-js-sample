@@ -1,5 +1,8 @@
 ﻿namespace AngularJsSample.Model.Users
 {
+    /// <summary>
+    /// Model class for User
+    /// </summary>
     public class UserInfo
     {
         public int Id { get; set; }

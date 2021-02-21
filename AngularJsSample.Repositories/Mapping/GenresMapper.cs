@@ -5,8 +5,16 @@ using System.Linq;
 
 namespace AngularJsSample.Repositories.Mapping
 {
+    /// <summary>
+    /// Static class for mapping genres between database results and model classes
+    /// </summary>
     public static class GenresMapper
     {
+        /// <summary>
+        /// Maps Genre from database to model class
+        /// </summary>
+        /// <param name="dbResult">Genre database result</param>
+        /// <returns>Genre Model object</returns>
         public static Genre MapToModel (this Genre_Get_Result dbResult)
         {
             if (dbResult == null) return null;
@@ -37,6 +45,11 @@ namespace AngularJsSample.Repositories.Mapping
         }
 
         #region Mapper za Genre_GetAll_Result
+        /// <summary>
+        /// Maps Genre from database to model class
+        /// </summary>
+        /// <param name="dbResult">Genre database result</param>
+        /// <returns>Genre Model object</returns>
         public static Genre MapToModel (this Genre_GetAll_Result dbResult)
         {
             if (dbResult == null) return null;
@@ -65,8 +78,11 @@ namespace AngularJsSample.Repositories.Mapping
                 Description = dbResult.Description
             };
         }
-        
-
+        /// <summary>
+        /// Maps list of Genres from database to model class
+        /// </summary>
+        /// <param name="dbResult">IEnumerable of Genre database results</param>
+        /// <returns>List of Genre models</returns>
         public static List<Genre> MapToModels (this IEnumerable<Genre_GetAll_Result> dbResult)
         {
             var result = new List<Genre>();
@@ -78,6 +94,11 @@ namespace AngularJsSample.Repositories.Mapping
 
         #region Mapper za Movie_GetGenres_Result
 
+        /// <summary>
+        /// Maps Genre from database to model class
+        /// </summary>
+        /// <param name="dbResult">Genre database result</param>
+        /// <returns>Genre Model object</returns>
         public static Genre MapToModel(this Movie_GetGenres_Result dbResult)
         {
             if (dbResult == null) return null;
@@ -106,7 +127,11 @@ namespace AngularJsSample.Repositories.Mapping
                 Description = dbResult.Description
             };
         }
-
+        /// <summary>
+        /// Maps list of Genres from database to model class
+        /// </summary>
+        /// <param name="dbResult">IEnumerable of Genre database results</param>
+        /// <returns>List of Genre models</returns>
         public static List<Genre> MapToModels(this IEnumerable<Movie_GetGenres_Result> dbResult)
         {
             var result = new List<Genre>();

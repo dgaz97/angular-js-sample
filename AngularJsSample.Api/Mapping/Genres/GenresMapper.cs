@@ -6,8 +6,16 @@ using System.Linq;
 
 namespace AngularJsSample.Api.Mapping.Genres
 {
+    /// <summary>
+    /// Static class for mapping between Genre View and View Model
+    /// </summary>
     public static class GenresMapper
     {
+        /// <summary>
+        /// Maps Genre View to View Model
+        /// </summary>
+        /// <param name="view">Genre View</param>
+        /// <returns>Genre ViewModel</returns>
         public static GenreViewModel MapToViewModel(this Genre view)
         {
             if (view == null) return null;
@@ -22,6 +30,11 @@ namespace AngularJsSample.Api.Mapping.Genres
                 Description = view.Description
             };
         }
+        /// <summary>
+        /// Maps Genre View Model to MovieRating View
+        /// </summary>
+        /// <param name="viewModel">Genre View Model</param>
+        /// <returns>Genre View</returns>
         public static Genre MapToView(this GenreViewModel viewModel)
         {
             if (viewModel == null) return null;
@@ -36,7 +49,11 @@ namespace AngularJsSample.Api.Mapping.Genres
                 Description = viewModel.Description
             };
         }
-
+        /// <summary>
+        /// Maps multiple Genre Views to a List of Genre ViewModels
+        /// </summary>
+        /// <param name="views">IEnumerable of Genre Views</param>
+        /// <returns>List of Genre View Models</returns>
         public static List<GenreViewModel> MapToViewModels(this IEnumerable<Genre> views)
         {
             var result = new List<GenreViewModel>();

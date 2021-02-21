@@ -156,9 +156,10 @@ namespace AngularJsSample.Services.Impl
                 {
                     request.Genre.MapToModel().CheckGenreForInsertOrUpdate();
                     
-                    _repository.Add(request.Genre.MapToModel());
+                    var newId = _repository.Add(request.Genre.MapToModel());
 
                     response.Success = true;
+                    response.Genre = new Messaging.Views.Genres.Genre() { GenreId = newId };
                 }
                 else if (request.Genre?.GenreId > 0)
                 {

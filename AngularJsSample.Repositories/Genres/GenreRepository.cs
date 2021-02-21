@@ -21,7 +21,7 @@ namespace AngularJsSample.Repositories.Genres
         {
             using (var context = new AngularJsSampleDbEntities())
             {
-                return context.Genre_Insert(item.UserCreated.Id, item.Name, item.Description);
+                return context.Genre_Insert(item.UserCreated.Id, item.Name, item.Description).Single().Value;
             }
         }
 

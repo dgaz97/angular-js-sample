@@ -20,7 +20,7 @@ namespace AngularJsSample.Repositories.MoviePersons
         {
             using (var context = new AngularJsSampleDbEntities())
             {
-                return context.MoviePerson_Insert(item.UserCreated.Id, item.FirstName, item.LastName, item.BirthDate, item.BirthPlace, item.Biography, item.ImdbUrl, item.ImageUrl, item.Popularity);
+                return context.MoviePerson_Insert(item.UserCreated.Id, item.FirstName, item.LastName, item.BirthDate, item.BirthPlace, item.Biography, item.ImdbUrl, item.ImageUrl, item.Popularity).Single().Value;
             }
         }
         /// <summary>

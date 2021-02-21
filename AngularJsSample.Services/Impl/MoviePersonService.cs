@@ -91,7 +91,8 @@ namespace AngularJsSample.Services.Impl
                     if (request.MoviePerson.Id != 0) throw new Exception("Movie person ID must be null or 0");
                     request.MoviePerson.MapToModel().CheckDataForInsertOrUpdate();
 
-                    _repository.Add(request.MoviePerson.MapToModel());
+                    var newId = _repository.Add(request.MoviePerson.MapToModel());
+                    response.MoviePerson = new Messaging.Views.MoviePersons.MoviePerson() { Id = newId };
                     response.Success = true;
                 }
                 else if (request.MoviePerson?.Id > 0)//edit

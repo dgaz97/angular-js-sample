@@ -136,7 +136,7 @@ namespace AngularJsSample.Api.Controllers
             {
                 return BadRequest(moviePersonsResponse.Message);
             }
-            return Ok();
+            return Ok(moviePersonsResponse.MoviePerson);
         }
 
         /// <summary>

@@ -90,23 +90,6 @@ namespace AngularJsSample.Repositories.DatabaseModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Genre_GetAll_Result>("Genre_GetAll");
         }
     
-        public virtual int Genre_Insert(Nullable<int> userCreatedId, string genreName, string genreDescription)
-        {
-            var userCreatedIdParameter = userCreatedId.HasValue ?
-                new ObjectParameter("UserCreatedId", userCreatedId) :
-                new ObjectParameter("UserCreatedId", typeof(int));
-    
-            var genreNameParameter = genreName != null ?
-                new ObjectParameter("GenreName", genreName) :
-                new ObjectParameter("GenreName", typeof(string));
-    
-            var genreDescriptionParameter = genreDescription != null ?
-                new ObjectParameter("GenreDescription", genreDescription) :
-                new ObjectParameter("GenreDescription", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Genre_Insert", userCreatedIdParameter, genreNameParameter, genreDescriptionParameter);
-        }
-    
         public virtual int Genre_Update(Nullable<int> genreId, Nullable<int> userLastModifiedId, string genreName, string genreDescription)
         {
             var genreIdParameter = genreId.HasValue ?
@@ -242,47 +225,6 @@ namespace AngularJsSample.Repositories.DatabaseModel
         public virtual ObjectResult<MoviePerson_GetAll_Result> MoviePerson_GetAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MoviePerson_GetAll_Result>("MoviePerson_GetAll");
-        }
-    
-        public virtual int MoviePerson_Insert(Nullable<int> userId, string firstName, string lastName, Nullable<System.DateTime> birthDate, string birthPlace, string biography, string imdbUrl, string imageUrl, Nullable<int> popularity)
-        {
-            var userIdParameter = userId.HasValue ?
-                new ObjectParameter("UserId", userId) :
-                new ObjectParameter("UserId", typeof(int));
-    
-            var firstNameParameter = firstName != null ?
-                new ObjectParameter("FirstName", firstName) :
-                new ObjectParameter("FirstName", typeof(string));
-    
-            var lastNameParameter = lastName != null ?
-                new ObjectParameter("LastName", lastName) :
-                new ObjectParameter("LastName", typeof(string));
-    
-            var birthDateParameter = birthDate.HasValue ?
-                new ObjectParameter("BirthDate", birthDate) :
-                new ObjectParameter("BirthDate", typeof(System.DateTime));
-    
-            var birthPlaceParameter = birthPlace != null ?
-                new ObjectParameter("BirthPlace", birthPlace) :
-                new ObjectParameter("BirthPlace", typeof(string));
-    
-            var biographyParameter = biography != null ?
-                new ObjectParameter("Biography", biography) :
-                new ObjectParameter("Biography", typeof(string));
-    
-            var imdbUrlParameter = imdbUrl != null ?
-                new ObjectParameter("ImdbUrl", imdbUrl) :
-                new ObjectParameter("ImdbUrl", typeof(string));
-    
-            var imageUrlParameter = imageUrl != null ?
-                new ObjectParameter("ImageUrl", imageUrl) :
-                new ObjectParameter("ImageUrl", typeof(string));
-    
-            var popularityParameter = popularity.HasValue ?
-                new ObjectParameter("Popularity", popularity) :
-                new ObjectParameter("Popularity", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MoviePerson_Insert", userIdParameter, firstNameParameter, lastNameParameter, birthDateParameter, birthPlaceParameter, biographyParameter, imdbUrlParameter, imageUrlParameter, popularityParameter);
         }
     
         public virtual int MoviePerson_Update(Nullable<int> moviePersonId, Nullable<int> userLastModified, string firstName, string lastName, Nullable<System.DateTime> birthDate, string birthPlace, string biography, string imdbUrl, string imageUrl, Nullable<int> popularity)
@@ -433,6 +375,64 @@ namespace AngularJsSample.Repositories.DatabaseModel
                 new ObjectParameter("MovieImdbUrl", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Movie_Insert", userCreatedIdParameter, movieNameParameter, movieDescriptionParameter, movieReleaseDateParameter, moviePosterUrlParameter, movieImdbUrlParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> Genre_Insert(Nullable<int> userCreatedId, string genreName, string genreDescription)
+        {
+            var userCreatedIdParameter = userCreatedId.HasValue ?
+                new ObjectParameter("UserCreatedId", userCreatedId) :
+                new ObjectParameter("UserCreatedId", typeof(int));
+    
+            var genreNameParameter = genreName != null ?
+                new ObjectParameter("GenreName", genreName) :
+                new ObjectParameter("GenreName", typeof(string));
+    
+            var genreDescriptionParameter = genreDescription != null ?
+                new ObjectParameter("GenreDescription", genreDescription) :
+                new ObjectParameter("GenreDescription", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Genre_Insert", userCreatedIdParameter, genreNameParameter, genreDescriptionParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> MoviePerson_Insert(Nullable<int> userId, string firstName, string lastName, Nullable<System.DateTime> birthDate, string birthPlace, string biography, string imdbUrl, string imageUrl, Nullable<int> popularity)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("FirstName", firstName) :
+                new ObjectParameter("FirstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("LastName", lastName) :
+                new ObjectParameter("LastName", typeof(string));
+    
+            var birthDateParameter = birthDate.HasValue ?
+                new ObjectParameter("BirthDate", birthDate) :
+                new ObjectParameter("BirthDate", typeof(System.DateTime));
+    
+            var birthPlaceParameter = birthPlace != null ?
+                new ObjectParameter("BirthPlace", birthPlace) :
+                new ObjectParameter("BirthPlace", typeof(string));
+    
+            var biographyParameter = biography != null ?
+                new ObjectParameter("Biography", biography) :
+                new ObjectParameter("Biography", typeof(string));
+    
+            var imdbUrlParameter = imdbUrl != null ?
+                new ObjectParameter("ImdbUrl", imdbUrl) :
+                new ObjectParameter("ImdbUrl", typeof(string));
+    
+            var imageUrlParameter = imageUrl != null ?
+                new ObjectParameter("ImageUrl", imageUrl) :
+                new ObjectParameter("ImageUrl", typeof(string));
+    
+            var popularityParameter = popularity.HasValue ?
+                new ObjectParameter("Popularity", popularity) :
+                new ObjectParameter("Popularity", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("MoviePerson_Insert", userIdParameter, firstNameParameter, lastNameParameter, birthDateParameter, birthPlaceParameter, biographyParameter, imdbUrlParameter, imageUrlParameter, popularityParameter);
         }
     }
 }

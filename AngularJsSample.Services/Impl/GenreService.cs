@@ -1,5 +1,6 @@
 ﻿using AngularJsSample.Model.Genres;
 using AngularJsSample.Model.Movies;
+using AngularJsSample.Repositories.Validation;
 using AngularJsSample.Services.Mapping;
 using AngularJsSample.Services.Messaging.Genres.Requests;
 using AngularJsSample.Services.Messaging.Genres.Responses;
@@ -153,25 +154,18 @@ namespace AngularJsSample.Services.Impl
             {
                 if (request.Genre?.GenreId == 0)
                 {
-                    if (request.Genre.Name == null || String.IsNullOrWhiteSpace(request.Genre.Name)) throw new Exception("Genre name can't be empty");
-                    if (request.Genre.Name.Length > 50)
-                        throw new Exception("Genre name can't be greater than 50 characters");
-                    if (request.Genre.Description == null) request.Genre.Description = "";
-                    if (request.Genre.Description.Length > 1000)
-                        throw new Exception("Genre description can't be greater than 1000 characters");
-                    //response.Genre = _repository_.FindBy(newId).MapToView();
+                    request.Genre.MapToModel().CheckGenreForInsertOrUpdate();
+                    
                     _repository.Add(request.Genre.MapToModel());
+
                     response.Success = true;
                 }
                 else if (request.Genre?.GenreId > 0)
                 {
-                    if (request.Genre.Name == null || String.IsNullOrWhiteSpace(request.Genre.Name)) throw new Exception("Genre name can't be empty");
-                    if (request.Genre.Name.Length > 50)
-                        throw new Exception("Genre name can't be greater than 50 characters");
-                    if (request.Genre.Description == null) request.Genre.Description = "";
-                    if (request.Genre.Description.Length > 1000)
-                        throw new Exception("Genre description can't be greater than 1000 characters");
                     if (_repository.FindBy(request.Genre.GenreId) == null) throw new Exception($"Genre {request.Genre.GenreId} doesn't exist");
+
+                    request.Genre.MapToModel().CheckGenreForInsertOrUpdate();
+
                     response.Genre = _repository.Save(request.Genre.MapToModel()).MapToView();
                     response.Success = true;
                 }

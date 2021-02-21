@@ -157,9 +157,6 @@
                 showCancelButton: true,
                 confirmButtonText: "Da",
                 cancelButtonText: "Ne",
-                closeOnCancel: true,
-                closeOnConfirm: true,
-                closeOnEsc: true,
                 buttonsStyling: false,
                 customClass: {
                     confirmButton: 'btn btn-danger btn-outline',
@@ -167,7 +164,8 @@
                 },
             })
                 .then(function (result) {
-                    if (result.isConfirm) {
+                    console.log(result);
+                    if (result.isConfirmed) {
                         moviesSvc.deleteMovie(vm.movie.movieId).then(function (data) {
                             //Premješta na pregled svih redatelja
                             $state.go("moviesOverview");

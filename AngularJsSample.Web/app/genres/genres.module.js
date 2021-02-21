@@ -105,7 +105,6 @@
         };
 
         $scope.deleteGenre = function (genre) {
-            console.log(genre);
             swal.fire({
                 title: "POZOR",
                 icon:"warning",

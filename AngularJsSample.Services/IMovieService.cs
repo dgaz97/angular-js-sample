@@ -9,6 +9,7 @@ namespace AngularJsSample.Services
         DeleteGenreFromMovieResponse DeleteGenreFromMovie(DeleteGenreFromMovieRequest request);
         DeleteMovieResponse DeleteMovie(DeleteMovieRequest request);
         FindMovieGenresResponse FindMovieGenres(FindMovieGenresRequest request);
+        FindMovieGenresResponse FindMovieGenresLight(FindMovieGenresRequest request);
         GetAllMoviesResponse GetAllMovies(GetAllMoviesRequest request);
         GetMovieResponse GetMovie(GetMovieRequest request);
         SaveMovieResponse SaveMovie(SaveMovieRequest request);

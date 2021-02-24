@@ -106,6 +106,26 @@ namespace AngularJsSample.Services.Impl
             return response;
         }
 
+        public FindMovieGenresResponse FindMovieGenresLight(FindMovieGenresRequest request)//TODO nice
+        {
+            var response = new FindMovieGenresResponse()
+            {
+                Request = request,
+                ResponseToken = Guid.NewGuid()
+            };
+            try
+            {
+                response.Genres = _repository.FindGenresLight(request.MovieId).MapToViews();
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Success = false;
+            }
+            return response;
+        }
+
         public GetAllMoviesResponse GetAllMovies(GetAllMoviesRequest request)
         {
             var response = new GetAllMoviesResponse()
@@ -125,6 +145,7 @@ namespace AngularJsSample.Services.Impl
             }
             return response;
         }
+
 
         public GetMovieResponse GetMovie(GetMovieRequest request)
         {

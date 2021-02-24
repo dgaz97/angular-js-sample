@@ -434,5 +434,14 @@ namespace AngularJsSample.Repositories.DatabaseModel
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("MoviePerson_Insert", userIdParameter, firstNameParameter, lastNameParameter, birthDateParameter, birthPlaceParameter, biographyParameter, imdbUrlParameter, imageUrlParameter, popularityParameter);
         }
+    
+        public virtual ObjectResult<Movie_GetGenresLight_Result> Movie_GetGenresLight(Nullable<int> movieId)
+        {
+            var movieIdParameter = movieId.HasValue ?
+                new ObjectParameter("MovieId", movieId) :
+                new ObjectParameter("MovieId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Movie_GetGenresLight_Result>("Movie_GetGenresLight", movieIdParameter);
+        }
     }
 }

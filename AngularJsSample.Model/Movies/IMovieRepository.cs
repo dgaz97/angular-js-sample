@@ -28,5 +28,11 @@ namespace AngularJsSample.Model.Movies
         /// <param name="movieId">ID of movie</param>
         /// <param name="userId">ID of user that is adding the genre to movie</param>
         int AddGenre(int genreId, int movieId, int userId);
+        /// <summary>
+        /// Gets genres of movie, cut down to optimize response size
+        /// </summary>
+        /// <param name="key">ID of movie</param>
+        /// <returns>A light list of genres</returns>
+        List<Genre> FindGenresLight(int key);
     }
 }

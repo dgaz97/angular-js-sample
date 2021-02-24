@@ -15,7 +15,7 @@ namespace AngularJsSample.Repositories.Mapping
         /// </summary>
         /// <param name="dbResult">Genre database result</param>
         /// <returns>Genre Model object</returns>
-        public static Genre MapToModel (this Genre_Get_Result dbResult)
+        public static Genre MapToModel(this Genre_Get_Result dbResult)
         {
             if (dbResult == null) return null;
             return new Genre()
@@ -50,7 +50,7 @@ namespace AngularJsSample.Repositories.Mapping
         /// </summary>
         /// <param name="dbResult">Genre database result</param>
         /// <returns>Genre Model object</returns>
-        public static Genre MapToModel (this Genre_GetAll_Result dbResult)
+        public static Genre MapToModel(this Genre_GetAll_Result dbResult)
         {
             if (dbResult == null) return null;
             return new Genre()
@@ -83,7 +83,7 @@ namespace AngularJsSample.Repositories.Mapping
         /// </summary>
         /// <param name="dbResult">IEnumerable of Genre database results</param>
         /// <returns>List of Genre models</returns>
-        public static List<Genre> MapToModels (this IEnumerable<Genre_GetAll_Result> dbResult)
+        public static List<Genre> MapToModels(this IEnumerable<Genre_GetAll_Result> dbResult)
         {
             var result = new List<Genre>();
             if (dbResult == null) return result;
@@ -137,6 +137,47 @@ namespace AngularJsSample.Repositories.Mapping
             var result = new List<Genre>();
             if (dbResult == null) return result;
             result.AddRange(dbResult.Select(item => item.MapToModel()));
+            return result;
+        }
+        #endregion
+
+        #region Mapper za Movie_GetGenresLight_Result
+        /// <summary>
+        /// Maps Genre from database to model class
+        /// </summary>
+        /// <param name="dbResult">Genre database result</param>
+        /// <returns>Genre Model object</returns>
+        public static Genre MapToModel(this Movie_GetGenresLight_Result dbResult)
+        {
+            if (dbResult == null)
+                return null;
+            return new Genre()
+            {
+                GenreId = dbResult.GenreId,
+                Name = dbResult.Name,
+                UserCreated = new Model.Users.UserInfo()
+                {
+                    Id = dbResult.UserCreated.Value
+                },
+                DateCreated = dbResult.DateCreated,
+                UserLastModified = dbResult.UserLastModified.HasValue ? new Model.Users.UserInfo()
+                {
+                    Id = dbResult.UserLastModified.Value
+                } : null,
+                DateLastModified = dbResult.DateLastModified,
+            };
+        }
+
+        /// <summary>
+        /// Maps list of Genres from database to model class
+        /// </summary>
+        /// <param name="dbresult">IEnumerable of Genre database results</param>
+        /// <returns>List of Genre models</returns>
+        public static List<Genre> MapToModels(this IEnumerable<Movie_GetGenresLight_Result> dbresult)
+        {
+            var result = new List<Genre>();
+            if (dbresult == null) return result;
+            result.AddRange(dbresult.Select(item => item.MapToModel()));
             return result;
         }
         #endregion

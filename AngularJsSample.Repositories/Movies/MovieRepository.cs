@@ -116,5 +116,18 @@ namespace AngularJsSample.Repositories.Movies
                 return context.Movie_AddGenre(movieId, genreId, userId);
             }
         }
+
+        /// <summary>
+        /// Gets genres of movie, cut down to optimize response size
+        /// </summary>
+        /// <param name="key">ID of movie</param>
+        /// <returns>A light list of genres</returns>
+        public List<Genre> FindGenresLight(int key)
+        {
+            using(var context = new AngularJsSampleDbEntities())
+            {
+                return context.Movie_GetGenresLight(key).MapToModels();
+            }
+        }
     }
 }

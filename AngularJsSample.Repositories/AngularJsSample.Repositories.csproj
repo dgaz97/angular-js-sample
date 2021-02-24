@@ -95,6 +95,9 @@
     <Compile Include="DatabaseModel\Movie_GetAll_Result.cs">
       <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseModel\Movie_GetGenresLight_Result.cs">
+      <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseModel\Movie_GetGenres_Result.cs">
       <DependentUpon>AngularJsSampleDbModel.tt</DependentUpon>
     </Compile>

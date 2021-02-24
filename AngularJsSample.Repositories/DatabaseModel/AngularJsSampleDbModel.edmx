@@ -67,6 +67,9 @@
         <Function Name="Movie_GetGenres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Movie.GetGenres">
           <Parameter Name="MovieId" Type="int" Mode="In" />
         </Function>
+        <Function Name="Movie_GetGenresLight" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Movie.GetGenresLight">
+          <Parameter Name="MovieId" Type="int" Mode="In" />
+        </Function>
         <Function Name="Movie_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Movie.Insert">
           <Parameter Name="UserCreatedId" Type="int" Mode="In" />
           <Parameter Name="MovieName" Type="nvarchar" Mode="In" />
@@ -265,6 +268,9 @@
             <Parameter Name="ImdbUrl" Mode="In" Type="String" />
             <Parameter Name="ImageUrl" Mode="In" Type="String" />
             <Parameter Name="Popularity" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Movie_GetGenresLight" ReturnType="Collection(AngularJsSampleDbModel.Movie_GetGenresLight_Result)">
+            <Parameter Name="MovieId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Genre_Get_Result">
@@ -490,6 +496,14 @@
           <Property Type="Decimal" Name="MovieRating" Nullable="false" Precision="18" Scale="1" />
           <Property Type="String" Name="MoviePosterUrl" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="MovieImdbUrl" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="Movie_GetGenresLight_Result">
+          <Property Type="Int32" Name="GenreId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="UserCreated" Nullable="true" />
+          <Property Type="Int32" Name="UserLastModified" Nullable="true" />
+          <Property Type="DateTimeOffset" Name="DateCreated" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="DateLastModified" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -793,6 +807,18 @@
           <FunctionImportMapping FunctionImportName="Movie_Insert" FunctionName="AngularJsSampleDbModel.Store.Movie_Insert" />
           <FunctionImportMapping FunctionImportName="Genre_Insert" FunctionName="AngularJsSampleDbModel.Store.Genre_Insert" />
           <FunctionImportMapping FunctionImportName="MoviePerson_Insert" FunctionName="AngularJsSampleDbModel.Store.MoviePerson_Insert" />
+          <FunctionImportMapping FunctionImportName="Movie_GetGenresLight" FunctionName="AngularJsSampleDbModel.Store.Movie_GetGenresLight">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AngularJsSampleDbModel.Movie_GetGenresLight_Result">
+                <ScalarProperty Name="GenreId" ColumnName="GenreId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

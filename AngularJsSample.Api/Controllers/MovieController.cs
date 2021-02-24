@@ -71,8 +71,9 @@ namespace AngularJsSample.Api.Controllers
                         UserId = loggedUserId,
                         MovieId = x.MovieId
                     };
-                    var res2 = _movieService.FindMovieGenres(req2);
+                    var res2 = _movieService.FindMovieGenresLight(req2);
                     x.Genres = res2.Genres.MapToViewModels();
+                    //x.Genres
                     System.Diagnostics.Debug.WriteLine(x.MovieId + " ended");
                     //moviesResult.Add(x);
                     return x;

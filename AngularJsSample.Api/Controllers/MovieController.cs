@@ -8,6 +8,8 @@ using System.Web.Http;
 using AngularJsSample.Api.Models.Movies;
 using AngularJsSample.Api.Mapping.Genres;
 using AngularJsSample.Api.Models.MovieGenres;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace AngularJsSample.Api.Controllers
 {
@@ -34,7 +36,7 @@ namespace AngularJsSample.Api.Controllers
         /// <returns>Ok response with a list of all movies, or BadRequest with error message</returns>
         [HttpGet]
         [Route("")]
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
             var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
 
@@ -49,22 +51,47 @@ namespace AngularJsSample.Api.Controllers
             if (!response.Success)
                 return BadRequest(response.Message);
 
+
+
             var moviesWithGenresViewModels = response.Movies.MapToViewModels();
+
+
+            List<Task<MovieViewModel>> tasks = new List<Task<MovieViewModel>>();
+
+            List<MovieViewModel> moviesResult = new List<MovieViewModel>();
+
             moviesWithGenresViewModels.ForEach(x =>
             {
-                var req2 = new FindMovieGenresRequest()
+                Task<MovieViewModel> task = Task.Factory.StartNew<MovieViewModel>(() =>
                 {
-                    RequestToken = Guid.NewGuid(),
-                    UserId = loggedUserId,
-                    MovieId = x.MovieId
-                };
-                var res2 = _movieService.FindMovieGenres(req2);
-                x.Genres = res2.Genres.MapToViewModels();
+                    System.Diagnostics.Debug.WriteLine(x.MovieId + " started");
+                    var req2 = new FindMovieGenresRequest()
+                    {
+                        RequestToken = Guid.NewGuid(),
+                        UserId = loggedUserId,
+                        MovieId = x.MovieId
+                    };
+                    var res2 = _movieService.FindMovieGenres(req2);
+                    x.Genres = res2.Genres.MapToViewModels();
+                    System.Diagnostics.Debug.WriteLine(x.MovieId + " ended");
+                    //moviesResult.Add(x);
+                    return x;
+                });
+                tasks.Add(task);
+
             });
+
+            await Task.WhenAll(tasks);
+
+
+            foreach (var t in tasks)
+            {
+                moviesResult.Add(t.Result);
+            }
             return Ok(new
             {
-                movies = moviesWithGenresViewModels
-            });
+                movies = moviesResult
+            });;
 
         }
 

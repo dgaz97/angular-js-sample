@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace AngularJsSample.Api
@@ -19,6 +20,9 @@ namespace AngularJsSample.Api
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            //Remove comment in production
+            //config.Formatters.JsonFormatter.SerializerSettings =
+            //     new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
 
             config.Formatters.Remove(config.Formatters.XmlFormatter);
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();

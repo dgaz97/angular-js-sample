@@ -36,7 +36,7 @@ namespace AngularJsSample.Api.Controllers
         /// <returns>Ok response with a list of all movies, or BadRequest with error message</returns>
         [HttpGet]
         [Route("")]
-        public async Task<IHttpActionResult> Get()
+        public IHttpActionResult Get()
         {
             var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
 
@@ -56,15 +56,11 @@ namespace AngularJsSample.Api.Controllers
             var moviesWithGenresViewModels = response.Movies.MapToViewModels();
 
 
-            List<Task<MovieViewModel>> tasks = new List<Task<MovieViewModel>>();
-
             List<MovieViewModel> moviesResult = new List<MovieViewModel>();
 
             moviesWithGenresViewModels.ForEach(x =>
             {
-                Task<MovieViewModel> task = Task.Factory.StartNew<MovieViewModel>(() =>
-                {
-                    System.Diagnostics.Debug.WriteLine(x.MovieId + " started");
+                
                     var req2 = new FindMovieGenresRequest()
                     {
                         RequestToken = Guid.NewGuid(),
@@ -74,25 +70,21 @@ namespace AngularJsSample.Api.Controllers
                     var res2 = _movieService.FindMovieGenresLight(req2);
                     x.Genres = res2.Genres.MapToViewModels();
                     //x.Genres
-                    System.Diagnostics.Debug.WriteLine(x.MovieId + " ended");
-                    //moviesResult.Add(x);
-                    return x;
-                });
-                tasks.Add(task);
+                    moviesResult.Add(x);
 
             });
 
-            await Task.WhenAll(tasks);
+            //await Task.WhenAll(tasks);
 
 
-            foreach (var t in tasks)
-            {
-                moviesResult.Add(t.Result);
-            }
+            //foreach (var t in tasks)
+            //{
+            //    moviesResult.Add(t.Result);
+            //}
             return Ok(new
             {
                 movies = moviesResult
-            });;
+            });
 
         }
 

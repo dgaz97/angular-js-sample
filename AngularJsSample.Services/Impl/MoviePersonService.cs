@@ -1,7 +1,10 @@
 ﻿using AngularJsSample.Model.MoviePersons;
+using AngularJsSample.Model.Movies;
 using AngularJsSample.Repositories.Validation;
 using AngularJsSample.Services.Mapping;
 using AngularJsSample.Services.Messaging.MoviePersons;
+using AngularJsSample.Services.Messaging.MoviePersons.Requests;
+using AngularJsSample.Services.Messaging.MoviePersons.Responses;
 using System;
 using System.Text.RegularExpressions;
 
@@ -10,9 +13,75 @@ namespace AngularJsSample.Services.Impl
     public class MoviePersonService : IMoviePersonService
     {
         private IMoviePersonRepository _repository;
-        public MoviePersonService(IMoviePersonRepository repository)
+        private IMovieRepository _repository2;
+        public MoviePersonService(IMoviePersonRepository repository, IMovieRepository repository2)
         {
             _repository = repository;
+            _repository2 = repository2;
+        }
+
+        public AddMovieToMoviePersonResponse AddMovieToMoviePerson(AddMovieToMoviePersonRequest request)
+        {
+            var response = new AddMovieToMoviePersonResponse()
+            {
+                Request = request,
+                ResponseToken = Guid.NewGuid()
+            };
+
+            try
+            {
+                _repository.AddMovie(request.UserId, request.MovieId, request.MoviePersonId, request.MovieRoleId);
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
+
+        public DeleteMovieFromMoviePersonResponse DeleteMovieFromMoviePerson(DeleteMovieFromMoviePersonRequest request)
+        {
+            var response = new DeleteMovieFromMoviePersonResponse()
+            {
+                Request = request,
+                ResponseToken = Guid.NewGuid()
+            };
+
+            try
+            {
+                _repository.DeleteMovie(request.UserId,request.MovieId,request.MoviePersonId,request.MovieRoleId);
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
+        public FindMoviePersonRolesResponse FindMoviePersonRoles(FindMoviePersonRolesRequest request)
+        {
+            var response = new FindMoviePersonRolesResponse()
+            {
+                Request = request,
+                ResponseToken = Guid.NewGuid()
+            };
+            try
+            {
+                var roles = _repository.FindMovies(request.MoviePersonId);
+                response.MovieRoles = roles.MapToViews();
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Success = false;
+            }
+            return response;
         }
 
         public DeleteMoviePersonResponse DeleteMoviePerson(DeleteMoviePersonRequest request)
@@ -25,8 +94,8 @@ namespace AngularJsSample.Services.Impl
             try
             {
                 var person = _repository.FindBy(request.Id);
-                if(person==null) throw new Exception($"Person {request.Id} doesn't exist");
-                response.Success = _repository.Delete(new MoviePerson() { Id = request.Id, UserLastModified = new Model.Users.UserInfo() {Id=request.UserId } });
+                if (person == null) throw new Exception($"Person {request.Id} doesn't exist");
+                response.Success = _repository.Delete(new MoviePerson() { Id = request.Id, UserLastModified = new Model.Users.UserInfo() { Id = request.UserId } });
             }
             catch (Exception ex)
             {
@@ -57,6 +126,7 @@ namespace AngularJsSample.Services.Impl
             return response;
         }
 
+
         public GetMoviePersonResponse GetMoviePerson(GetMoviePersonRequest request)
         {
             var response = new GetMoviePersonResponse()
@@ -69,14 +139,14 @@ namespace AngularJsSample.Services.Impl
             {
                 response.MoviePerson = _repository.FindBy(request.Id).MapToView();
                 response.Success = true;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 response.Message = ex.Message;
                 response.Success = false;
             }
             return response;
         }
-
         public SaveMoviePersonResponse SaveMoviePerson(SaveMoviePersonRequest request)
         {
             var response = new SaveMoviePersonResponse()
@@ -110,7 +180,8 @@ namespace AngularJsSample.Services.Impl
                     response.Success = false;
                     response.Message = "Movie person ID can't be negative";
                 }
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 response.Message = ex.Message;
                 response.Success = false;

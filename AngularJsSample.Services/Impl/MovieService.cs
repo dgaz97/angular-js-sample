@@ -19,6 +19,66 @@ namespace AngularJsSample.Services.Impl
             _repository2 = repository2;
         }
 
+        
+
+        public AddMoviePersonToMovieResponse AddMoviePersonToMovie(AddMoviePersonToMovieRequest request)
+        {
+            var response = new AddMoviePersonToMovieResponse()
+            {
+                Request = request,
+                ResponseToken = Guid.NewGuid()
+            };
+            try
+            {
+                _repository.AddMoviePerson(request.UserId, request.MovieId, request.MoviePersonId, request.MovieRoleId);
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Success = false;
+            }
+            return response;
+        }
+        public DeleteMovieRoleFromMovieResponse DeleteMovieRoleFromMovie(DeleteMovieRoleFromMovieRequest request)
+        {
+            var response = new DeleteMovieRoleFromMovieResponse()
+            {
+                Request = request,
+                ResponseToken = Guid.NewGuid()
+            };
+            try
+            {
+                _repository.DeleteMoviePerson(request.UserId, request.MovieId, request.MoviePersonId, request.MovieRoleId);
+                response.Success = true;
+            }
+            catch(Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Success = false;
+            }
+            return response;
+        }
+        public FindMovieRolesResponse FindMovieRoles(FindMovieRolesRequest request)
+        {
+            var response = new FindMovieRolesResponse()
+            {
+                Request = request,
+                ResponseToken = Guid.NewGuid()
+            };
+            try
+            {
+                var roles =  _repository.FindMovieRoles(request.MovieId);
+                response.MovieRoles = roles.MapToViews();
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Success = false;
+            }
+            return response;
+        }
+
         public AddGenreToMovieResponse AddGenreToMovie(AddGenreToMovieRequest request)
         {
             var response = new AddGenreToMovieResponse()

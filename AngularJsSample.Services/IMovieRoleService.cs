@@ -14,5 +14,6 @@ namespace AngularJsSample.Services
         GetAllMovieRolesResponse GetAllMovieRoles(GetAllMovieRolesRequest request);
         GetMovieRoleResponse GetMovieRole(GetMovieRoleRequest request);
         SaveMovieRoleResponse SaveMovieRole(SaveMovieRoleRequest request);
+        GetRoleOfPersonInMovieResponse GetRoleOfPersonInMovie(GetRoleOfPersonInMovieRequest request);
     }
 }

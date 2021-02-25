@@ -55,6 +55,7 @@
     <Compile Include="Impl\UserService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Mapping\MovieRatingsMapper.cs" />
+    <Compile Include="Mapping\MovieRolesMapper.cs" />
     <Compile Include="Mapping\MoviesMapper.cs" />
     <Compile Include="Mapping\GenresMapper.cs" />
     <Compile Include="Mapping\MoviePersonsMapper.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Messaging\Views\Genres\Genre.cs" />
     <Compile Include="Messaging\Views\MoviePersons\MoviePerson.cs" />
     <Compile Include="Messaging\Views\MovieRatings\MovieRating.cs" />
+    <Compile Include="Messaging\Views\MovieRoles\MovieRole.cs" />
     <Compile Include="Messaging\Views\Movies\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Messaging\Users\GetUserInfoRequest.cs" />

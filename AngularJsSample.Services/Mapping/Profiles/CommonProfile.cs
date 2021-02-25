@@ -12,6 +12,7 @@ namespace AngularJsSample.Services.Services.Mapping.Profiles
             CreateMap<Model.Genres.Genre, Messaging.Views.Genres.Genre>();
             CreateMap<Model.Movies.Movie, Messaging.Views.Movies.Movie>();
             CreateMap<Model.MovieRatings.MovieRating, Messaging.Views.MovieRatings.MovieRating>();
+            CreateMap<Model.MovieRoles.MovieRole, Messaging.Views.MovieRoles.MovieRole>();
 
             //map from views to domain classes
             CreateMap<Messaging.Views.MoviePersons.MoviePerson, Model.MoviePersons.MoviePerson>();
@@ -19,6 +20,7 @@ namespace AngularJsSample.Services.Services.Mapping.Profiles
             CreateMap<Messaging.Views.Genres.Genre, Model.Genres.Genre>();
             CreateMap<Messaging.Views.Movies.Movie, Model.Movies.Movie>();
             CreateMap<Messaging.Views.MovieRatings.MovieRating, Model.MovieRatings.MovieRating>();
+            CreateMap<Messaging.Views.MovieRoles.MovieRole, Model.MovieRoles.MovieRole>();
         }
     }
 }

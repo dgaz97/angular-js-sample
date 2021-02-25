@@ -1,12 +1,14 @@
 ﻿using AngularJsSample.Model.Genres;
 using AngularJsSample.Model.MoviePersons;
 using AngularJsSample.Model.MovieRatings;
+using AngularJsSample.Model.MovieRoles;
 using AngularJsSample.Model.Movies;
 using AngularJsSample.Model.Users;
 using AngularJsSample.Repositories;
 using AngularJsSample.Repositories.Genres;
 using AngularJsSample.Repositories.MoviePersons;
 using AngularJsSample.Repositories.MovieRatings;
+using AngularJsSample.Repositories.MovieRoles;
 using AngularJsSample.Repositories.Movies;
 using AngularJsSample.Services;
 using AngularJsSample.Services.Impl;
@@ -27,6 +29,7 @@ namespace AngularJsSample.Api.IoC
             builder.RegisterType<GenreRepository>().As<IGenreRepository>();
             builder.RegisterType<MovieRepository>().As<IMovieRepository>();
             builder.RegisterType<MovieRatingRepository>().As<IMovieRatingRepository>();
+            builder.RegisterType<MovieRoleRepository>().As<IMovieRoleRepository>();
 
             //services
             builder.RegisterType<UserService>().As<IUserService>();
@@ -34,6 +37,7 @@ namespace AngularJsSample.Api.IoC
             builder.RegisterType<GenreService>().As<IGenreService>();
             builder.RegisterType<MovieService>().As<IMovieService>();
             builder.RegisterType<MovieRatingService>().As<IMovieRatingService>();
+            builder.RegisterType<MovieRoleService>().As<IMovieRoleService>();
         }
     }
 }

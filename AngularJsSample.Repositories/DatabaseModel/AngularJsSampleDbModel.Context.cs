@@ -443,5 +443,185 @@ namespace AngularJsSample.Repositories.DatabaseModel
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Movie_GetGenresLight_Result>("Movie_GetGenresLight", movieIdParameter);
         }
+    
+        public virtual int Movie_AddMoviePerson(Nullable<int> movieId, Nullable<int> moviePersonId, Nullable<int> movieRoleId, Nullable<int> userId)
+        {
+            var movieIdParameter = movieId.HasValue ?
+                new ObjectParameter("MovieId", movieId) :
+                new ObjectParameter("MovieId", typeof(int));
+    
+            var moviePersonIdParameter = moviePersonId.HasValue ?
+                new ObjectParameter("MoviePersonId", moviePersonId) :
+                new ObjectParameter("MoviePersonId", typeof(int));
+    
+            var movieRoleIdParameter = movieRoleId.HasValue ?
+                new ObjectParameter("MovieRoleId", movieRoleId) :
+                new ObjectParameter("MovieRoleId", typeof(int));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Movie_AddMoviePerson", movieIdParameter, moviePersonIdParameter, movieRoleIdParameter, userIdParameter);
+        }
+    
+        public virtual int Movie_DeleteMoviePerson(Nullable<int> userId, Nullable<int> moviePersonId, Nullable<int> movieId, Nullable<int> movieRoleId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            var moviePersonIdParameter = moviePersonId.HasValue ?
+                new ObjectParameter("MoviePersonId", moviePersonId) :
+                new ObjectParameter("MoviePersonId", typeof(int));
+    
+            var movieIdParameter = movieId.HasValue ?
+                new ObjectParameter("MovieId", movieId) :
+                new ObjectParameter("MovieId", typeof(int));
+    
+            var movieRoleIdParameter = movieRoleId.HasValue ?
+                new ObjectParameter("MovieRoleId", movieRoleId) :
+                new ObjectParameter("MovieRoleId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Movie_DeleteMoviePerson", userIdParameter, moviePersonIdParameter, movieIdParameter, movieRoleIdParameter);
+        }
+    
+        public virtual ObjectResult<Movie_GetRoles_Result> Movie_GetRoles(Nullable<int> movieId)
+        {
+            var movieIdParameter = movieId.HasValue ?
+                new ObjectParameter("MovieId", movieId) :
+                new ObjectParameter("MovieId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Movie_GetRoles_Result>("Movie_GetRoles", movieIdParameter);
+        }
+    
+        public virtual int MoviePerson_AddMovie(Nullable<int> movieId, Nullable<int> moviePersonId, Nullable<int> movieRoleId, Nullable<int> userId)
+        {
+            var movieIdParameter = movieId.HasValue ?
+                new ObjectParameter("MovieId", movieId) :
+                new ObjectParameter("MovieId", typeof(int));
+    
+            var moviePersonIdParameter = moviePersonId.HasValue ?
+                new ObjectParameter("MoviePersonId", moviePersonId) :
+                new ObjectParameter("MoviePersonId", typeof(int));
+    
+            var movieRoleIdParameter = movieRoleId.HasValue ?
+                new ObjectParameter("MovieRoleId", movieRoleId) :
+                new ObjectParameter("MovieRoleId", typeof(int));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MoviePerson_AddMovie", movieIdParameter, moviePersonIdParameter, movieRoleIdParameter, userIdParameter);
+        }
+    
+        public virtual int MoviePerson_DeleteMovie(Nullable<int> userId, Nullable<int> moviePersonId, Nullable<int> movieId, Nullable<int> movieRoleId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            var moviePersonIdParameter = moviePersonId.HasValue ?
+                new ObjectParameter("MoviePersonId", moviePersonId) :
+                new ObjectParameter("MoviePersonId", typeof(int));
+    
+            var movieIdParameter = movieId.HasValue ?
+                new ObjectParameter("MovieId", movieId) :
+                new ObjectParameter("MovieId", typeof(int));
+    
+            var movieRoleIdParameter = movieRoleId.HasValue ?
+                new ObjectParameter("MovieRoleId", movieRoleId) :
+                new ObjectParameter("MovieRoleId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MoviePerson_DeleteMovie", userIdParameter, moviePersonIdParameter, movieIdParameter, movieRoleIdParameter);
+        }
+    
+        public virtual ObjectResult<MoviePerson_GetRoles_Result> MoviePerson_GetRoles(Nullable<int> moviePersonId)
+        {
+            var moviePersonIdParameter = moviePersonId.HasValue ?
+                new ObjectParameter("MoviePersonId", moviePersonId) :
+                new ObjectParameter("MoviePersonId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MoviePerson_GetRoles_Result>("MoviePerson_GetRoles", moviePersonIdParameter);
+        }
+    
+        public virtual int MovieRole_Delete(Nullable<int> movieRoleId, Nullable<int> userId)
+        {
+            var movieRoleIdParameter = movieRoleId.HasValue ?
+                new ObjectParameter("MovieRoleId", movieRoleId) :
+                new ObjectParameter("MovieRoleId", typeof(int));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MovieRole_Delete", movieRoleIdParameter, userIdParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> MovieRole_Insert(Nullable<int> userId, string roleName, string roleDescription)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            var roleNameParameter = roleName != null ?
+                new ObjectParameter("RoleName", roleName) :
+                new ObjectParameter("RoleName", typeof(string));
+    
+            var roleDescriptionParameter = roleDescription != null ?
+                new ObjectParameter("RoleDescription", roleDescription) :
+                new ObjectParameter("RoleDescription", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("MovieRole_Insert", userIdParameter, roleNameParameter, roleDescriptionParameter);
+        }
+    
+        public virtual int MovieRole_Update(Nullable<int> movieRoleId, Nullable<int> userId, string roleName, string roleDescription)
+        {
+            var movieRoleIdParameter = movieRoleId.HasValue ?
+                new ObjectParameter("MovieRoleId", movieRoleId) :
+                new ObjectParameter("MovieRoleId", typeof(int));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            var roleNameParameter = roleName != null ?
+                new ObjectParameter("RoleName", roleName) :
+                new ObjectParameter("RoleName", typeof(string));
+    
+            var roleDescriptionParameter = roleDescription != null ?
+                new ObjectParameter("RoleDescription", roleDescription) :
+                new ObjectParameter("RoleDescription", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MovieRole_Update", movieRoleIdParameter, userIdParameter, roleNameParameter, roleDescriptionParameter);
+        }
+    
+        public virtual ObjectResult<MovieRole_Get_Result> MovieRole_Get(Nullable<int> movieRoleId)
+        {
+            var movieRoleIdParameter = movieRoleId.HasValue ?
+                new ObjectParameter("MovieRoleId", movieRoleId) :
+                new ObjectParameter("MovieRoleId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MovieRole_Get_Result>("MovieRole_Get", movieRoleIdParameter);
+        }
+    
+        public virtual ObjectResult<MovieRole_GetAll_Result> MovieRole_GetAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MovieRole_GetAll_Result>("MovieRole_GetAll");
+        }
+    
+        public virtual ObjectResult<MovieRole_GetRoleOfPersonInMovie_Result> MovieRole_GetRoleOfPersonInMovie(Nullable<int> moviePersonId, Nullable<int> movieId)
+        {
+            var moviePersonIdParameter = moviePersonId.HasValue ?
+                new ObjectParameter("MoviePersonId", moviePersonId) :
+                new ObjectParameter("MoviePersonId", typeof(int));
+    
+            var movieIdParameter = movieId.HasValue ?
+                new ObjectParameter("MovieId", movieId) :
+                new ObjectParameter("MovieId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MovieRole_GetRoleOfPersonInMovie_Result>("MovieRole_GetRoleOfPersonInMovie", moviePersonIdParameter, movieIdParameter);
+        }
     }
 }

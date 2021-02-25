@@ -48,6 +48,7 @@
     <Compile Include="MoviePersons\MoviePerson.cs" />
     <Compile Include="MovieRatings\IMovieRatingRepository.cs" />
     <Compile Include="MovieRatings\MovieRating.cs" />
+    <Compile Include="MovieRoles\MovieRole.cs" />
     <Compile Include="Movies\IMovieRepository.cs" />
     <Compile Include="Movies\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

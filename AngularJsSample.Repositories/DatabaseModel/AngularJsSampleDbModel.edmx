@@ -51,6 +51,12 @@
           <Parameter Name="GenreId" Type="int" Mode="In" />
           <Parameter Name="UserId" Type="int" Mode="In" />
         </Function>
+        <Function Name="Movie_AddMoviePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Movie.AddMoviePerson">
+          <Parameter Name="MovieId" Type="int" Mode="In" />
+          <Parameter Name="MoviePersonId" Type="int" Mode="In" />
+          <Parameter Name="MovieRoleId" Type="int" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
         <Function Name="Movie_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Movie.Delete">
           <Parameter Name="UserModifiedId" Type="int" Mode="In" />
           <Parameter Name="MovieId" Type="int" Mode="In" />
@@ -60,6 +66,12 @@
           <Parameter Name="GenreId" Type="int" Mode="In" />
           <Parameter Name="UserId" Type="int" Mode="In" />
         </Function>
+        <Function Name="Movie_DeleteMoviePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Movie.DeleteMoviePerson">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="MoviePersonId" Type="int" Mode="In" />
+          <Parameter Name="MovieId" Type="int" Mode="In" />
+          <Parameter Name="MovieRoleId" Type="int" Mode="In" />
+        </Function>
         <Function Name="Movie_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Movie.Get">
           <Parameter Name="MovieId" Type="int" Mode="In" />
         </Function>
@@ -68,6 +80,9 @@
           <Parameter Name="MovieId" Type="int" Mode="In" />
         </Function>
         <Function Name="Movie_GetGenresLight" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Movie.GetGenresLight">
+          <Parameter Name="MovieId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Movie_GetRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Movie.GetRoles">
           <Parameter Name="MovieId" Type="int" Mode="In" />
         </Function>
         <Function Name="Movie_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="Movie.Insert">
@@ -87,14 +102,29 @@
           <Parameter Name="MoviePosterUrl" Type="nvarchar" Mode="In" />
           <Parameter Name="MovieImdbUrl" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="MoviePerson_AddMovie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MoviePerson.AddMovie">
+          <Parameter Name="MovieId" Type="int" Mode="In" />
+          <Parameter Name="MoviePersonId" Type="int" Mode="In" />
+          <Parameter Name="MovieRoleId" Type="int" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
         <Function Name="MoviePerson_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MoviePerson.Delete">
           <Parameter Name="MoviePersonId" Type="int" Mode="In" />
           <Parameter Name="UserLastModified" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MoviePerson_DeleteMovie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MoviePerson.DeleteMovie">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="MoviePersonId" Type="int" Mode="In" />
+          <Parameter Name="MovieId" Type="int" Mode="In" />
+          <Parameter Name="MovieRoleId" Type="int" Mode="In" />
         </Function>
         <Function Name="MoviePerson_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MoviePerson.Get">
           <Parameter Name="Id" Type="int" Mode="In" />
         </Function>
         <Function Name="MoviePerson_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MoviePerson.GetAll" />
+        <Function Name="MoviePerson_GetRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MoviePerson.GetRoles">
+          <Parameter Name="MoviePersonId" Type="int" Mode="In" />
+        </Function>
         <Function Name="MoviePerson_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MoviePerson.Insert">
           <Parameter Name="UserId" Type="int" Mode="In" />
           <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
@@ -133,6 +163,29 @@
           <Parameter Name="UserCreatedId" Type="int" Mode="In" />
           <Parameter Name="MovieId" Type="int" Mode="In" />
           <Parameter Name="UserRating" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="MovieRole_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieRole.Delete">
+          <Parameter Name="MovieRoleId" Type="int" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MovieRole_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieRole.Get">
+          <Parameter Name="MovieRoleId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MovieRole_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieRole.GetAll" />
+        <Function Name="MovieRole_GetRoleOfPersonInMovie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieRole.GetRoleOfPersonInMovie">
+          <Parameter Name="MoviePersonId" Type="int" Mode="In" />
+          <Parameter Name="MovieId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MovieRole_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieRole.Insert">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="RoleName" Type="nvarchar" Mode="In" />
+          <Parameter Name="RoleDescription" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="MovieRole_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="MovieRole.Update">
+          <Parameter Name="MovieRoleId" Type="int" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="RoleName" Type="nvarchar" Mode="In" />
+          <Parameter Name="RoleDescription" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="AngularJsSampleDbModelStoreContainer">
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
@@ -270,6 +323,59 @@
             <Parameter Name="Popularity" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Movie_GetGenresLight" ReturnType="Collection(AngularJsSampleDbModel.Movie_GetGenresLight_Result)">
+          <Parameter Name="MovieId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Movie_AddMoviePerson">
+            <Parameter Name="MovieId" Mode="In" Type="Int32" />
+            <Parameter Name="MoviePersonId" Mode="In" Type="Int32" />
+            <Parameter Name="MovieRoleId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Movie_DeleteMoviePerson">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="MoviePersonId" Mode="In" Type="Int32" />
+            <Parameter Name="MovieId" Mode="In" Type="Int32" />
+            <Parameter Name="MovieRoleId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Movie_GetRoles" ReturnType="Collection(AngularJsSampleDbModel.Movie_GetRoles_Result)">
+          <Parameter Name="MovieId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MoviePerson_AddMovie">
+            <Parameter Name="MovieId" Mode="In" Type="Int32" />
+            <Parameter Name="MoviePersonId" Mode="In" Type="Int32" />
+            <Parameter Name="MovieRoleId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MoviePerson_DeleteMovie">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="MoviePersonId" Mode="In" Type="Int32" />
+            <Parameter Name="MovieId" Mode="In" Type="Int32" />
+            <Parameter Name="MovieRoleId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MoviePerson_GetRoles" ReturnType="Collection(AngularJsSampleDbModel.MoviePerson_GetRoles_Result)">
+          <Parameter Name="MoviePersonId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MovieRole_Delete">
+            <Parameter Name="MovieRoleId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MovieRole_Insert" ReturnType="Collection(Int32)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="RoleName" Mode="In" Type="String" />
+            <Parameter Name="RoleDescription" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="MovieRole_Update">
+            <Parameter Name="MovieRoleId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="RoleName" Mode="In" Type="String" />
+            <Parameter Name="RoleDescription" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="MovieRole_Get" ReturnType="Collection(AngularJsSampleDbModel.MovieRole_Get_Result)">
+          <Parameter Name="MovieRoleId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MovieRole_GetAll" ReturnType="Collection(AngularJsSampleDbModel.MovieRole_GetAll_Result)" />
+          <FunctionImport Name="MovieRole_GetRoleOfPersonInMovie" ReturnType="Collection(AngularJsSampleDbModel.MovieRole_GetRoleOfPersonInMovie_Result)">
+            <Parameter Name="MoviePersonId" Mode="In" Type="Int32" />
             <Parameter Name="MovieId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -504,6 +610,93 @@
           <Property Type="Int32" Name="UserLastModified" Nullable="true" />
           <Property Type="DateTimeOffset" Name="DateCreated" Nullable="false" />
           <Property Type="DateTimeOffset" Name="DateLastModified" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Movie_GetRoles_Result">
+          <Property Type="Int32" Name="MovieRoleId" Nullable="false" />
+          <Property Type="String" Name="MovieRoleName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="MoviePersonId" Nullable="false" />
+          <Property Type="String" Name="MoviePersonName" Nullable="false" MaxLength="101" />
+          <Property Type="Int32" Name="UserCreated" Nullable="true" />
+          <Property Type="String" Name="UserCreatedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserCreatedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="UserLastModified" Nullable="true" />
+          <Property Type="String" Name="UserLastModifiedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserLastModifiedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="DateTimeOffset" Name="MovieRoleDateCreated" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="MovieRoleDateModified" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="MoviePerson_GetRoles_Result">
+          <Property Type="Int32" Name="MovieRoleId" Nullable="false" />
+          <Property Type="String" Name="MovieRoleName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="MovieId" Nullable="false" />
+          <Property Type="String" Name="MovieName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="UserCreated" Nullable="true" />
+          <Property Type="String" Name="UserCreatedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserCreatedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="UserLastModified" Nullable="true" />
+          <Property Type="String" Name="UserLastModifiedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserLastModifiedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="DateTimeOffset" Name="MovieRoleDateCreated" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="MovieRoleDateModified" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="MovieRole_Get_Result">
+          <Property Type="Int32" Name="MovieRoleId" Nullable="false" />
+          <Property Type="String" Name="MovieRoleName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="MovieRoleDescription" Nullable="true" MaxLength="1000" />
+          <Property Type="Int32" Name="UserCreated" Nullable="true" />
+          <Property Type="String" Name="UserCreatedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserCreatedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="UserLastModified" Nullable="true" />
+          <Property Type="String" Name="UserLastModifiedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserLastModifiedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="DateTimeOffset" Name="MovieRoleDateCreated" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="MovieRoleDateLastModified" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="MovieRole_GetAll_Result">
+          <Property Type="Int32" Name="MovieRoleId" Nullable="false" />
+          <Property Type="String" Name="MovieRoleName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="MovieRoleDescription" Nullable="true" MaxLength="1000" />
+          <Property Type="Int32" Name="UserCreated" Nullable="true" />
+          <Property Type="String" Name="UserCreatedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserCreatedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="UserLastModified" Nullable="true" />
+          <Property Type="String" Name="UserLastModifiedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserLastModifiedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="DateTimeOffset" Name="MovieRoleDateCreated" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="MovieRoleDateLastModified" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="MovieRole_GetRoleOfPersonInMovie_Result">
+          <Property Type="Int32" Name="MovieRoleId" Nullable="false" />
+          <Property Type="String" Name="MovieRoleName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="MovieRoleDescription" Nullable="true" MaxLength="1000" />
+          <Property Type="Int32" Name="UserCreated" Nullable="true" />
+          <Property Type="String" Name="UserCreatedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserCreatedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserCreatedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="UserLastModified" Nullable="true" />
+          <Property Type="String" Name="UserLastModifiedFirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedLastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserLastModifiedFullName" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="UserLastModifiedEmail" Nullable="true" MaxLength="100" />
+          <Property Type="DateTimeOffset" Name="MovieRoleDateCreated" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="MovieRoleDateLastModified" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -816,6 +1009,120 @@
                 <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Movie_AddMoviePerson" FunctionName="AngularJsSampleDbModel.Store.Movie_AddMoviePerson" />
+          <FunctionImportMapping FunctionImportName="Movie_DeleteMoviePerson" FunctionName="AngularJsSampleDbModel.Store.Movie_DeleteMoviePerson" />
+          <FunctionImportMapping FunctionImportName="Movie_GetRoles" FunctionName="AngularJsSampleDbModel.Store.Movie_GetRoles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AngularJsSampleDbModel.Movie_GetRoles_Result">
+                <ScalarProperty Name="MovieRoleId" ColumnName="MovieRoleId" />
+                <ScalarProperty Name="MovieRoleName" ColumnName="MovieRoleName" />
+                <ScalarProperty Name="MoviePersonId" ColumnName="MoviePersonId" />
+                <ScalarProperty Name="MoviePersonName" ColumnName="MoviePersonName" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="UserCreatedFirstName" ColumnName="UserCreatedFirstName" />
+                <ScalarProperty Name="UserCreatedLastName" ColumnName="UserCreatedLastName" />
+                <ScalarProperty Name="UserCreatedFullName" ColumnName="UserCreatedFullName" />
+                <ScalarProperty Name="UserCreatedEmail" ColumnName="UserCreatedEmail" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="UserLastModifiedFirstName" ColumnName="UserLastModifiedFirstName" />
+                <ScalarProperty Name="UserLastModifiedLastName" ColumnName="UserLastModifiedLastName" />
+                <ScalarProperty Name="UserLastModifiedFullName" ColumnName="UserLastModifiedFullName" />
+                <ScalarProperty Name="UserLastModifiedEmail" ColumnName="UserLastModifiedEmail" />
+                <ScalarProperty Name="MovieRoleDateCreated" ColumnName="MovieRoleDateCreated" />
+                <ScalarProperty Name="MovieRoleDateModified" ColumnName="MovieRoleDateModified" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MoviePerson_AddMovie" FunctionName="AngularJsSampleDbModel.Store.MoviePerson_AddMovie" />
+          <FunctionImportMapping FunctionImportName="MoviePerson_DeleteMovie" FunctionName="AngularJsSampleDbModel.Store.MoviePerson_DeleteMovie" />
+          <FunctionImportMapping FunctionImportName="MoviePerson_GetRoles" FunctionName="AngularJsSampleDbModel.Store.MoviePerson_GetRoles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AngularJsSampleDbModel.MoviePerson_GetRoles_Result">
+                <ScalarProperty Name="MovieRoleId" ColumnName="MovieRoleId" />
+                <ScalarProperty Name="MovieRoleName" ColumnName="MovieRoleName" />
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="MovieName" ColumnName="MovieName" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="UserCreatedFirstName" ColumnName="UserCreatedFirstName" />
+                <ScalarProperty Name="UserCreatedLastName" ColumnName="UserCreatedLastName" />
+                <ScalarProperty Name="UserCreatedFullName" ColumnName="UserCreatedFullName" />
+                <ScalarProperty Name="UserCreatedEmail" ColumnName="UserCreatedEmail" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="UserLastModifiedFirstName" ColumnName="UserLastModifiedFirstName" />
+                <ScalarProperty Name="UserLastModifiedLastName" ColumnName="UserLastModifiedLastName" />
+                <ScalarProperty Name="UserLastModifiedFullName" ColumnName="UserLastModifiedFullName" />
+                <ScalarProperty Name="UserLastModifiedEmail" ColumnName="UserLastModifiedEmail" />
+                <ScalarProperty Name="MovieRoleDateCreated" ColumnName="MovieRoleDateCreated" />
+                <ScalarProperty Name="MovieRoleDateModified" ColumnName="MovieRoleDateModified" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MovieRole_Delete" FunctionName="AngularJsSampleDbModel.Store.MovieRole_Delete" />
+          <FunctionImportMapping FunctionImportName="MovieRole_Insert" FunctionName="AngularJsSampleDbModel.Store.MovieRole_Insert" />
+          <FunctionImportMapping FunctionImportName="MovieRole_Update" FunctionName="AngularJsSampleDbModel.Store.MovieRole_Update" />
+          <FunctionImportMapping FunctionImportName="MovieRole_Get" FunctionName="AngularJsSampleDbModel.Store.MovieRole_Get">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AngularJsSampleDbModel.MovieRole_Get_Result">
+                <ScalarProperty Name="MovieRoleId" ColumnName="MovieRoleId" />
+                <ScalarProperty Name="MovieRoleName" ColumnName="MovieRoleName" />
+                <ScalarProperty Name="MovieRoleDescription" ColumnName="MovieRoleDescription" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="UserCreatedFirstName" ColumnName="UserCreatedFirstName" />
+                <ScalarProperty Name="UserCreatedLastName" ColumnName="UserCreatedLastName" />
+                <ScalarProperty Name="UserCreatedFullName" ColumnName="UserCreatedFullName" />
+                <ScalarProperty Name="UserCreatedEmail" ColumnName="UserCreatedEmail" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="UserLastModifiedFirstName" ColumnName="UserLastModifiedFirstName" />
+                <ScalarProperty Name="UserLastModifiedLastName" ColumnName="UserLastModifiedLastName" />
+                <ScalarProperty Name="UserLastModifiedFullName" ColumnName="UserLastModifiedFullName" />
+                <ScalarProperty Name="UserLastModifiedEmail" ColumnName="UserLastModifiedEmail" />
+                <ScalarProperty Name="MovieRoleDateCreated" ColumnName="MovieRoleDateCreated" />
+                <ScalarProperty Name="MovieRoleDateLastModified" ColumnName="MovieRoleDateLastModified" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MovieRole_GetAll" FunctionName="AngularJsSampleDbModel.Store.MovieRole_GetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AngularJsSampleDbModel.MovieRole_GetAll_Result">
+                <ScalarProperty Name="MovieRoleId" ColumnName="MovieRoleId" />
+                <ScalarProperty Name="MovieRoleName" ColumnName="MovieRoleName" />
+                <ScalarProperty Name="MovieRoleDescription" ColumnName="MovieRoleDescription" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="UserCreatedFirstName" ColumnName="UserCreatedFirstName" />
+                <ScalarProperty Name="UserCreatedLastName" ColumnName="UserCreatedLastName" />
+                <ScalarProperty Name="UserCreatedFullName" ColumnName="UserCreatedFullName" />
+                <ScalarProperty Name="UserCreatedEmail" ColumnName="UserCreatedEmail" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="UserLastModifiedFirstName" ColumnName="UserLastModifiedFirstName" />
+                <ScalarProperty Name="UserLastModifiedLastName" ColumnName="UserLastModifiedLastName" />
+                <ScalarProperty Name="UserLastModifiedFullName" ColumnName="UserLastModifiedFullName" />
+                <ScalarProperty Name="UserLastModifiedEmail" ColumnName="UserLastModifiedEmail" />
+                <ScalarProperty Name="MovieRoleDateCreated" ColumnName="MovieRoleDateCreated" />
+                <ScalarProperty Name="MovieRoleDateLastModified" ColumnName="MovieRoleDateLastModified" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MovieRole_GetRoleOfPersonInMovie" FunctionName="AngularJsSampleDbModel.Store.MovieRole_GetRoleOfPersonInMovie">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AngularJsSampleDbModel.MovieRole_GetRoleOfPersonInMovie_Result">
+                <ScalarProperty Name="MovieRoleId" ColumnName="MovieRoleId" />
+                <ScalarProperty Name="MovieRoleName" ColumnName="MovieRoleName" />
+                <ScalarProperty Name="MovieRoleDescription" ColumnName="MovieRoleDescription" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="UserCreatedFirstName" ColumnName="UserCreatedFirstName" />
+                <ScalarProperty Name="UserCreatedLastName" ColumnName="UserCreatedLastName" />
+                <ScalarProperty Name="UserCreatedFullName" ColumnName="UserCreatedFullName" />
+                <ScalarProperty Name="UserCreatedEmail" ColumnName="UserCreatedEmail" />
+                <ScalarProperty Name="UserLastModified" ColumnName="UserLastModified" />
+                <ScalarProperty Name="UserLastModifiedFirstName" ColumnName="UserLastModifiedFirstName" />
+                <ScalarProperty Name="UserLastModifiedLastName" ColumnName="UserLastModifiedLastName" />
+                <ScalarProperty Name="UserLastModifiedFullName" ColumnName="UserLastModifiedFullName" />
+                <ScalarProperty Name="UserLastModifiedEmail" ColumnName="UserLastModifiedEmail" />
+                <ScalarProperty Name="MovieRoleDateCreated" ColumnName="MovieRoleDateCreated" />
+                <ScalarProperty Name="MovieRoleDateLastModified" ColumnName="MovieRoleDateLastModified" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

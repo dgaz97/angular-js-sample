@@ -10,6 +10,6 @@ namespace AngularJsSample.Services.Messaging.MoviePersons.Requests
     {
         public int MoviePersonId { get; set; }
         public int MovieId { get; set; }
-        public int RoleId { get; set; }
+        public int MovieRoleId { get; set; }
     }
 }

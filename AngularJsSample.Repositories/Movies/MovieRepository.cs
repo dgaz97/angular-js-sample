@@ -1,4 +1,5 @@
 ﻿using AngularJsSample.Model.Genres;
+using AngularJsSample.Model.MovieRoles;
 using AngularJsSample.Model.Movies;
 using AngularJsSample.Repositories.DatabaseModel;
 using AngularJsSample.Repositories.Mapping;
@@ -127,6 +128,32 @@ namespace AngularJsSample.Repositories.Movies
             using(var context = new AngularJsSampleDbEntities())
             {
                 return context.Movie_GetGenresLight(key).MapToModels();
+            }
+        }
+
+        public bool AddMoviePerson(int UserId, int MovieId, int MoviePersonId, int MovieRoleId)
+        {
+            using (var context = new AngularJsSampleDbEntities())
+            {
+                context.Movie_AddMoviePerson(MovieId, MoviePersonId, MovieRoleId, UserId);
+                return true;
+            }
+        }
+
+        public bool DeleteMoviePerson(int UserId, int MovieId, int MoviePersonId, int MovieRoleId)
+        {
+            using (var context = new AngularJsSampleDbEntities())
+            {
+                context.Movie_DeleteMoviePerson(UserId,MoviePersonId,MovieId,MovieRoleId);
+                return true;
+            }
+        }
+
+        public List<MovieRole> FindMovieRoles(int key)
+        {
+            using (var context = new AngularJsSampleDbEntities())
+            {
+                return context.Movie_GetRoles(key).MapToModels();
             }
         }
     }

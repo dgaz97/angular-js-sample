@@ -1,4 +1,5 @@
 ﻿using AngularJsSample.Model.Genres;
+using AngularJsSample.Model.MovieRoles;
 using System.Collections.Generic;
 
 namespace AngularJsSample.Model.Movies
@@ -34,5 +35,10 @@ namespace AngularJsSample.Model.Movies
         /// <param name="key">ID of movie</param>
         /// <returns>A light list of genres</returns>
         List<Genre> FindGenresLight(int key);
+
+        bool AddMoviePerson(int UserId, int MovieId, int MoviePersonId, int MovieRoleId);
+        bool DeleteMoviePerson(int UserId, int MovieId, int MoviePersonId, int MovieRoleId);
+
+        List<MovieRole> FindMovieRoles(int key);
     }
 }

@@ -47,6 +47,7 @@
     <Compile Include="IGenreService.cs" />
     <Compile Include="IMovieRatingService.cs" />
     <Compile Include="IMoviePersonService.cs" />
+    <Compile Include="IMovieRoleService.cs" />
     <Compile Include="IMovieService.cs" />
     <Compile Include="Impl\GenreService.cs" />
     <Compile Include="Impl\MoviePersonService.cs" />

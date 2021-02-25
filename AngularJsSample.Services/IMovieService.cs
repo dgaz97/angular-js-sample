@@ -13,5 +13,8 @@ namespace AngularJsSample.Services
         GetAllMoviesResponse GetAllMovies(GetAllMoviesRequest request);
         GetMovieResponse GetMovie(GetMovieRequest request);
         SaveMovieResponse SaveMovie(SaveMovieRequest request);
+        AddMoviePersonToMovieResponse AddMoviePersonToMovie(AddMoviePersonToMovieRequest request);
+        DeleteMovieRoleFromMovieResponse DeleteMovieRoleFromMovie(DeleteMovieRoleFromMovieRequest request);
+        FindMovieRolesResponse FindMovieRoles(FindMovieRolesRequest request);
     }
 }

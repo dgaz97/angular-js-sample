@@ -18,7 +18,7 @@ namespace AngularJsSample.Services.Mapping
             return Mapper.Map<Model.MovieRoles.MovieRole>(view);
         }
 
-        public static List<Messaging.Views.MovieRoles.MovieRole> MapToViews(IEnumerable<Model.MovieRoles.MovieRole> models)
+        public static List<Messaging.Views.MovieRoles.MovieRole> MapToViews(this IEnumerable<Model.MovieRoles.MovieRole> models)
         {
             var result = new List<Messaging.Views.MovieRoles.MovieRole>();
             if (models == null) return result;

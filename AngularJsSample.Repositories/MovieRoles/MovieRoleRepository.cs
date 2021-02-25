@@ -23,7 +23,7 @@ namespace AngularJsSample.Repositories.MovieRoles
         {
             using (var context = new AngularJsSampleDbEntities())
             {
-                context.MovieRole_Delete(item.MovieRoleId, item.UserCreated.Id);
+                context.MovieRole_Delete(item.MovieRoleId, item.UserLastModified.Id);
                 return true;
             }
         }
@@ -56,7 +56,7 @@ namespace AngularJsSample.Repositories.MovieRoles
         {
             using (var context = new AngularJsSampleDbEntities())
             {
-                context.MovieRole_Update(item.MovieRoleId, item.UserCreated.Id, item.MovieRoleName, item.MovieRoleDescription);
+                context.MovieRole_Update(item.MovieRoleId, item.UserLastModified.Id, item.MovieRoleName, item.MovieRoleDescription);
                 return FindBy(item.MovieRoleId);
             }
         }

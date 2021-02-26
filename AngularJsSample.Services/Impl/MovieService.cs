@@ -85,6 +85,7 @@ namespace AngularJsSample.Services.Impl
 
                 var roles =  _repository.FindMovieRoles(request.MovieId);
                 response.MovieRoles = roles.MapToViews();
+                response.Success = true;
             }
             catch (Exception ex)
             {
@@ -130,6 +131,7 @@ namespace AngularJsSample.Services.Impl
                 request.CheckIfGenreExists(_repository2);
 
                 _repository.DeleteGenre(request.GenreId, request.MovieId, request.UserId);
+                response.Success = true;
             }
             catch (Exception ex)
             {

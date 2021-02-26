@@ -60,8 +60,15 @@
                                 "app/moviepersons/moviePersons.module.js"
                             ]
                         });
+                    },
+                    movieRolesServices: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: "movieRolesServices",
+                            files: [
+                                "app/movieroles/movieRolesServices.module.js"
+                            ]
+                        });
                     }
-
                 }
             })
             .state('moviePersonProfile', {
@@ -71,8 +78,9 @@
                 templateUrl: "app/moviepersons/partials/profile.html",
                 resolve: {
                     loginRequired: loginRequired,
-                    moviePerson: function ($stateParams, moviePersonsSvc) {
+                    moviePerson: function ($stateParams, moviePersonsSvc){
                         return moviePersonsSvc.getMoviePerson($stateParams.id).then(function (data) {
+                            console.log("test in loading");
                             return data.data;
                         });
                     },
@@ -81,6 +89,14 @@
                             name: "moviePersonsServices",
                             files: [
                                 "app/moviepersons/moviePersonsServices.module.js"
+                            ]
+                        });
+                    },
+                    movieRolesServices: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: "movieRolesServices",
+                            files: [
+                                "app/movieroles/movieRolesServices.module.js"
                             ]
                         });
                     },
@@ -120,8 +136,15 @@
                                 "app/moviepersons/moviePersons.module.js"
                             ]
                         });
+                    },
+                    movieRolesServices: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: "movieRolesServices",
+                            files: [
+                                "app/movieroles/movieRolesServices.module.js"
+                            ]
+                        });
                     }
-
                 }
             })
             .state('updateMoviePerson', {
@@ -150,6 +173,14 @@
                             name: "moviePersons",
                             files: [
                                 "app/moviepersons/moviePersons.module.js"
+                            ]
+                        });
+                    },
+                    movieRolesServices: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: "movieRolesServices",
+                            files: [
+                                "app/movieroles/movieRolesServices.module.js"
                             ]
                         });
                     }
@@ -381,6 +412,33 @@
                 }
             })
             //Movies end
+            //Movie role begin
+            .state('movieRolesOverview', {
+                url: "/movieroles",
+                controller: "movieRolesOverviewCtrl",
+                controllerAs: "vm",
+                templateUrl: "app/movieroles/partials/movieRolesOverview.html",
+                resolve: {
+                    loginRequired: loginRequired,
+                    movieRolesServices: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: "movieRolesServices",
+                            files: [
+                                "app/movieroles/movierolesServices.module.js"
+                            ]
+                        });
+                    },
+                    movieroles: function ($ocLazyLoad, movieRolesServices) {
+                        return $ocLazyLoad.load({
+                            name: "movieroles",
+                            files: [
+                                "app/movieroles/movieRoles.module.js"
+                            ]
+                        });
+                    }
+
+                }
+            })
 
             ;
     }

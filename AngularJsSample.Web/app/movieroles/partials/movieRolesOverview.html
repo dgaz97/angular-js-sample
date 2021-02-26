@@ -1,0 +1,13 @@
+﻿<h1 class="page-header">Pregled film uloga</h1>
+<div class="container-fluid col-lg-12">
+    <div class="row col-sm-12">
+        <kendo-button class="btn btn-primary btn-outline" on-click="manageMovieRole()">+ Nova film uloga</kendo-button>
+        <kendo-grid id="movieRolesGrid"
+                    options="movieRolesGrid"
+                    k-data-source="movieRolesData"
+                    k-pageable="{'refresh': true, 'pageSizes': true, 'buttonCount': 5}"
+                    k-filterable="true"
+                    k-resizable="true">
+        </kendo-grid>
+    </div>
+</div>

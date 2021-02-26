@@ -4,6 +4,7 @@ using AngularJsSample.Model.Users;
 using AngularJsSample.Services.Mapping;
 using AngularJsSample.Services.Messaging.MovieRatings.Requests;
 using AngularJsSample.Services.Messaging.MovieRatings.Responses;
+using AngularJsSample.Services.Validation;
 using System;
 
 namespace AngularJsSample.Services.Impl
@@ -48,10 +49,9 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                if (_repository2.FindBy(request.RequestedUser) == null)
-                    throw new Exception($"User {request.RequestedUser} doesn't exist");
-                if (_repository3.FindBy(request.MovieId) == null)
-                    throw new Exception($"Movie {request.MovieId} doesn't exist");
+                request.CheckIfUserExists(_repository2);
+                request.CheckIfMovieExists(_repository3);
+
                 response.MovieRating = _repository.FindByUserAndMovie(request.MovieId, request.RequestedUser).MapToView();
                 response.Success = true;
             }
@@ -72,8 +72,8 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                if (_repository3.FindBy(request.MovieId) == null)
-                    throw new Exception($"Movie {request.MovieId} doesn't exist");
+                request.CheckIfMovieExists(_repository3);
+
                 response.MovieRatings = _repository.FindByMovie(request.MovieId).MapToViews();
                 response.Success = true;
             }
@@ -94,8 +94,7 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                if (_repository2.FindBy(request.RequestedUser) == null)
-                    throw new Exception($"User {request.RequestedUser} doesn't exist");
+                request.CheckIfUserExists(_repository2);
                 response.MovieRatings = _repository.FindByUser(request.RequestedUser).MapToViews();
                 response.Success = true;
             }
@@ -116,10 +115,9 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                if (_repository3.FindBy(request.MovieRating.Movie.MovieId) == null)
-                    throw new Exception($"Movie {request.MovieRating.Movie.MovieId} doesn't exist");
-                if (request.MovieRating.UserRating < 0 || request.MovieRating.UserRating > 5)//TODO ili možda 10
-                    throw new Exception("Movie rating must be between 0 and 5");
+                request.CheckIfMovieExists(_repository3);
+
+                request.CheckMovieRatingForInsert();
 
                 _repository.Add(request.MovieRating.MapToModel());
                 response.Success = true;

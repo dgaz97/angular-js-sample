@@ -1,9 +1,9 @@
 ﻿using AngularJsSample.Model.Genres;
 using AngularJsSample.Model.Movies;
-using AngularJsSample.Repositories.Validation;
 using AngularJsSample.Services.Mapping;
 using AngularJsSample.Services.Messaging.Genres.Requests;
 using AngularJsSample.Services.Messaging.Genres.Responses;
+using AngularJsSample.Services.Validation;
 using System;
 
 namespace AngularJsSample.Services.Impl
@@ -26,8 +26,9 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                if (_repository.FindBy(request.GenreId) == null) throw new Exception($"Genre {request.GenreId} doesn't exist");
-                if (_repository2.FindBy(request.MovieId) == null) throw new Exception($"Movie {request.MovieId} doesn't exist");
+                request.CheckIfGenreExists(_repository);
+                request.CheckIfMovieExists(_repository2);
+
                 _repository.AddMovie(request.GenreId, request.MovieId, request.UserId);
                 response.Success = true;
             }
@@ -48,8 +49,8 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                var genre = _repository.FindBy(request.GenreId);
-                if (genre == null) throw new Exception($"Genre {request.GenreId} doesn't exist");
+                request.CheckIfGenreExists(_repository);
+
                 response.Success = _repository.Delete(new Genre() { GenreId = request.GenreId, UserLastModified = new Model.Users.UserInfo() { Id = request.UserId } });
             }
             catch (Exception ex)
@@ -69,11 +70,12 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                if (_repository.DeleteMovie(request.GenreId, request.MovieId, request.UserId))
-                {
-                    response.Success = true;
-                }
-                else throw new Exception($"Genre {request.GenreId} doesn't have movie {request.MovieId}");
+                request.CheckIfGenreExists(_repository);
+                request.CheckIfMovieExists(_repository2);
+
+                _repository.DeleteMovie(request.GenreId, request.MovieId, request.UserId);
+                response.Success = true;
+
             }
             catch (Exception ex)
             {
@@ -163,7 +165,7 @@ namespace AngularJsSample.Services.Impl
                 }
                 else if (request.Genre?.GenreId > 0)
                 {
-                    if (_repository.FindBy(request.Genre.GenreId) == null) throw new Exception($"Genre {request.Genre.GenreId} doesn't exist");
+                    request.CheckIfGenreExists(_repository);
 
                     request.Genre.MapToModel().CheckGenreForInsertOrUpdate();
 

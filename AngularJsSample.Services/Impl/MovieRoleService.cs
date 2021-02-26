@@ -2,6 +2,7 @@
 using AngularJsSample.Services.Mapping;
 using AngularJsSample.Services.Messaging.MovieRoles.Requests;
 using AngularJsSample.Services.Messaging.MovieRoles.Responses;
+using AngularJsSample.Services.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,8 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
+                request.CheckIfMovieRoleExists(_repository);
+
                 _repository.Delete(new MovieRole() 
                 {
                     MovieId = request.MovieRoleId, 
@@ -98,7 +101,8 @@ namespace AngularJsSample.Services.Impl
             {
                 if (request.MovieRole?.MovieRoleId == 0)
                 {
-                    //TODO check if data is valid
+                    request.CheckMovieRoleForInsertOrUpdate();
+
                     var newId = _repository.Add(request.MovieRole.MapToModel());
                     response.MovieRole = new Messaging.Views.MovieRoles.MovieRole()
                     {
@@ -108,9 +112,8 @@ namespace AngularJsSample.Services.Impl
                 }
                 else if (request.MovieRole?.MovieRoleId > 0)
                 {
-                    if (_repository.FindBy(request.MovieRole.MovieRoleId) == null)
-                        throw new Exception($"Movie role {request.MovieRole.MovieRoleId} doesn't exist");
-                    //TODO check if data is valid
+                    request.CheckIfMovieRoleExists(_repository);
+                    request.CheckMovieRoleForInsertOrUpdate();
 
                     response.MovieRole = _repository.Save(request.MovieRole.MapToModel()).MapToView();
                     response.Success = true;

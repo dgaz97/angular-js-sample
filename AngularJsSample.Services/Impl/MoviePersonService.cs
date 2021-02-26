@@ -1,10 +1,11 @@
 ﻿using AngularJsSample.Model.MoviePersons;
+using AngularJsSample.Model.MovieRoles;
 using AngularJsSample.Model.Movies;
-using AngularJsSample.Repositories.Validation;
 using AngularJsSample.Services.Mapping;
 using AngularJsSample.Services.Messaging.MoviePersons;
 using AngularJsSample.Services.Messaging.MoviePersons.Requests;
 using AngularJsSample.Services.Messaging.MoviePersons.Responses;
+using AngularJsSample.Services.Validation;
 using System;
 using System.Text.RegularExpressions;
 
@@ -14,10 +15,12 @@ namespace AngularJsSample.Services.Impl
     {
         private IMoviePersonRepository _repository;
         private IMovieRepository _repository2;
-        public MoviePersonService(IMoviePersonRepository repository, IMovieRepository repository2)
+        private IMovieRoleRepository _repository3;
+        public MoviePersonService(IMoviePersonRepository repository, IMovieRepository repository2, IMovieRoleRepository repository3)
         {
             _repository = repository;
             _repository2 = repository2;
+            _repository3 = repository3;
         }
 
         public AddMovieToMoviePersonResponse AddMovieToMoviePerson(AddMovieToMoviePersonRequest request)
@@ -30,6 +33,10 @@ namespace AngularJsSample.Services.Impl
 
             try
             {
+                request.CheckIfMoviePersonExists(_repository);
+                request.CheckIfMovieExists(_repository2);
+                request.CheckIfMovieRoleExists(_repository3);
+
                 _repository.AddMovie(request.UserId, request.MovieId, request.MoviePersonId, request.MovieRoleId);
                 response.Success = true;
             }
@@ -52,6 +59,10 @@ namespace AngularJsSample.Services.Impl
 
             try
             {
+                request.CheckIfMoviePersonExists(_repository);
+                request.CheckIfMovieExists(_repository2);
+                request.CheckIfMovieRoleExists(_repository3);
+
                 _repository.DeleteMovie(request.UserId,request.MovieId,request.MoviePersonId,request.MovieRoleId);
                 response.Success = true;
             }
@@ -93,9 +104,15 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                var person = _repository.FindBy(request.Id);
-                if (person == null) throw new Exception($"Person {request.Id} doesn't exist");
-                response.Success = _repository.Delete(new MoviePerson() { Id = request.Id, UserLastModified = new Model.Users.UserInfo() { Id = request.UserId } });
+                request.CheckIfMoviePersonExists(_repository);
+                response.Success = _repository.Delete(new MoviePerson() 
+                { 
+                    Id = request.MoviePersonId,
+                    UserLastModified = new Model.Users.UserInfo() 
+                    { 
+                        Id = request.UserId 
+                    } 
+                });
             }
             catch (Exception ex)
             {
@@ -158,7 +175,7 @@ namespace AngularJsSample.Services.Impl
             {
                 if (request.MoviePerson?.Id == 0)//create new
                 {
-                    if (request.MoviePerson.Id != 0) throw new Exception("Movie person ID must be null or 0");
+                    request.CheckIfMoviePersonExists(_repository);
                     request.MoviePerson.MapToModel().CheckDataForInsertOrUpdate();
 
                     var newId = _repository.Add(request.MoviePerson.MapToModel());
@@ -167,8 +184,7 @@ namespace AngularJsSample.Services.Impl
                 }
                 else if (request.MoviePerson?.Id > 0)//edit
                 {
-                    if (request.MoviePerson.Id <= 0) throw new Exception("Movie person ID can't be null");
-                    if (_repository.FindBy(request.MoviePerson.Id) == null) throw new Exception($"Person {request.MoviePerson.Id} doesn't exist");
+                    request.CheckIfMoviePersonExists(_repository);
 
                     request.MoviePerson.MapToModel().CheckDataForInsertOrUpdate();
 

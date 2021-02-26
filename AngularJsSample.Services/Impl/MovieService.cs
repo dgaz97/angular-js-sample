@@ -1,9 +1,11 @@
 ﻿using AngularJsSample.Model.Genres;
+using AngularJsSample.Model.MoviePersons;
+using AngularJsSample.Model.MovieRoles;
 using AngularJsSample.Model.Movies;
-using AngularJsSample.Repositories.Validation;
 using AngularJsSample.Services.Mapping;
 using AngularJsSample.Services.Messaging.Movies.Requests;
 using AngularJsSample.Services.Messaging.Movies.Responses;
+using AngularJsSample.Services.Validation;
 using System;
 using System.Text.RegularExpressions;
 
@@ -13,13 +15,15 @@ namespace AngularJsSample.Services.Impl
     {
         private IMovieRepository _repository;
         private IGenreRepository _repository2;
-        public MovieService(IMovieRepository repository, IGenreRepository repository2)
+        private IMoviePersonRepository _repository3;
+        private IMovieRoleRepository _repository4;
+        public MovieService(IMovieRepository repository, IGenreRepository repository2, IMoviePersonRepository repository3, IMovieRoleRepository repository4)
         {
             _repository = repository;
             _repository2 = repository2;
+            _repository3 = repository3;
+            _repository4 = repository4;
         }
-
-        
 
         public AddMoviePersonToMovieResponse AddMoviePersonToMovie(AddMoviePersonToMovieRequest request)
         {
@@ -30,6 +34,10 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
+                request.CheckIfMovieExists(_repository);
+                request.CheckIfMoviePersonExists(_repository3);
+                request.CheckIfMovieRoleExists(_repository4);
+
                 _repository.AddMoviePerson(request.UserId, request.MovieId, request.MoviePersonId, request.MovieRoleId);
                 response.Success = true;
             }
@@ -49,6 +57,11 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
+                
+                request.CheckIfMovieExists(_repository);
+                request.CheckIfMoviePersonExists(_repository3);
+                request.CheckIfMovieRoleExists(_repository4);
+
                 _repository.DeleteMoviePerson(request.UserId, request.MovieId, request.MoviePersonId, request.MovieRoleId);
                 response.Success = true;
             }
@@ -68,6 +81,8 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
+                request.CheckIfMovieExists(_repository);
+
                 var roles =  _repository.FindMovieRoles(request.MovieId);
                 response.MovieRoles = roles.MapToViews();
             }
@@ -88,8 +103,9 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                if (_repository.FindBy(request.MovieId) == null) throw new Exception($"Movie {request.MovieId} doesn't exist");
-                if (_repository2.FindBy(request.GenreId) == null) throw new Exception($"Genre {request.GenreId} doesn't exist");
+                request.CheckIfMovieExists(_repository);
+                request.CheckIfGenreExists(_repository2);
+
                 _repository.AddGenre(request.GenreId, request.MovieId, request.UserId);
                 response.Success = true;
             }
@@ -110,12 +126,10 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                if (_repository.DeleteGenre(request.GenreId, request.MovieId, request.UserId))
-                {
-                    response.Success = true;
-                }
-                else throw new Exception($"Movie {request.MovieId} doesn't have genre {request.GenreId}");
+                request.CheckIfMovieExists(_repository);
+                request.CheckIfGenreExists(_repository2);
 
+                _repository.DeleteGenre(request.GenreId, request.MovieId, request.UserId);
             }
             catch (Exception ex)
             {
@@ -134,8 +148,8 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
-                var movie = _repository.FindBy(request.MovieId);
-                if (movie == null) throw new Exception($"Movie {request.MovieId} doesn't exist");
+                request.CheckIfMovieExists(_repository);
+
                 response.Success = _repository.Delete(new Movie() { MovieId = request.MovieId, UserLastModified = new Model.Users.UserInfo() { Id = request.UserId } });
             }
             catch (Exception ex)
@@ -155,6 +169,8 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
+                request.CheckIfMovieExists(_repository);
+
                 response.Genres = _repository.FindGenres(request.MovieId).MapToViews();
                 response.Success = true;
             }
@@ -166,7 +182,7 @@ namespace AngularJsSample.Services.Impl
             return response;
         }
 
-        public FindMovieGenresResponse FindMovieGenresLight(FindMovieGenresRequest request)//TODO nice
+        public FindMovieGenresResponse FindMovieGenresLight(FindMovieGenresRequest request)
         {
             var response = new FindMovieGenresResponse()
             {
@@ -175,6 +191,8 @@ namespace AngularJsSample.Services.Impl
             };
             try
             {
+                request.CheckIfMovieExists(_repository);
+
                 response.Genres = _repository.FindGenresLight(request.MovieId).MapToViews();
                 response.Success = true;
             }
@@ -246,8 +264,7 @@ namespace AngularJsSample.Services.Impl
                 }
                 else if (request.Movie?.MovieId > 0)
                 {
-                    if (_repository.FindBy(request.Movie.MovieId) == null)
-                        throw new Exception($"Movie {request.Movie.MovieId} doesn't exist");
+                    request.CheckIfMovieExists(_repository);
 
                     request.Movie.MapToModel().CheckMovieForInsertOrUpdate();
 

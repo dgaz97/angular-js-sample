@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('moviePersons', ['moviePersonsServices', 'angularValidator'])
+        .module('moviePersons', ['moviePersonsServices', 'angularValidator', 'movieRolesServices'])
         .controller('moviePersonsOverviewCtrl', moviePersonsOverviewCtrl)
         .controller('moviePersonProfileCtrl', moviePersonProfileCtrl)
         .controller('moviePersonManageCtrl', moviePersonManageCtrl)
@@ -139,11 +139,38 @@
     };
 
 
-    moviePersonProfileCtrl.$inject = ['$scope', '$state', 'moviePerson', 'moviePersonsSvc', '$stateParams']
-    function moviePersonProfileCtrl($scope, $state, moviePerson, moviePersonsSvc, $stateParams) {
+    moviePersonProfileCtrl.$inject = ['$scope', '$state', 'moviePerson', 'moviePersonsSvc', '$stateParams', 'movieRolesSvc']
+    function moviePersonProfileCtrl($scope, $state, moviePerson, moviePersonsSvc, $stateParams, movieRolesSvc) {
         var vm = this;
 
         vm.moviePerson = moviePerson;
+
+        //movieRolesSvc.
+        $scope.movieRoles = {};
+        moviePersonsSvc.getRolesOfMoviePerson(vm.moviePerson.id).then(function (result) {
+            vm.movieRoles = result.data.movieRoles;
+            $scope.movieRoles = new kendo.data.DataSource({
+                data: result.data.movieRoles,
+                pageSize: 5
+            });
+        }).then(function () {
+            $scope.roleGrid = {
+                dataSource: $scope.movieRoles,
+                columns: [
+                    {
+                        field: "movieRoleName",
+                        title: "Uloga"
+                    },
+                    {
+                        field: "movieName",
+                        title: "Naziv filma",
+                        template: '<a ui-sref="movieProfile({id:#: data.movieId#})" ui-sref-opts="{inherit: true}" href=" /movies/#: data.movieId#/">#: data.movieName#</a>'
+                    }
+                ]
+            }
+        });
+
+        
 
         //Kendo button sucks, can't remove k-button class, so i'm using a normal button with click listener
         $scope.onDeleteButtonClick = function (e) {
@@ -186,8 +213,6 @@
                 }
             })
         };
-
-
 
     }
 
@@ -353,14 +378,14 @@
             $scope.validationFunctions.validateImageUrl(vm.moviePerson.imageUrl);
             $scope.validationFunctions.validateImdbUrl(vm.moviePerson.imdbUrl);
             $scope.validationFunctions.validatePopularity(vm.moviePerson.popularity);
-            
+
             //If any control has error
             if (Object.values($scope.errors).some(x => x === true)) {
                 return;
             }
-            
+
             //if (Object.values($scope.validationFunctions).any)
-            
+
             //Ako stvaramo novog redatelja
             if (!vm.title) {
                 //Poziva se servis za stvaranje novog autora
@@ -370,12 +395,12 @@
                     signalRConn.hub.url = `${serviceBase}/signalr`;
                     //Dohvaćamo Hub (MyHub klasa u Api projektu)
                     var hub = signalRConn.myHub;
-            
+
                     signalRConn.hub.start().done(function () {
                         hub.server.refresh();
                     });
                     signalRConn.hub.stop();
-            
+
                     //Te se otvara pogled sa pregledom redatelja, ako je uspješno stvoren
                     $state.go("moviePersonsOverview");
                 },
@@ -389,7 +414,7 @@
                             customClass: {
                                 confirmButton: 'btn btn-primary btn-outline'
                             }
-            
+
                         });
                     }
                 );
@@ -404,12 +429,12 @@
                     signalRConn.hub.url = `${serviceBase}/signalr`;
                     //Dohvaćamo Hub (MyHub klasa u Api projektu)
                     var hub = signalRConn.myHub;
-            
+
                     signalRConn.hub.start().done(function () {
                         hub.server.refresh();
                     });
                     signalRConn.hub.stop();
-            
+
                     //Te se otvara pogled sa pregledom redatelja, ako je uspješno uređen
                     $state.go("moviePersonsOverview");
                 },

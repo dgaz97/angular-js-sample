@@ -143,6 +143,11 @@
     <Compile Include="Messaging\Users\GetUserInfoRequest.cs" />
     <Compile Include="Messaging\Users\GetUserInfoResponse.cs" />
     <Compile Include="Messaging\Views\Users\UserInfo.cs" />
+    <Compile Include="Validation\GenreValidation.cs" />
+    <Compile Include="Validation\MoviePersonValidation.cs" />
+    <Compile Include="Validation\MovieRatingValidation.cs" />
+    <Compile Include="Validation\MovieRoleValidation.cs" />
+    <Compile Include="Validation\MovieValidation.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AngularJsSample.Common\AngularJsSample.Common.csproj">

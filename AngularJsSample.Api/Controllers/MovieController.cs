@@ -10,6 +10,8 @@ using AngularJsSample.Api.Mapping.Genres;
 using AngularJsSample.Api.Models.MovieGenres;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using AngularJsSample.Services.Messaging.MovieRoles.Requests;
+using AngularJsSample.Api.Models.MovieRoles;
 
 namespace AngularJsSample.Api.Controllers
 {
@@ -281,6 +283,71 @@ namespace AngularJsSample.Api.Controllers
                 return BadRequest(response.Message);
             return Ok();
 
+        }
+
+        [HttpGet]
+        [Route("roles/{id}")]
+        public IHttpActionResult GetRoles(int id)
+        {
+            var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
+
+            var request = new FindMovieRolesRequest()
+            {
+                UserId = loggedUserId,
+                RequestToken = Guid.NewGuid(),
+                MovieId = id
+            };
+
+            var response = _movieService.FindMovieRoles(request);
+
+            if (!response.Success)
+                return BadRequest(response.Message);
+            return Ok(new { movieRoles = response.MovieRoles });
+
+        }
+
+        [HttpPost]
+        [Route("roles")]
+        public IHttpActionResult PostRole(MovieRoleViewModel movieRole)
+        {
+            var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
+
+            var request = new AddMoviePersonToMovieRequest()
+            {
+                UserId = loggedUserId,
+                RequestToken = Guid.NewGuid(),
+                MovieId = movieRole.MovieId.GetValueOrDefault(),
+                MovieRoleId = movieRole.MovieRoleId,
+                MoviePersonId = movieRole.MoviePersonId.GetValueOrDefault()
+            };
+
+            var response = _movieService.AddMoviePersonToMovie(request);
+
+            if (!response.Success)
+                return BadRequest(response.Message);
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("roles")]
+        public IHttpActionResult DeleteRole(MovieRoleViewModel movieRole)
+        {
+            var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
+
+            var request = new DeleteMovieRoleFromMovieRequest()
+            {
+                UserId = loggedUserId,
+                RequestToken = Guid.NewGuid(),
+                MovieId = movieRole.MovieId.GetValueOrDefault(),
+                MovieRoleId = movieRole.MovieRoleId,
+                MoviePersonId = movieRole.MoviePersonId.GetValueOrDefault()
+            };
+
+            var response = _movieService.DeleteMovieRoleFromMovie(request);
+
+            if (!response.Success)
+                return BadRequest(response.Message);
+            return Ok();
         }
 
 

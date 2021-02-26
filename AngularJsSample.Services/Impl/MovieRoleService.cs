@@ -33,7 +33,7 @@ namespace AngularJsSample.Services.Impl
 
                 _repository.Delete(new MovieRole() 
                 {
-                    MovieId = request.MovieRoleId, 
+                    MovieRoleId = request.MovieRoleId, 
                     UserLastModified = new Model.Users.UserInfo() {
                         Id = request.UserId 
                     } 

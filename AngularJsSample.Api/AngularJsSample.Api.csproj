@@ -183,6 +183,7 @@
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\MoviePersonsController.cs" />
     <Compile Include="Controllers\MovieRatingController.cs" />
+    <Compile Include="Controllers\MovieRoleController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -193,12 +194,14 @@
     <Compile Include="Mapping\Genres\GenresMapper.cs" />
     <Compile Include="Mapping\MoviePersons\MoviePersonsMapper.cs" />
     <Compile Include="Mapping\MovieRatings\MovieRatingsMapper.cs" />
+    <Compile Include="Mapping\MovieRoles\MovieRolesMapper.cs" />
     <Compile Include="Mapping\Movies\MoviesMapper.cs" />
     <Compile Include="Mapping\Users\UsersMapper.cs" />
     <Compile Include="Models\Genres\GenreViewModel.cs" />
     <Compile Include="Models\MovieGenres\MovieGenreViewModel.cs" />
     <Compile Include="Models\MoviePersons\MoviePersonViewModel.cs" />
     <Compile Include="Models\MovieRatings\MovieRatingViewModel.cs" />
+    <Compile Include="Models\MovieRoles\MovieRoleViewModel.cs" />
     <Compile Include="Models\Movies\MovieViewModel.cs" />
     <Compile Include="Models\Users\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

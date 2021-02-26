@@ -1,8 +1,10 @@
 ﻿using AngularJsSample.Api.Helpers;
 using AngularJsSample.Api.Mapping.MoviePersons;
 using AngularJsSample.Api.Models;
+using AngularJsSample.Api.Models.MovieRoles;
 using AngularJsSample.Services;
 using AngularJsSample.Services.Messaging.MoviePersons;
+using AngularJsSample.Services.Messaging.MoviePersons.Requests;
 using System;
 using System.Web;
 using System.Web.Http;
@@ -96,7 +98,7 @@ namespace AngularJsSample.Api.Controllers
             {
                 RequestToken = Guid.NewGuid(),
                 UserId = loggedUserId,
-                Id = id
+                MoviePersonId = id
             };
 
             var moviePersonsResponse = _moviePersonService.DeleteMoviePerson(request);
@@ -171,6 +173,71 @@ namespace AngularJsSample.Api.Controllers
             }
 
             return Ok(moviePersonsResponse.MoviePerson.MapToViewModel());
+        }
+
+        [HttpGet]
+        [Route("roles/{id}")]
+        public IHttpActionResult GetRoles(int id)
+        {
+            var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
+
+            var request = new FindMoviePersonRolesRequest()
+            {
+                UserId = loggedUserId,
+                RequestToken = Guid.NewGuid(),
+                MoviePersonId = id
+            };
+
+            var response = _moviePersonService.FindMoviePersonRoles(request);
+
+            if (!response.Success)
+                return BadRequest(response.Message);
+            return Ok(new { movieRoles = response.MovieRoles });
+
+        }
+
+        [HttpPost]
+        [Route("roles")]
+        public IHttpActionResult PostRole(MovieRoleViewModel movieRole)
+        {
+            var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
+
+            var request = new AddMovieToMoviePersonRequest()
+            {
+                UserId = loggedUserId,
+                RequestToken = Guid.NewGuid(),
+                MovieId = movieRole.MovieId.GetValueOrDefault(),
+                MovieRoleId = movieRole.MovieRoleId,
+                MoviePersonId = movieRole.MoviePersonId.GetValueOrDefault()
+            };
+
+            var response = _moviePersonService.AddMovieToMoviePerson(request);
+
+            if (!response.Success)
+                return BadRequest(response.Message);
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("roles")]
+        public IHttpActionResult DeleteRole(MovieRoleViewModel movieRole)
+        {
+            var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
+
+            var request = new DeleteMovieFromMoviePersonRequest()
+            {
+                UserId = loggedUserId,
+                RequestToken = Guid.NewGuid(),
+                MovieId = movieRole.MovieId.GetValueOrDefault(),
+                MovieRoleId = movieRole.MovieRoleId,
+                MoviePersonId = movieRole.MoviePersonId.GetValueOrDefault()
+            };
+
+            var response = _moviePersonService.DeleteMovieFromMoviePerson(request);
+
+            if (!response.Success)
+                return BadRequest(response.Message);
+            return Ok();
         }
     }
 }

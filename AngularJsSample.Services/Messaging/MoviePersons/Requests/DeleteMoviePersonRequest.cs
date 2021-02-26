@@ -2,6 +2,6 @@
 {
     public class DeleteMoviePersonRequest:RequestBase
     {
-        public int Id { get; set; }
+        public int MoviePersonId { get; set; }
     }
 }

@@ -24,6 +24,17 @@
         this.updateMoviePerson = function (moviePerson) {
             return $http.put(`${serviceBase}/api/moviepersons`, moviePerson);
         }
+
+        //Roles
+        this.getRolesOfMoviePerson = function (id) {
+            return $http.get(`${serviceBase}/api/moviepersons/roles/${id}`);
+        }
+        this.addMovie = function (movieRole) {
+            return $http.post(`${serviceBase}/api/moviepersons/roles`,movieRole);
+        }
+        this.removeMovie = function (movieRole) {
+            return $http.delete(`${serviceBase}/api/moviepersons/roles`, movieRole);
+        }
     };
 
 })();

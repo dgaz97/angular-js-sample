@@ -15,9 +15,6 @@
         this.getMovie = function (id) {
             return $http.get(`${serviceBase}/api/movies/${id}`);
         }
-        this.getGenresOfMovie = function (id) {
-            return $http.get(`${serviceBase}/api/movies/genres/${id}`);
-        }
         this.deleteMovie = function (id) {
             return $http.delete(`${serviceBase}/api/movies/${id}`);
         }
@@ -27,11 +24,27 @@
         this.updateMovie = function (movie) {
             return $http.put(`${serviceBase}/api/movies`, movie);
         }
+
+        //Genres
         this.addGenreToMovie = function (movieGenre) {
             return $http.post(`${serviceBase}/api/movies/genres`, movieGenre);
         }
         this.removeGenreFromMovie = function (movieId, genreId) {
             return $http.delete(`${serviceBase}/api/movies/${movieId}/${genreId}`);
+        }
+        this.getGenresOfMovie = function (id) {
+            return $http.get(`${serviceBase}/api/movies/genres/${id}`);
+        }
+
+        //Roles
+        this.getRolesOfMovie = function (id) {
+            return $http.get(`${serviceBase}/api/movies/roles/${id}`);
+        }
+        this.addMoviePerson = function (movieRole) {
+            return $http.post(`${serviceBase}/api/movies/roles`, movieRole);
+        }
+        this.removeMoviePerson = function (movieRole) {
+            return $http.delete(`${serviceBase}/api/movies/roles`, movieRole);
         }
     }
 

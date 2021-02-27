@@ -95,8 +95,17 @@
                     <p class="panel-title">IMDB url</p>
                 </div>
                 <div class="panel-body">
-                    <a href="{{vm.movie.movieImdbUrl}}">{{vm.movie.movieImdbUrl}}</a>
+                    <a style="font-weight: bold" href="{{vm.movie.movieImdbUrl}}">{{vm.movie.movieImdbUrl}}</a>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-12 panel panel-default">
+                <button type="button" ng-click="onAddRoleClick()" id="addRoleButton" class="btn btn-success btn-outline">Dodaj ulogu</button>
+                <kendo-grid k-options="roleGrid" id="rolesGrid" k-pageable="{'refresh': true, 'pageSizes': true, 'buttonCount': 5}">
+
+                </kendo-grid>
             </div>
         </div>
     </div>

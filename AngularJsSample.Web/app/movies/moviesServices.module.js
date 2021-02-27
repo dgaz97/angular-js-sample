@@ -43,8 +43,8 @@
         this.addMoviePerson = function (movieRole) {
             return $http.post(`${serviceBase}/api/movies/roles`, movieRole);
         }
-        this.removeMoviePerson = function (movieRole) {
-            return $http.delete(`${serviceBase}/api/movies/roles`, movieRole);
+        this.removeMoviePerson = function (movieId, movieRoleId, moviePersonId) {
+            return $http.delete(`${serviceBase}/api/movies/roles/${movieId}/${movieRoleId}/${moviePersonId}`);
         }
     }
 

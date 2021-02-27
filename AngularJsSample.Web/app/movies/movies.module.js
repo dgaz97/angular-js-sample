@@ -105,14 +105,18 @@
 
     }
 
-    movieProfileCtrl.$inject = ['$scope', '$state', 'movie', 'moviesSvc', 'movieRating', 'movieRatingsSvc', '$stateParams'];
-    function movieProfileCtrl($scope, $state, movie, moviesSvc, movieRating, movieRatingsSvc, $stateParams) {
+    movieProfileCtrl.$inject = ['$scope', '$state', 'movie', 'moviesSvc', 'movieRating', 'movieRatingsSvc', '$stateParams', 'moviePersons','movieRoles'];
+    function movieProfileCtrl($scope, $state, movie, moviesSvc, movieRating, movieRatingsSvc, $stateParams, moviePersons, movieRoles) {
         var vm = this;
         vm.movie = movie;
         vm.movieRating = movieRating;
 
+        vm.moviePersons = moviePersons;
+        vm.allMovieRoles = movieRoles;
+
         kendo.culture('de-DE');//"hr-HR" kvari rating, izbacuje decimalnu točku (kaže npr. 32 umjesto 3,2)
 
+        //Options for average movie rating
         $scope.ratingOptions = {
             min: 1,
             max: 5,
@@ -121,13 +125,7 @@
             readonly: true
         };
 
-        $scope.genreOptions = {
-            dataTextField: "name",
-            dataSource: {
-                data: vm.movie.genres
-            }
-        }
-
+        //Options for movie rating of user
         $scope.userRatingOptions = {
             min: 1,
             max: 5,
@@ -148,6 +146,169 @@
             }
         };
 
+        //On start get roles of movie
+        moviesSvc.getRolesOfMovie(vm.movie.movieId).then(function (result) {
+            vm.movieRoles = result.data.movieRoles;
+            $scope.movieRoles = new kendo.data.DataSource({
+                data: result.data.movieRoles,
+                pageSize: 5
+            });
+        //Then, set up a grid for movie roles
+        }).then(function () {
+            $scope.roleGrid = {
+                dataSource: $scope.movieRoles,
+                columns: [
+                    {
+                        field: "movieRoleName",
+                        title: "Uloga"
+                    },
+                    {
+                        field: "moviePersonName",
+                        title: "Naziv osobe",
+                        template: '<a ui-sref="moviePersonProfile({id:#: data.moviePersonId#})" ui-sref-opts="{inherit: true}" href=" /moviepersons/#: data.moviePersonId#/">#: data.moviePersonName#</a>'
+                    },
+                    {
+                        field: "dateCreated",
+                        title: "Datum kreiranja",
+                        template: '#= kendo.toString(kendo.parseDate(data.dateCreated), "dd.MM.yyyy.") #'
+                    },
+                    {
+                        title: "Naredbe",
+                        //definiramo gumb
+                        command: [
+                            {
+                                className: "btn btn-danger btn-outline",
+                                name: "obrisi",
+                                text: "Obriši",
+                                click: function (e) {
+                                    //Uzmemo red
+                                    var tr = $(e.target).closest("tr");
+                                    //Dohvatimo podatke iz reda
+                                    var data = this.dataItem(tr);
+                                    //Otvaramo modal
+                                    $scope.deleteMovieRoleOfMovie(data);
+                                }
+                            }]
+                    }
+                ]
+            }
+        });
+        
+        //A function that generates the layout of SWAL for adding roles
+        $scope.generateSwalHtml = function () {
+            var result = ``;
+            //beginning divs
+            result += `<div class="container-fluid">
+                       <div class="form-group row">`;
+
+            //Movie person dropdown
+            result += `<div class="col-md-6">`
+            result += `<label for="moviePerson" class="control-label">Film osoba</label>
+                       <select class="form-control" id="moviePerson" name="moviePerson">`
+
+            var options = ``;
+            vm.moviePersons.forEach(option => {
+                options += `<option value="${option.id}">${option.id} - ${option.firstName} ${option.lastName}</option>`
+            });
+            result += options;
+            result += `</select>`
+            result += `</div>`
+
+            //Role dropdown
+            result += `<div class="col-md-6">`
+            result += `<label for="role" class="control-label">Uloga</label>
+                       <select class="form-control" id="role" name="role">`
+            var options2 = ``;
+            vm.allMovieRoles.forEach(option => {
+                options2 += `<option value="${option.movieRoleId}">${option.movieRoleId} - ${option.movieRoleName}</option>`
+            });
+            result += options2;
+            result += `</select>`
+            result += `</div>`
+
+            //closing the divs
+            result += `</div>
+                        </div>`
+            return result;
+        }
+
+        //Function that opens a SWAL for adding role to movie
+        $scope.onAddRoleClick = function () {
+            swal.fire({
+                title: "Dodaj ulogu",
+                width: "60vw",
+                //Izgled modala
+                html: $scope.generateSwalHtml(),
+                confirmButtonText: "Spremi",
+                showCancelButton: true,
+                cancelButtonText: "Prekini",
+                allowOutsideClick: "true",
+                //Vratiti će vrijednosti input elemenata
+                preConfirm: () => {
+                    return {
+                        moviePerson: document.getElementById('moviePerson').value,
+                        role: document.getElementById('role').value
+                    }
+                },
+                //BS tema na gumbe u modalu
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: 'btn btn-primary btn-outline',
+                    cancelButton: 'btn btn-danger btn-outline'
+                }
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    moviesSvc.addMoviePerson({ movieId: vm.movie.movieId, movieRoleId: result.value.role, moviePersonId: result.value.moviePerson }).then(function (result) {
+                        moviesSvc.getRolesOfMovie(vm.movie.movieId).then(function (result2) {
+                            var grid = angular.element("#rolesGrid").data("kendoGrid");
+                            grid.setDataSource(new kendo.data.DataSource({
+                                data: result2.data.movieRoles,
+                                pageSize: 5
+                            }));
+                            //grid.refresh();
+                        })
+                    }, function (err) {
+                        swal.fire("Greška", "Došlo je do greške kod brisanja: " + err.data.message, "error");
+                    });
+                }
+            })
+        }
+
+        //Opens a warning SWAL, to check whether the person really wants to delete movie role
+        $scope.deleteMovieRoleOfMovie = function (data) {
+            console.log(data);
+            swal.fire({
+                title: "POZOR",
+                icon: "warning",
+                text: `Jeste li sigurni da želite obrisati ulogu ${data.movieRoleName} osobe ${data.moviePersonName}?`,
+                confirmButtonText: "Da, obriši",
+                showCancelButton: true,
+                cancelButtonText: "Prekini",
+                allowOutsideClick: "true",
+                //BS tema na gumbe u modalu
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: 'btn btn-danger btn-outline',
+                    cancelButton: 'btn btn-primary btn-outline'
+                },
+            }).then(function (result) {
+                //Ako je kliknuto Da, obriši
+                if (result.isConfirmed) {
+                    moviesSvc.removeMoviePerson(vm.movie.movieId, data.movieRoleId, data.moviePersonId).then(function (result) {
+                        moviesSvc.getRolesOfMovie(vm.movie.movieId).then(function (result2) {
+                            var grid = angular.element("#rolesGrid").data("kendoGrid");
+                            grid.setDataSource(new kendo.data.DataSource({
+                                data: result2.data.movieRoles,
+                                pageSize: 5
+                            }));
+                        });
+                    }, function (err) {
+                        swal.fire("Greška", "Došlo je do greške kod brisanja: " + err.data.message, "error");
+                    })
+                }
+            });
+        }
+        //Opens a warning SWAL, to check whether the person really wants to delete movie
         $scope.onDeleteButtonClick = function (e) {
             //Modal za upozorenje o brisanju
             swal.fire({

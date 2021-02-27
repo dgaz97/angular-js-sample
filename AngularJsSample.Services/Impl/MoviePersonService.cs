@@ -175,7 +175,6 @@ namespace AngularJsSample.Services.Impl
             {
                 if (request.MoviePerson?.Id == 0)//create new
                 {
-                    request.CheckIfMoviePersonExists(_repository);
                     request.MoviePerson.MapToModel().CheckDataForInsertOrUpdate();
 
                     var newId = _repository.Add(request.MoviePerson.MapToModel());

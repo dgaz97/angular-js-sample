@@ -219,8 +219,8 @@ namespace AngularJsSample.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("roles")]
-        public IHttpActionResult DeleteRole(MovieRoleViewModel movieRole)
+        [Route("roles/{movieId}/{movieRoleId}/{moviePersonId}")]
+        public IHttpActionResult DeleteRole(int movieId, int movieRoleId, int moviePersonId)
         {
             var loggedUserId = HttpContext.Current.GetOwinContext().GetUserId();
 
@@ -228,9 +228,9 @@ namespace AngularJsSample.Api.Controllers
             {
                 UserId = loggedUserId,
                 RequestToken = Guid.NewGuid(),
-                MovieId = movieRole.MovieId.GetValueOrDefault(),
-                MovieRoleId = movieRole.MovieRoleId,
-                MoviePersonId = movieRole.MoviePersonId.GetValueOrDefault()
+                MovieId = movieId,
+                MovieRoleId = movieRoleId,
+                MoviePersonId = moviePersonId
             };
 
             var response = _moviePersonService.DeleteMovieFromMoviePerson(request);

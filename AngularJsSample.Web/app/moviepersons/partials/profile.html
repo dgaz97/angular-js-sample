@@ -80,8 +80,10 @@
         </div>
 
         <div class="row">
+
             <div class="col-md-12 panel panel-default">
-                <kendo-grid k-options="roleGrid">
+            <button type="button" ng-click="onAddRoleClick()" id="addRoleButton" class="btn btn-success btn-outline">Dodaj ulogu</button>
+                <kendo-grid k-options="roleGrid" id="rolesGrid" k-pageable="{'refresh': true, 'pageSizes': true, 'buttonCount': 5}">
 
                 </kendo-grid>
             </div>
